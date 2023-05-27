@@ -1,4 +1,4 @@
-![TESSA Splash Screen](https://github.com/Erfinder-Philippines/TESSA/blob/main/Assets/splash.png)
+![TESSA Splash Screen](https://github.com/Erfinder-Philippines/TESSA/blob/master/Assets/splash.png)
 
 ## What is TESSA?
 TESSA is a Xojo app programmed by Daniel Burkhalter, Tri-B-Werk, that can be used by users to automate the execution of scientific software applications. It can be used to run a variety of different applications, including those that are used for data analysis, numerical simulation, and visualization. TESSA can also be used to manage and track the results of scientific experiments.
@@ -30,8 +30,8 @@ TESSA is a powerful tool that can help users to save time, improve the efficienc
 **Additional information:** TESSA is a powerful tool, but it is still in its Alpha stage. which means that it is still under development and may not be fully accurate or reliable. The results of TESSA should always be checked by a human before being used. 
 
 ## Documentations
-- [**Folder Structure**](https://github.com/Erfinder-Philippines/TESSA/blob/main//Docs/FolderStructure.pdf)
-- [**Formula Element**](https://github.com/Erfinder-Philippines/TESSA/blob/main/Docs/TESSA/FormulaElement-documentation.pdf)
+- [**Folder Structure**](https://github.com/Erfinder-Philippines/TESSA/blob/master/Docs/FolderStructure.pdf)
+- [**Formula Element**](https://github.com/Erfinder-Philippines/TESSA/blob/master/Docs/TESSA/FormulaElement-documentation.pdf)
 
 ## Requirement
  Some functions in TESSA require you to have Monkeybread Software's Xojo plugins, you can download it through: [Monkeybread Software - MBS Xojo Plugins](https://www.monkeybreadsoftware.de/xojo/)
