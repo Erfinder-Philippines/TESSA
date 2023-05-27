@@ -1,10 +1,25 @@
-/TESSA_Config/
-/FTP Suite/
-/TESSA_Prefs Backup.xml
-/WorkFolderPrefs.xml
-/DebugPics/
-/DebugTESSA/
-/TESSA.app/
-/Elements
-/Builds - TESSA.xojo_project/
-/Testsequences/
+# Xojo (formerly REALbasic and Real Studio)
+
+TESSA_Config/SYNCPrefs.xml
+TESSA_Prefs.xml
+*.obsolete*
+*.xojo_uistate
+*.debug.app/
+
+/• My TessaData/
+src/DebugTexts
+PIIOXListener.debug
+Result.txt
+Text99.txt
+TESSA.debug
+TESSA_Prefs Kopie.xml
+
+Builds*
+*.debug
+*.debug.app
+Debug*.exe
+Debug*/Debug*.exe
+Debug*/Debug*\ Libs
+*.rbuistate
+*.xojo_uistate
+*.obsolete
