@@ -1,0 +1,5 @@
+<ResourceStepClass>
+	<connected>this attribute indicates if a resource is connected (true) or not (false)</connected>
+	<debug>With this attribute additional debugging can be switched on (if supported by this element)</debug>
+	<simulation>With this attribute (on/off) a simulation mode can be switched on (if supported by this element)</simulation>
+</ResourceStepClass>

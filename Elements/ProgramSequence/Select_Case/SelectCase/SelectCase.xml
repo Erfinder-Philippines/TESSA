@@ -1,0 +1,4 @@
+<SelectCase Name="SelectCase" >
+	<Case Name="Case0"/>
+	<Case Name="CaseELSE" />
+</SelectCase>

@@ -1,0 +1,10 @@
+<Histogram>
+	<MainDesc></MainDesc>
+	<Boolean_Attr></Boolean_Attr>
+	<Num_Steps></Num_Steps>
+	<Title></Title>
+	<Subtitle></Subtitle>
+	<Values></Values>
+	<HMI></HMI>
+	<Enum_Attr></Enum_Attr>
+</Histogram>

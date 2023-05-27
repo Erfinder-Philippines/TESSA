@@ -1,0 +1,99 @@
+#tag FileTypeSet
+	#tag FileType
+		CodeName=TextPlain
+		Extension=.asc;.ascii;.bas;.c;.class;.cp;.cpp;.h;.hp;.hpp;.i3;.java;.m2;.m3;.mak;.text;.txt
+		Flags=&h3
+		MacCreator=????
+		MacType=TEXT
+		Name=text/plain
+		UTI=public.text
+		UTIConformsTo=, public.data
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=Jpeg
+		Extension=.jfif;.jpe;.jpeg;.jpg
+		Flags=&h3
+		MacCreator=prvw
+		MacType=JPEG
+		Name=image/jpeg
+		UTI=public.jpeg
+		UTIConformsTo=, public.data
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=TextXML
+		DocIcon=TESSA.xojo_resources;&h0
+		Extension=.xml;
+		Flags=&h3
+		MacCreator=????
+		MacType=TEXT
+		Name=XML Files
+		UTI=public.xml
+		UTIConformsTo=, public.data
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=Png
+		Extension=.png
+		Flags=&h0
+		MacCreator=ogle
+		MacType=PNGf
+		Name=image/png
+		UTI=public.png
+		UTIConformsTo=, public.data
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=SpecialFolder
+		Extension=
+		Flags=&h0
+		MacCreator=MACS
+		MacType=fold
+		Name=special/folder
+		UTI=
+		UTIConformsTo=, public.data
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=SpecialAny
+		Extension=
+		Flags=&h0
+		MacCreator=????
+		MacType=????
+		Name=special/any
+		UTI=
+		UTIConformsTo=, public.data
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+#tag EndFileTypeSet

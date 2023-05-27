@@ -1,0 +1,9 @@
+<Trigger>
+	<MainDesc></MainDesc>
+	<Level></Level>
+	<Value></Value>
+	<RelativeTime></RelativeTime>
+	<AbsoluteTime></AbsoluteTime>
+	<State></State>
+	<Mode></Mode>
+</Trigger>

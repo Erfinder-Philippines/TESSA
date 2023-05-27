@@ -1,0 +1,15 @@
+<HMI_Popup>
+	<MainDesc></MainDesc>
+	<Title></Title>
+	<Format></Format>
+	<Value></Value>
+	<ValueType></ValueType>
+	<Control_Input></Control_Input>
+	<TableSync></TableSync>
+	<X1></X1>
+	<X2></X2>
+	<Y></Y>
+	<W></W>
+	<H></H>
+	<Measure></Measure>
+</HMI_Popup>

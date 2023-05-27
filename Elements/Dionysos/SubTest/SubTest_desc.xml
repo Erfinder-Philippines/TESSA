@@ -1,0 +1,4 @@
+<SubTest>
+	<MainDesc>The subtest separates the different tests being made with the Dionysos. SubTest can contain several Ports.</MainDesc>
+	<ReportDescription>Description that will be added to the report file of Dionysos.</ReportDescription>
+</SubTest>

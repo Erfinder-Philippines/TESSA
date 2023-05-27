@@ -1,0 +1,25 @@
+<CheckValue>
+	<MainDesc>This Element will calculate the error of an input compared to a reference using different calculation modes. </MainDesc>
+	<Input>Input the value to be checked by this element. 
+Link this attribute with the value to be checked.</Input>
+	<Range>Here you can set a range for the test mode "range-relative".
+The error is then calculated in reference to this range:
+1 V error of 20 V range will be 5%</Range>
+	<Reference>Input the reference value of the test. This can be a fixed value but normally it will be a measured reference instrument. So you may link this attribute to your measurement device.</Reference>
+	<LowerLimit>Lower Limit of the test. For testmodes "absolut-fixed" this value will be used directly. for all other modes it will be calculated depending on the TestMode.</LowerLimit>
+	<UpperLimit>Upper Limit of the test. For testmodes "absolut-fixed" this value will be used directly. for all other modes it will be calculated depending on the TestMode.</UpperLimit>
+	<ErrorLimit>Error Limit for testmodes "absolut", "relative" and "range-relative" this value will be used to calculate upper and lower limits. for all other modes it has no influence.</ErrorLimit>
+	<TestMode>Gives the way of how the "Input" is tested against the "Reference":
+
+"absolute-fixed": The input is directly compared with the upper and lower limit. The ErrorOutput will be calculated asErrorOutput = Input-Reference
+"absolute": The error is calculated as: ErrorOutput = Input-Reference is compared with +/- ErrorLimitUpper and Lower Limit are calculated as Reference +/- ErrorLimit
+"relative": The Error is being calculated as % of Reference and then tested against +/- ErrorLimit (Ignore Upper and Lower Limit)
+"range-relative"The Error is being calculated as Input-Reference as % of Range and then tested against +/- Error Limit
+"digital": If Input is within Upper and lower limit => "true", else "false"
+"inverted-digital": If Input is within Upper and lower limit => "false" else "true"
+"equal":Test if the input string (!) on Input and Reference are the same.
+"contains": Tests if the Input string is contained in Reference
+"compare": Compares Input and Reference</TestMode>
+	<ErrorOutput>Contains the calculated Error see TestModes for all calculations</ErrorOutput>
+	<Result>Contains End Result of evaluation "true" for pass and "false" for fail.</Result>
+</CheckValue>

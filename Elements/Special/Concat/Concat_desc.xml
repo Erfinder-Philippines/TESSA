@@ -1,0 +1,8 @@
+<Concat>
+	<MainDesc>This element will put 2 strings together and put the result into the Result string.</MainDesc>
+	<Name>Name of the element</Name>
+	<Result>The result of the operation will be copied into this attribute.</Result>
+	<Separator>The sepearator string or character will be placed between the two strings, eg. Input1="A", Input2="B", Separator="+" will result in Result="A+B"</Separator>
+	<Input1>The first Input string</Input1>
+	<Input2>The second Input string</Input2>
+</Concat>

@@ -1,0 +1,20 @@
+<Dionysos>
+	<MainDesc>The element Dionysos is the upmost element for producing Dionysos scripting files. It will also connect to the Dionysos device and transmit the script in a later stage of the project.</MainDesc>
+	<Coordinates></Coordinates>
+	<Anchors></Anchors>
+	<BackgroundColor></BackgroundColor>
+	<TextColor></TextColor>
+	<TextSize></TextSize>
+	<Title></Title>
+	<Index></Index>
+	<Suffix></Suffix>
+	<FileName>Fiel name of the final script file. After production of the script it will automatically be saved into this file.</FileName>
+	<Author>Author of the script. This will be added to the Dionysos report</Author>
+	<ProjectName>Project name of the script. This will be added to the Dionysos report</ProjectName>
+	<Date>production date of the script. This will be added to the Dionysos report.</Date>
+	<Purpose>Purpose comment then will be added to the Dionysos report.</Purpose>
+	<Script>Final script file as it will be saved.</Script>
+	<Resource></Resource>
+	<Result></Result>
+	<ResultText></ResultText>
+</Dionysos>

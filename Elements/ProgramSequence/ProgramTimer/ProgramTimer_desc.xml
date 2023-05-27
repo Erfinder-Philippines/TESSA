@@ -1,0 +1,6 @@
+<ProgramTimer>
+	<MainDesc>This elements controls the Timer shown in in the upper right corner of the HMI Window. The timer can be started, stopped, halted and resumed.</MainDesc>
+	<Name>Name of the element</Name>
+	<Time>This attribute holds the time in seconds since the timer has been started</Time>
+	<Mode>This attribute defines what action the element invokes in the HMI program timer.Mode="Start" will reset the timer and start it. If it is not visible it will appear after this command.</Mode>
+</ProgramTimer>

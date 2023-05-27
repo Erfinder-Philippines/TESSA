@@ -1,0 +1,8 @@
+<ReportStepClass>
+	<ExecuteTest>With this attribute the execution of pass/fail test can be switched on/off</ExecuteTest>
+	<ErrorMessage>Here a specific message for a possible error case can be placed</ErrorMessage>
+	<TestDescription>This attribute will be copied into the final testreport as the description of the test being performed</TestDescription>
+	<TestCriteria>This attribute will be copied into the final testreport as the test criteria e.g. upper/lower limits</TestCriteria>
+	<TestMeasurement>In this attribute the result of the measurement will be stored in.</TestMeasurement>
+	<TestResult>Here the final verdict of the test "pass/fail/skipped" will be placed.</TestResult>
+</ReportStepClass>

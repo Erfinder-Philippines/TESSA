@@ -1,0 +1,1 @@
+<SCPI Name="TempMeas" Type="Temperature" Resource="Agilent" Echo="on" Prompt="34972A" Command="MEAS:TEMP? FRTD, (@308)" Parameter="" Result="" Wait="2000"/>

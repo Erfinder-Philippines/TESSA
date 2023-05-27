@@ -1,0 +1,6 @@
+<ArrayPicker>
+	<MainDesc>This element will pick one value out of a array of values</MainDesc>
+	<Attribute>This attribute should either contain the array of values or should be linked to an array, e.g. an column of a table.</Attribute>
+	<ValueIndex>This attibute defines which values has to be picked from the array. It is 0-based, 0 will pick the first value, 1 the second and so on.</ValueIndex>
+	<Output>The picked value will be copied into this attribute Value.</Output>
+</ArrayPicker>

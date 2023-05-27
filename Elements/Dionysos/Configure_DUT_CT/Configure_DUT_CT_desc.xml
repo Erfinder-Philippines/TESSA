@@ -1,0 +1,7 @@
+<Configure_DUT_CT>
+	<MainDesc>This TestFrame will configure the DUT as a CT device.</MainDesc>
+	<FrameClass></FrameClass>
+	<FrameTemplate>Name of the underlying template.</FrameTemplate>
+	<FrameText>This is the resulting text</FrameText>
+	<TemplateText>Test of the template that is being used. With the user function analyse you can turn it into a neutral template with all PORT set to X (PORTX). Double „CR“ are also removed.</TemplateText>
+</Configure_DUT_CT>

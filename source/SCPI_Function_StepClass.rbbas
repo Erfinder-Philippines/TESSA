@@ -1,0 +1,1 @@
+#tag ClassProtected Class SCPI_Function_StepClassInherits Basic_StepClass	#tag Property, Flags = &h0		Command As String_AttributeClass = nil	#tag EndProperty	#tag Property, Flags = &h0		WithReply As Boolean_AttributeClass = nil	#tag EndPropertyEnd Class#tag EndClass

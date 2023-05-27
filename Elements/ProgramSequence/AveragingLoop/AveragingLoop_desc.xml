@@ -1,0 +1,8 @@
+<Loop>
+	<MainDesc>This element repeats counting from a start-value until it reaches the end-value. The elements that should be repeated have to be placed inside the loop element.</MainDesc>
+	<Start>Start-value that the LoopValue is being set to at the beginning</Start>
+	<End>End-value that stops the execution when reached</End>
+	<Step>value increase or decrease for one single step</Step>
+	<LoopValue>The value of the loop that is being counted up/down with each step.The loop value can be calculated as:LoopValue=Start+LoopCounter*Step</LoopValue>
+	<LoopCounter>the loop counter counts the number of steps that have been taken. If step is 1 and start value is 1, then LoopValue and LoopCounter will be the same.</LoopCounter>
+</Loop>

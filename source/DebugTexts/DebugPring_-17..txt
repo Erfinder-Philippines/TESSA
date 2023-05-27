@@ -1,0 +1,3 @@
+
+Initialize and Load elements - ok
+Load configuration

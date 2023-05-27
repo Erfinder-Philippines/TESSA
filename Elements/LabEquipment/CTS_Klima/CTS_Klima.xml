@@ -1,0 +1,1 @@
+<CTS_Klima Name="Clima_Chamber" Resource="CTC_Climachamber_01" Temperature="Link TempTable.Temp" Humidity="20"/>

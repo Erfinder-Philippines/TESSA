@@ -1,0 +1,18 @@
+<RTD>
+	<MainDesc></MainDesc>
+	<Name>Name of the element. It should not contain any spaces, those will automatically be replaced by the underline character</Name>
+	<Wait>Waiting time until end of element action in msec. 
+If element is waiting for a reply from a remote device, this will be timeout time for this communication. 
+If the procedure finishes in time, the element will not wait any long until the end of the timeout but will continue right away. </Wait>
+	<Description>In this variable the user may explain the usage of this element in his programming context. e.g. measurement of the reference voltage at the source.</Description>
+	<LastTime>last time of programm flow in msec</LastTime>
+	<DoSubSteps>Execute sub-elements on/off</DoSubSteps>
+	<Resistor></Resistor>
+	<Temperature></Temperature>
+	<R0></R0>
+	<A></A>
+	<B></B>
+	<C></C>
+	<Reverse></Reverse>
+	<Revers></Revers>
+</RTD>

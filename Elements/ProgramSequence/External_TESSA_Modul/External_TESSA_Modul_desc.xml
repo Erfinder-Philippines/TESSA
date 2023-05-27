@@ -1,0 +1,15 @@
+<External_TESSA_Modul>
+	<MainDesc>This element makes it possible to keep part of a TestSequence in a separate file. These modules will be loaded if needed and include a simple version control mechanism</MainDesc>
+	<DerivedType></DerivedType>
+	<FileName>Name of the external file. Best is to save the module from within the External Module</FileName>
+	<SaveMode>Mode how to save the included code when a „save test sequence“ is performed.
+„Internal“ : the code is saved within the existing testsequence
+„External“ : the code is only saved into the external file
+„Internal & External : the code is saved in both files, test sequence and external module.</SaveMode>
+	<LoadMode>Defines when a upload has to be performed.
+manual_only: load is only performed when the „load“ button is pressed.
+load_at_start: laid is performed at the startup of the program.
+load_on_run: check for new version on every run</LoadMode>
+	<VersionCheck>This attribute turns on/off the automatic version control feature that handles the version info „FileName_v0.0.xml“ within the file name.</VersionCheck>
+	<Version>Version info that is appended to the end of the file name.</Version>
+</External_TESSA_Modul>

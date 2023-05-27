@@ -1,0 +1,7 @@
+<MathOp>
+	<MainDesc>Performs a simple mathematical operation with two operands</MainDesc>
+	<Input1>First input of the operation below, can be Double, Integer Boolean and String</Input1>
+	<Input2>Second input of the operation below, can be Double, Integer Boolean and String</Input2>
+	<Operation>The following operators are definied:for double and integer values the following operations are definied"+":	Output = Input1 + Input2"-":	Output = Input1 – Input2"*":	Output = Input1 * Input2"/":	Output = Input1 / Input2"RND":	Output = Input1 + (Input2-Input1)*RND(1)"ABS":	Output = ABS(Input1-Input2)"SIN":	Output = Input2*SIN(Input1)"COS":	Output = Input2*COS(Input1)"TAN":	Output = Input2*TAN(Input1)"EXP":	Output = Input2*EXP(Input1)"LN":	Output = Input2*LN(Input1)"LOG":	Output = Input2*LOG(Input1)"PWR":	Output = Input2*PWR(Input1)"MOD": Ouput = Input1 MOD Input2"DIV": Output = Input1 DIV Input2for string values the following operations are possible"+": Output = Input1 + Input2for boolean values the following operations are defined"NOT": Output = not(Input1)"AND": Output = Input1 AND Input2"OR": Output = Input1 OR Input 2"NAND": Output = NOT(Input1 AND Input2)"NOR": Output = NOT(Input1 OR Input2)</Operation>
+	<Output>Attribute that contains the result of the above operation</Output>
+</MathOp>
