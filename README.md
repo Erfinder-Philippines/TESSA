@@ -42,4 +42,4 @@ TESSA is a powerful tool that can help users to save time, improve the efficienc
 - In order to run TESSA after compiling, you need to include **TESSA Config** and **Elements** folder in where TESSA is located.
 
 ## Platform Independecy
-TESSA can be compiled, built, and run on major operating systems that are being used by everyone. TESSA supports **Mac**, **Windows**, **Linux**, and **Raspberry Pi (Raspbian)**. A release build is available for everyone to try and use over at our [**Release Page**](https://github.com/Erfinder-Philippines/TESSA/releases)
+TESSA can be compiled, built, and run on major operating systems that are being used by everyone. TESSA supports **Mac**, **Windows**, **Linux**, and **Raspberry Pi (Raspbian)**. A release build is available for everyone to try and use over at our [**Release Page**](https://github.com/Erfinder-Philippines/TESSA/releases).
