@@ -2081,7 +2081,7 @@ Protected Class BasicClass
 		            //extention for External_TESSA_Module
 		          else
 		            // now check for array and link that can be combined
-		            LinkPoint=InStr(1,AttributeExtention,"Link")
+		            LinkPoint=InStr(1,AttributeExtention,"Link ")
 		            ArrayPoint=InStr(1,AttributeExtention,"Array")
 		            //do the array first
 		            if ArrayPoint>0 then
