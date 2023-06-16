@@ -11,6 +11,7 @@ Begin GraphicalTabContainer GraphTabContainer Implements TabInterface
    EraseBackground =   True
    HasBackgroundColor=   True
    Height          =   694
+   Index           =   -2147483648
    InitialParent   =   ""
    Left            =   0
    LockBottom      =   False
@@ -28,12 +29,12 @@ Begin GraphicalTabContainer GraphTabContainer Implements TabInterface
    Begin GroupBox GroupBox1
       AllowAutoDeactivate=   True
       Bold            =   False
-      Caption         =   ""
+      Caption         =   "Zoom/Pan"
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   70
+      Height          =   76
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -214,41 +215,6 @@ Begin GraphicalTabContainer GraphTabContainer Implements TabInterface
          Underline       =   False
          Visible         =   False
          Width           =   80
-      End
-      Begin Label Label6
-         AllowAutoDeactivate=   True
-         Bold            =   False
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   0.0
-         FontUnit        =   0
-         Height          =   20
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox1"
-         Italic          =   False
-         Left            =   306
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Multiline       =   False
-         Scope           =   0
-         Selectable      =   False
-         TabIndex        =   6
-         TabPanelIndex   =   0
-         TabStop         =   True
-         Text            =   "Zoom/Pan"
-         TextAlignment   =   2
-         TextColor       =   &c00000000
-         Tooltip         =   ""
-         Top             =   6
-         Transparent     =   False
-         Underline       =   False
-         Visible         =   True
-         Width           =   88
       End
       Begin RadioButton ZoomInRadio
          AllowAutoDeactivate=   True
@@ -535,7 +501,6 @@ Begin GraphicalTabContainer GraphTabContainer Implements TabInterface
       Scope           =   2
       TabIndex        =   9
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Tooltip         =   ""
       Top             =   47
       TopLeftColor    =   &c00000000
@@ -783,7 +748,6 @@ Begin GraphicalTabContainer GraphTabContainer Implements TabInterface
       Width           =   75
    End
    Begin Timer Timer1
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Period          =   500
@@ -912,6 +876,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub Redraw()
+		  Graphcanvas.redraw
 		  Graphcanvas.Invalidate(False)
 		End Sub
 	#tag EndMethod
@@ -920,9 +885,9 @@ End
 		Protected Sub StepSelected(BS as BasicClass)
 		  // select appropriate graph and display it
 		  Dim LS as BasicClass = BS
-		  if LS IsA Graph_StepClass then
+		  If LS IsA Graph_StepClass Then
 		    UserSelectedGraph = Graph_StepClass(LS)
-		    UserSelectedCurve = nil
+		    UserSelectedCurve = Nil
 		    Redraw
 		  elseif LS IsA XYCurve_StepClass then
 		    if LS.UpperStep<>nil then UserSelectedGraph = Graph_StepClass(LS.UpperStep)
@@ -931,13 +896,14 @@ End
 		    UserSelectedGraph1 = HMI_GraphDataPlot_StepClass(LS)
 		  else
 		    UserSelectedGraph = Nil
-		  end
+		  End
 		  
 		  If UserSelectedGraph <> Nil Then
 		    Graphcanvas.mHMIGraphClass = UserSelectedGraph
+		    Graphcanvas.redraw
 		  End If
 		  
-		  EnableControls (UserSelectedGraph <> nil)
+		  EnableControls (UserSelectedGraph <> Nil)
 		  
 		End Sub
 	#tag EndMethod
@@ -968,7 +934,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub Zoom(Mode as integer, X as integer, Y as integer)
-		  if UserSelectedGraph()<>nil then
+		  If UserSelectedGraph()<>Nil Then
 		    Select case Mode
 		    case 0 // Initialize zoom
 		      Graph_ResetZoom.Visible=true
@@ -1051,7 +1017,7 @@ End
 #tag Events Graph_Configure
 	#tag Event
 		Sub Action()
-		  if UserSelectedGraph <> Nil Then
+		  If UserSelectedGraph <> Nil Then
 		    GraphProperties.Show
 		    Redraw()
 		  End
@@ -1105,9 +1071,9 @@ End
 		    
 		    'return
 		    
-		    If UserSelectedGraph <> nil Then
-		      Graphcanvas.setChart(UserSelectedGraph.GetGraphChart)
-		    End If
+		    'If UserSelectedGraph <> nil Then
+		    'Graphcanvas.setChart(UserSelectedGraph.GetGraphChart)
+		    'End If
 		    
 		    If Me.overlay <> Nil Then
 		      g.DrawPicture Me.overlay,0,0
@@ -1117,7 +1083,7 @@ End
 		      If Me.rectangleWidth > 0 Then
 		        g.DrawPicture Me.rectanglePicture, Me.rectangleLeft, Me.rectangleTop, Me.rectangleWidth, Me.rectangleHeight, 0, 0, Me.rectanglePicture.Width, Me.rectanglePicture.Height
 		      End If
-		    end if
+		    End If
 		    
 		    
 		  End
@@ -1150,7 +1116,6 @@ End
 		  mouseOldY = y
 		  
 		  Me.EventMouseMove(X,Y)
-		  Me.Invalidate(False)
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -1219,6 +1184,14 @@ End
 	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior
+	#tag ViewProperty
+		Name="Index"
+		Visible=true
+		Group="ID"
+		InitialValue="-2147483648"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
 	#tag ViewProperty
 		Name="darkModeEnabled"
 		Visible=true

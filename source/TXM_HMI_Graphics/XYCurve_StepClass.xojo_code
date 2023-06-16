@@ -191,6 +191,109 @@ Inherits HMI_StepClass
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function SetLayerMBS(c as CDXYChartMBS) As CDLayerMBS
+		  If c = Nil Then
+		    Return Nil
+		  End If
+		  
+		  Dim valueLimitIndex as Double = 0
+		  Select case ValueMode.GIAI
+		  case 0 // ActiveValue-1   
+		    valueLimitIndex=(YAttribute.GIAA-1)
+		  case 1 // ActiveValue
+		    valueLimitIndex=(YAttribute.GIAA)
+		  case 2 // AllValues
+		    valueLimitIndex=(YAttribute.GIAN-1)
+		  Case 3 // NoValues
+		    Return Nil
+		  end
+		  
+		  Dim xValues() as Double
+		  Dim count as Integer = XAttribute.GOAN
+		  For i as integer = 0 to count - 1
+		    
+		    If i > valueLimitIndex Then
+		      Exit
+		    End If
+		    
+		    Dim val as Double = XAttribute.GIAD(i)
+		    xValues.Add(val)
+		  Next
+		  
+		  Dim yValues() as Double
+		  count = YAttribute.GOAN
+		  For i as integer = 0 to count - 1
+		    
+		    If i > valueLimitIndex Then
+		      Exit
+		    End If
+		    
+		    Dim val as Double = YAttribute.GIAD(i)
+		    yValues.Add(val)
+		  Next
+		  
+		  Dim dataset As CDDataSetMBS
+		  Dim layer As CDLayerMBS
+		  
+		  Select Case Self.GraphType.GIAI
+		  Case 0 // Line
+		    
+		    // Add a line layer to the chart
+		    layer = c.addLineLayer
+		    layer.setXData(xValues)
+		    layer.setLineWidth(Self.PenWidth.GIAD)
+		    
+		    dataset = layer.addDataSet(yValues, LineColor.GIAC, Self.Title.GIAS)
+		    
+		  Case 1 // Points
+		    
+		    layer = c.addLineLayer
+		    layer.setXData(xValues)
+		    // Set the line width to 0 to only show point
+		    layer.setLineWidth(0)
+		    
+		    dataset = layer.addDataSet(yValues, LineColor.GIAC, Self.Title.GIAS)
+		    dataset.setDataSymbol(c.kCircleSymbol, 8)
+		  Case 2 // Lines & Points
+		    
+		    layer = c.addLineLayer
+		    layer.setXData(xValues)
+		    layer.setLineWidth(Self.PenWidth.GIAD)
+		    
+		    dataset = layer.addDataSet(yValues, LineColor.GIAC, Self.Title.GIAS)
+		    dataset.setDataSymbol(c.kCircleSymbol, 8)
+		    
+		  Case 3,4,5 // Bargraph, UpperLimit, LowerLimit
+		    
+		    layer = c.addBarLayer(yValues, -1)
+		    
+		    // Set bar border to transparent. Use glass lighting effect with light direction
+		    // from left.
+		    layer.setBorderColor(c.kTransparent, c.glassEffect(c.kNormalGlare,c.kLeft))
+		    
+		    // Configure the bars within a group to touch each others (no gap)
+		    Dim barLayer as CDBarLayerMBS = CDBarLayerMBS(layer)
+		    barLayer.setBarGap(0.2, c.kTouchBar)
+		  End Select
+		  
+		  If Self.GraphType.GIAI = 1 Or Self.GraphType.GIAI = 2 and dataset <> Nil Then
+		    Select case PointType.GIAI
+		    Case 0
+		      dataset.setDataSymbol(c.kSquareSymbol, 8)
+		    Case 1
+		      dataset.setDataSymbol(c.kCircleSymbol, 8)
+		    Case 2
+		      dataset.setDataSymbol(c.kTriangleSymbol, 8)
+		    Case 3
+		      dataset.setDataSymbol(c.kCross2Symbol, 8)
+		    End Select
+		  End If
+		  
+		  Return layer
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Step_HMI_Init()
 		  Me.LastPoint=-2
 		End Sub
@@ -306,9 +409,7 @@ Inherits HMI_StepClass
 		          Me.DrawPoint(GRC, x1,y1)
 		        end
 		      end
-		      canvasXPoints.RemoveAllRows
-		      canvasYPoints.RemoveAllRows
-		      XYPointLabel.RemoveAllRows
+		      
 		      for i=n1 to n2
 		        // transfer coordinates into screen and check if inside
 		        Select case XLocalType
@@ -339,9 +440,7 @@ Inherits HMI_StepClass
 		            YVal=0
 		          end
 		        end
-		        XYPointLabel.AddRow("Point: (" + str(XVal) + ", " + str(YVal) + ")")
-		        canvasXPoints.AddRow(XVal)
-		        canvasYPoints.AddRow(YVal)
+		        
 		        bx2=GRC.XAxis.Transfer2(XVal,x2)
 		        by2=GRC.YAxis.Transfer2(YVal,y2)
 		        x3=x2
@@ -412,14 +511,6 @@ Inherits HMI_StepClass
 
 
 	#tag Property, Flags = &h0
-		canvasXPoints() As Double
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		canvasYPoints() As Double
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
 		Clipped As boolean
 	#tag EndProperty
 
@@ -449,10 +540,6 @@ Inherits HMI_StepClass
 
 	#tag Property, Flags = &h0
 		XAttribute As MultipleValuesAttributeClass = nil
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		XYPointLabel() As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -634,14 +721,6 @@ Inherits HMI_StepClass
 			Visible=false
 			Group="Behavior"
 			InitialValue="0"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="SAMStepID"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty

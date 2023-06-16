@@ -429,14 +429,6 @@ Inherits StepClass
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="SAMStepID"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="SendState"
 			Visible=false
 			Group="Behavior"
