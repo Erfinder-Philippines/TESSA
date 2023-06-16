@@ -49,7 +49,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
+      LockRight       =   False
       LockTop         =   True
       MaximumCharactersAllowed=   0
       Password        =   False
@@ -129,7 +129,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       Left            =   675
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
+      LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
       Multiline       =   False
@@ -149,7 +149,6 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       Width           =   303
    End
    Begin Timer FilterEditTimer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Period          =   500
@@ -260,8 +259,8 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       ListboxType     =   1
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   True
       RequiresSelection=   False
       RowSelectionType=   0
@@ -306,7 +305,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       LineSpacing     =   1.0
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   False
+      LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
       MaximumCharactersAllowed=   0
@@ -401,7 +400,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
+      LockRight       =   False
       LockTop         =   False
       MaximumCharactersAllowed=   0
       Multiline       =   True
@@ -439,7 +438,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
+      LockRight       =   False
       LockTop         =   False
       Multiline       =   False
       Scope           =   0
@@ -474,7 +473,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
+      LockRight       =   False
       LockTop         =   False
       Multiline       =   False
       Scope           =   0
@@ -532,7 +531,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
+      LockRight       =   False
       LockTop         =   True
       RequiresSelection=   False
       RowSelectionType=   0
@@ -563,8 +562,8 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       Left            =   248
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   False
       Scope           =   0
       TabIndex        =   13
