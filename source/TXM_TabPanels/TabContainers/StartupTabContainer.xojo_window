@@ -100,7 +100,6 @@ Begin GraphicalTabContainer StartupTabContainer
       Scope           =   0
       TabIndex        =   30
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Tooltip         =   ""
       Top             =   24
       TopLeftColor    =   &c97AAC400
@@ -132,7 +131,7 @@ Begin GraphicalTabContainer StartupTabContainer
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "Available test sequences"
+         Text            =   "Available test sequences\r\nplease choose one, then press load"
          TextAlignment   =   0
          TextColor       =   &c51515100
          Tooltip         =   ""
