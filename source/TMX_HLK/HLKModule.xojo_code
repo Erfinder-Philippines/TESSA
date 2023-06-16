@@ -133,6 +133,23 @@ Protected Module HLKModule
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function RelativeHumidity(P as double, T as double, absoluteHumid as double) As Double
+		  // mbar, °C, g/kg => %
+		  Dim rh as Double
+		  
+		  absoluteHumid  = absoluteHumid  / 1000 // convert g/kg to g/m3
+		  T = Ps(T)
+		  
+		  const k = 0.622
+		  
+		  rh = absoluteHumid / (k + absoluteHumid) * P / T
+		  rh = rh * 100 // %
+		  
+		  Return rh
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Tp(P as double, T as double, H as double) As double
 		  // mbar, °C, % => °C
 		  
