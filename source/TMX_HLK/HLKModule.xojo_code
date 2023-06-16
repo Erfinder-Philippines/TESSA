@@ -7,6 +7,7 @@ Protected Module HLKModule
 		  BCF.AddNewElement("Volumenstrom", GetTypeInfo(Volumenstrom_StepClass), "Volumenstrom", 1)
 		  BCF.AddNewElement("Enthalpy", GetTypeInfo(Enthalpy_StepClass), "Enthalpy", 1)
 		  
+		  BCF.AddNewElement("Mollier_HxDiagram", GetTypeInfo(Mollier_HxDiagram_StepClass), "Mollier_HxDiagram", 1)
 		End Sub
 	#tag EndMethod
 
@@ -146,6 +147,13 @@ Protected Module HLKModule
 		  rh = rh * 100 // %
 		  
 		  Return rh
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Round2Dec(num as Double) As Double
+		  // Round to 2 decimal places
+		  Return Round(num * 100)/100
 		End Function
 	#tag EndMethod
 

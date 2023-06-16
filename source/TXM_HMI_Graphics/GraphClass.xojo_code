@@ -1,46 +1,6 @@
 #tag Class
 Protected Class GraphClass
 	#tag Method, Flags = &h0
-		Sub AddToBarLayer(x_values() as Double, y_values() as Double, BarColor as Color)
-		  For each x as Double in x_values
-		    BarGraphXValues.AddRow(x)
-		    BarGraphColorValues.AddRow(BarColor)
-		  Next
-		  For each y as Double in y_values
-		    BarGraphYValues.AddRow(y)
-		  Next
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub AddToBarLayer(barNames() as String, y_values() as Double, BarColor as Color)
-		  For each bn as String in barNames
-		    if Not bn.IsEmpty then
-		      BarGraphNameValues.AddRow(bn)
-		      BarGraphColorValues.AddRow(BarColor)
-		    end if
-		  Next
-		  For each y as Double in y_values
-		    BarGraphYValues.AddRow(y)
-		  Next
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub addToXYPoints(Xpoints() as Double, Ypoints() as Double, xyLabels() as String)
-		  For each x as Integer in Xpoints
-		    canvasXPoints.AddRow(x)
-		  Next
-		  For each y as Integer in Ypoints
-		    canvasYPoints.AddRow(y)
-		  Next
-		  For i as Integer = 0 To xyLabels.LastRowIndex
-		    XYPointLabel.AddRow(xyLabels(i))
-		  Next
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub AutoScale()
 		  // does perform an autoscale for all values
 		  Dim LXY as XYCurve_StepClass
@@ -166,12 +126,9 @@ Protected Class GraphClass
 		  // Create a XYChart and its size
 		  XYChart = new CDXYChartMBS(GR.Width, GR.height, &hF5F6F7,CDBaseChartMBS.kTransparent,0)
 		  // Add a title to the chart using 18 pts Times New Roman Bold Italic font
-		  call XYChart.addTitle(mHMIGraphClass.Name.FirstValue, "bold", 18)
+		  call XYChart.addTitle(Self.Title, "bold", 18)
 		  
-		  // Set the plotarea at (50, 55) with width 70 pixels less than chart width, and height 130 pixels
-		  // less than chart height. Use a vertical gradient from light blue (f0f6ff) to sky blue (a0c0ff)
-		  // as background. Set border to transparent and grid lines to white (ffffff).
-		  call XYChart.setPlotArea(25, 55, XYChart.getWidth - 70, XYChart.getHeight - 100, &hFFFFFF, -1, CDBaseChartMBS.kTransparent, &hE6E6E6, &hE6E6E6)
+		  call XYChart.setPlotArea(45, 55, XYChart.getWidth - 80, XYChart.getHeight - 100, &hFFFFFF, -1, CDBaseChartMBS.kTransparent, &hE6E6E6, &hE6E6E6)
 		  
 		  // Add a legend box at (50, 25) using horizontal layout. Use 10pts Arial Bold as font. Set the
 		  // background and border color to Transparent.
@@ -181,42 +138,34 @@ Protected Class GraphClass
 		  call XYChart.xAxis.setLabelStyle("bold", 8)
 		  call XYChart.yAxis.setLabelStyle("bold", 8)
 		  
+		  // Set y-axis tick density to 30 pixels. ChartDirector auto-scaling will use this
+		  // as the guideline when putting ticks on the y-axis.
+		  XYChart.yAxis.setTickDensity(30)
+		  XYChart.yAxis2.setTickDensity(30)
+		  
 		  // Set the axis stem to transparent
 		  XYChart.xAxis.setColors(CDBaseChartMBS.kTransparent)
 		  XYChart.yAxis.setColors(CDBaseChartMBS.kTransparent)
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub DrawChartBarLayer()
-		  // Add a multi-bar layer
-		  dim layer as CDBarLayerMBS
-		  layer=XYChart.addBarLayer(BarGraphYValues,BarGraphColorValues)
 		  
-		  // Set bar border to transparent. Use glass lighting effect with light direction
-		  // from left.
-		  layer.setBorderColor(XYChart.kTransparent, XYChart.glassEffect(XYChart.kNormalGlare,XYChart.kLeft))
+		  Dim graphMax_X As Double = XAxis.EndD.Values(0)
+		  Dim graphMin_X As Double = XAxis.StartD.Values(0)
+		  Dim graphMax_Y As Double = YAxis.EndD.Values(0)
+		  Dim graphMin_Y As Double = YAxis.StartD.Values(0)
 		  
-		  // Configure the bars within a group to touch each others (no gap)
-		  layer.setBarGap(0.2, XYChart.kTouchBar)
+		  XYChart.xAxis.setLinearScale(graphMin_X,graphMax_X)
+		  XYChart.xAxis.setRounding(False, False)
 		  
-		  // Set the x axis labels
-		  'call XYChart.xAxis.setLabels BarGraphXValues
-		  'layer.setXData(BarGraphXValues)
-		  call XYChart.xAxis.setLabels BarGraphNameValues
+		  XYChart.yAxis.setLinearScale(graphMin_Y,graphMax_Y)
+		  XYChart.yAxis.setRounding(False, False)
 		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub DrawChartLayer(x_values() as Double, y_values() as Double, XYCurveName as String, LineColor as Color, LineWidth as Integer)
-		  // Add a line layer to the chart using a line width in pixel.
-		  dim layer as CDLineLayerMBS = XYChart.addLineLayer
-		  layer.setLineWidth(LineWidth)
+		  XYChart.yAxis2.setLinearScale(graphMin_Y,graphMax_Y)
+		  XYChart.yAxis2.setRounding(False, False)
 		  
-		  // Add the data series to the line layer
-		  call layer.setXData(x_values)
-		  call layer.addDataSet(y_values, LineColor, XYCurveName) //set color and legend name
+		  // Axis steps and title
+		  XYChart.xAxis.setLabelStep(XAxis.StepD.GIAD)
+		  Call XYChart.xAxis.setTitle(XAxis.Title.GIAS).setAlignment(CDXYChartMBS.kBottomCenter)
+		  XYChart.yAxis.setLabelStep(YAxis.StepD.GIAD)
+		  Call XYChart.yAxis.setTitle(YAxis.Title.GIAS).setAlignment(CDXYChartMBS.kLeft)
 		End Sub
 	#tag EndMethod
 
@@ -391,47 +340,21 @@ Protected Class GraphClass
 		  if mHMIGraphClass<>nil then
 		    Dim LS as BasicClass = mHMIGraphClass.FirstSubStep
 		    
-		    canvasXPoints.RemoveAllRows
-		    canvasYPoints.RemoveAllRows
-		    XYPointLabel.RemoveAllRows
-		    BarGraphColorValues.RemoveAllRows
-		    BarGraphNameValues.RemoveAllRows
-		    BarGraphYValues.RemoveAllRows
-		    DrawChart
+		    Self.DrawChart
 		    while LS <> nil
 		      if LS IsA XYCurve_StepClass then
 		        XYCurve_StepClass(LS).DrawCurve(self)
 		        
-		        Select Case XYCurve_StepClass(LS).GraphType.GIAI
-		        Case 0,1,2
-		          DrawChartLayer(XYCurve_StepClass(LS).canvasXPoints,XYCurve_StepClass(LS).canvasYPoints, _
-		          LS.Name.FirstValue, XYCurve_StepClass(LS).LineColor.GIAC, XYCurve_StepClass(LS).PenWidth.GIAI)
-		        Case 3,4,5
-		          If XYCurve_StepClass(LS).ValueMode.GIAI <> 3 Then
-		            AddToBarLayer(XYCurve_StepClass(LS).Title.Values,_
-		            XYCurve_StepClass(LS).canvasYPoints, XYCurve_StepClass(LS).LineColor.GIAC)
-		          End If
-		        End Select
+		        Dim xyCurve as XYCurve_StepClass = XYCurve_StepClass(LS)
+		        Call xyCurve.SetLayerMBS(Self.XYChart)
 		        
 		      end
 		      LS = LS.NextStep
 		    wend
-		    DrawChartBarLayer
-		    'GR.ClearRectangle 0,0,GR.Width,GR.Height
-		    'GR.DrawPicture GetChart.makeChartPicture, 0, 0
+		    
+		    GR.ClearRectangle 0,0,GR.Width,GR.Height
+		    GR.DrawPicture GetChart.makeChartPicture, 0, 0
 		  end
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub EmptyLayers()
-		  canvasXPoints.RemoveAllRows
-		  canvasYPoints.RemoveAllRows
-		  XYPointLabel.RemoveAllRows
-		  BarGraphColorValues.RemoveAllRows
-		  BarGraphNameValues.RemoveAllRows
-		  BarGraphYValues.RemoveAllRows
-		  BarGraphXValues.RemoveAllRows
 		End Sub
 	#tag EndMethod
 
@@ -507,32 +430,21 @@ Protected Class GraphClass
 		  // draws all included XYCurves
 		  if mHMIGraphClass <> Nil Then
 		    Dim LS as BasicClass = mHMIGraphClass.FirstSubStep
-		    EmptyLayers
+		    
 		    DrawChart
 		    while LS <> nil
+		      
 		      if LS IsA XYCurve_StepClass then
-		        Me.NoRedraw = not(XYCurve_StepClass(LS).Update(self)) and Me.NoRedraw
-		        addToXYPoints(XYCurve_StepClass(LS).canvasXPoints,XYCurve_StepClass(LS).canvasYPoints, _
-		        XYCurve_StepClass(LS).XYPointLabel)
-		        Select Case XYCurve_StepClass(LS).GraphType.GIAI
-		        Case 0,1,2
-		          DrawChartLayer(XYCurve_StepClass(LS).canvasXPoints,XYCurve_StepClass(LS).canvasYPoints, _
-		          LS.Name.FirstValue, XYCurve_StepClass(LS).LineColor.GIAC, XYCurve_StepClass(LS).PenWidth.GIAI)
-		        Case 3,4,5
-		          If XYCurve_StepClass(LS).ValueMode.GIAI <> 3 Then
-		            'AddToBarLayer(XYCurve_StepClass(LS).canvasXPoints,_
-		            'XYCurve_StepClass(LS).canvasYPoints, XYCurve_StepClass(LS).LineColor.GIAC)
-		            AddToBarLayer(XYCurve_StepClass(LS).Title.Values,_
-		            XYCurve_StepClass(LS).canvasYPoints, XYCurve_StepClass(LS).LineColor.GIAC)
-		          End If
-		        End Select
+		        XYCurve_StepClass(LS).DrawCurve(self)
+		        
+		        Dim xyCurve as XYCurve_StepClass = XYCurve_StepClass(LS)
+		        Call xyCurve.SetLayerMBS(Self.XYChart)
 		        
 		      end
+		      
 		      LS = LS.NextStep
 		    wend
 		    
-		    DrawChartBarLayer
-		    GR.DrawPicture GetChart.makeChartPicture, 0, 0
 		  End
 		End Sub
 	#tag EndMethod
@@ -561,35 +473,11 @@ Protected Class GraphClass
 
 
 	#tag Property, Flags = &h0
-		BarGraphColorValues() As Color
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		BarGraphNameValues() As String
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		BarGraphXValues() As Double
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		BarGraphYValues() As Double
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
 		BG_Color As color = &cF8F8F8
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		Canvas As HMI_Canvas = nil
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		canvasXPoints() As Integer
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		canvasYPoints() As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

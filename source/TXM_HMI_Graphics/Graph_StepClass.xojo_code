@@ -69,28 +69,6 @@ Inherits HMI_StepClass
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function getXPoints() As Integer()
-		  return mHMIGraph.canvasXPoints
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function getXYLabel(i as Integer) As String
-		  if mHMIGraph.XYPointLabel.LastRowIndex <> -1 then
-		    return mHMIGraph.XYPointLabel(i)
-		  Else
-		    return ""
-		  end if
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function getYPoints() As Integer()
-		  return mHMIGraph.canvasYPoints
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub Init_Teststep_Start()
 		  // Send init to all included elements
 		  Super.Init_Teststep_Start
@@ -126,6 +104,11 @@ Inherits HMI_StepClass
 		      end
 		      mHMIGraph.Draw
 		      mHMIGraph.Update
+		      
+		      // Draw chart on top
+		      If GetGraphChart <> Nil Then
+		        g.DrawPicture (GetGraphChart.makeChartPicture, 0, 0)
+		      end if
 		    End
 		  End
 		End Sub
@@ -152,6 +135,11 @@ Inherits HMI_StepClass
 		      end
 		      'mHMIGraph.Draw
 		      mHMIGraph.Update
+		      
+		      // Draw chart on top
+		      If GetGraphChart <> Nil Then
+		        g.DrawPicture (GetGraphChart.makeChartPicture, 0, 0)
+		      end if
 		    End
 		  End
 		End Sub
@@ -186,10 +174,8 @@ Inherits HMI_StepClass
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub trackLineLegend(mouseX as integer, mousey as Integer)
-		  If mHMIGraph = Nil Then Return
-		  
-		  dim c as CDXYChartMBS = mHMIGraph.GetChart
+		Sub TrackLineLegend(c as CDXYChartMBS, X as Integer, Y as Integer)
+		  If c = Nil Then Return
 		  
 		  // Clear the current dynamic layer and get the DrawArea object to draw on it.
 		  dim d as CDDrawAreaMBS = c.initDynamicLayer
@@ -197,27 +183,26 @@ Inherits HMI_StepClass
 		  // The plot area object
 		  dim plotArea AS CDPlotAreaMBS = c.getPlotArea
 		  
-		  
 		  // check if we are outside the plotArea
-		  if mousex<plotArea.getLeftX   then Return
-		  if mousey<plotArea.getTopY    then Return
-		  if mousex>plotArea.getRightX  then Return
-		  if mousey>plotArea.getBottomY then Return
+		  if X<plotArea.getLeftX   then Return
+		  if Y<plotArea.getTopY    then Return
+		  if X>plotArea.getRightX  then Return
+		  if Y>plotArea.getBottomY then Return
 		  // Get the data x-value that is nearest to the mouse, and find its pixel coordinate.
-		  dim xValue as double = c.getNearestXValue(mouseX)
+		  dim xValue as double = c.getNearestXValue(X)
 		  dim xCoor as integer = c.getXCoor(xValue)
 		  
-		  dim boxLeft as integer = c.getXCoor(xValue - 0.5)
-		  dim boxRight as integer = c.getXCoor(xValue + 0.5)
+		  dim pointFound as Boolean = False
 		  
-		  // If the box is very thin, it is an XY Point, else it is a Bargraph
-		  If (boxRight - boxLeft) >= 5 then 
-		    trackLineLegend(mouseX,mousey, True)
-		    Return
-		  End If
+		  Dim tracklineColor As Integer
+		  'If darkModeEnabled Then
+		  'tracklineColor = &hFFFFFF
+		  'Else
+		  tracklineColor = &h000000
+		  'End If
 		  
 		  // Draw a vertical track line at the x-position
-		  d.vline(plotArea.getTopY, plotArea.getBottomY, xCoor, d.dashLineColor(&h000000, &h0101))
+		  d.vline(plotArea.getTopY, plotArea.getBottomY, xCoor, d.dashLineColor(tracklineColor, &h0101))
 		  
 		  dim t as CDTTFTextMBS
 		  // Iterate through all layers to draw the data labels
@@ -241,8 +226,9 @@ Inherits HMI_StepClass
 		      
 		      // Draw a track dot with a label next to it for visible data points in the plot area
 		      if ((yCoor >= plotArea.getTopY) and (yCoor <= plotArea.getBottomY) and (colorvalue <> CDBaseChartMBS.kTransparent) and dataSetName.len>0) then
+		        pointFound = True
 		        
-		        d.hline(plotArea.getLeftX, plotArea.getRightX,yCoor, d.dashLineColor(&h000000, &h0101))
+		        d.hline(plotArea.getLeftX, plotArea.getRightX,yCoor, d.dashLineColor(tracklineColor, &h0101))
 		        d.circle(xCoor, yCoor, 4, 4, colorvalue, colorvalue)
 		        
 		        dim label as string
@@ -266,86 +252,6 @@ Inherits HMI_StepClass
 		      end if
 		    next
 		  next
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub trackLineLegend(mouseX as integer, mousey as Integer, isBarGraph as Boolean)
-		  #Pragma isBarGraph
-		  
-		  If mHMIGraph = Nil Then Return
-		  
-		  dim c as CDXYChartMBS = mHMIGraph.GetChart
-		  
-		  // Clear the current dynamic layer and get the DrawArea object to draw on it.
-		  dim d as CDDrawAreaMBS = c.initDynamicLayer
-		  
-		  // The plot area object
-		  dim plotArea as CDPlotAreaMBS = c.getPlotArea
-		  
-		  
-		  // check if we are outside the plotArea
-		  if mousex<plotArea.getLeftX   then Return
-		  if mousey<plotArea.getTopY    then Return
-		  if mousex>plotArea.getRightX  then Return
-		  if mousey>plotArea.getBottomY then Return
-		  
-		  // Get the data x-value that is nearest to the mouse
-		  dim xValue as double = c.getNearestXValue(mouseX)
-		  
-		  // Compute the position of the box. This example assumes a label based x-axis, in which the
-		  // labeling spacing is one x-axis unit. So the left and right sides of the box is 0.5 unit from
-		  // the central x-value.
-		  dim boxLeft as integer = c.getXCoor(xValue - 0.5)
-		  dim boxRight as integer = c.getXCoor(xValue + 0.5)
-		  dim boxTop as integer = plotArea.getTopY
-		  dim boxBottom as integer = plotArea.getBottomY
-		  
-		  // Draw the track box
-		  d.rect(boxLeft, boxTop, boxRight, boxBottom, &h000000, CDBaseChartMBS.kTransparent)
-		  
-		  // Container to hold the legend entries
-		  dim legendEntries() as string
-		  
-		  // Iterate through all layers to build the legend array
-		  dim u as integer = c.getLayerCount-1
-		  for i as integer = 0 to u
-		    dim layer as CDLayerMBS = c.getLayerByZ(i)
-		    
-		    // The data array index of the x-value
-		    dim xIndex as integer = layer.getXIndexOf(xValue)
-		    
-		    // Iterate through all the data sets in the layer
-		    dim uu as integer = layer.getDataSetCount-1
-		    for j as integer = 0 to uu
-		      dim dataSet as CDDataSetMBS = layer.getDataSetByZ(j)
-		      
-		      // Build the legend entry, consist of the legend icon, the name and the data value.
-		      dim dataValue as double = dataSet.getValue(xIndex)
-		      if ((dataValue <> CDBaseChartMBS.kNoValue) and (dataSet.getDataColor <> CDBaseChartMBS.kTransparent)) then
-		        dim legendEntry as string
-		        legendEntry = dataSet.getLegendIcon + " " + dataSet.getDataName + ": " + c.formatValue(dataValue, "{value|P4}")
-		        legendEntries.Append legendEntry
-		      end if
-		    next
-		  next
-		  
-		  // Create the legend by joining the legend entries
-		  if UBound(legendEntries) >= 0 then
-		    dim legend as string
-		    legend = "<*block,bgColor=FFFFCC,edgeColor=000000,margin=5*><*font,underline=1*>" + c.xAxis.getFormattedLabel(xValue) + "<*/font*>"
-		    for i as integer = UBound(legendEntries) downto 0
-		      legend = legend + "<*br*>" + legendEntries(i)
-		    next
-		    legend = legend + "<*/*>"
-		    
-		    // Display the legend at the bottom-right side of the mouse cursor, and make sure the legend
-		    // will not go outside the chart image.
-		    dim t as CDTTFTextMBS = d.text(legend, "arialbd.ttf", 8)
-		    t.draw(min(mouseX + 12, c.getWidth - t.getWidth), min(mouseY + 18, c.getHeight - t.getHeight), &h000000, CDBaseChartMBS.kTopLeft)
-		    t.destroy
-		  end if
 		  
 		End Sub
 	#tag EndMethod
@@ -575,14 +481,6 @@ Inherits HMI_StepClass
 			Visible=false
 			Group="Behavior"
 			InitialValue="0"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="SAMStepID"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty

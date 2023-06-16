@@ -24,16 +24,16 @@ Inherits StepClass
 		  // Calling the overridden superclass constructor.
 		  Super.Constructor(ConfigText)
 		  
-		  Temperature = IAD("Temperature",20,false,AttributeGroups.Parameters,40)
-		  BaroPressure = IAD("BaroPressure",1028,false,AttributeGroups.Parameters,53)
-		  Humidity = IAD("Humidity",40,false)
-		  AirDensity = IAD("AirDensity",30,false)
+		  Temperature = IAD("Temperature",20,False,AttributeGroups.Parameters,40)
+		  BaroPressure = IAD("BaroPressure",1028,False,AttributeGroups.Parameters,53)
+		  Humidity = IAD("Humidity",40,False)
+		  AirDensity = IAD("AirDensity",30,False)
 		  DuePoint = IAD("DuePoint",30,false)
 		  Enthalpy = IAD("Enthalpy",30,false)
-		  AbsoluteHumidity = IAD("AbsoluteHumidity",30,false)
+		  AbsoluteHumidity = IAD("AbsoluteHumidity",30,False)
 		  AirFlow = IAD("AirFlow",0,false)
-		  AirMassFlow = IAD("AirMassFlow",0,false)
-		  AirFlowPower = IAD("AirFlowPower",0,false)
+		  AirMassFlow = IAD("AirMassFlow",0,False)
+		  AirFlowPower = IAD("AirFlowPower",0,False)
 		  
 		  
 		  AddUserFunction(Calculate, Enthalpy.Name, "Calculate", 0,UF_RunMode_Direct)
@@ -44,6 +44,7 @@ Inherits StepClass
 		Function Step_Run() As Boolean
 		  Calculate()
 		  
+		  Return True
 		End Function
 	#tag EndMethod
 
@@ -263,14 +264,6 @@ Inherits StepClass
 			Visible=false
 			Group="Behavior"
 			InitialValue="0"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="SAMStepID"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty

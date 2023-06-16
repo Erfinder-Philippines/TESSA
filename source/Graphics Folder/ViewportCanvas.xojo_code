@@ -21,54 +21,9 @@ Inherits Canvas
 		  rectanglePicture.Graphics.FillRect 0,0,32,32
 		  rectanglePicture.mask.Graphics.ForeColor = &cCCCCCC
 		  rectanglePicture.mask.Graphics.FillRect 0,0,32,32
-		  
-		  
-		  // TESTING PURPOSES
-		  'dim x0 as Double=70
-		  'dim x1 as Double=50
-		  'dim x2 as Double=30
-		  'dummydata0.Append x0
-		  'dummydata1.Append x1
-		  'dummydata2.Append x2
-		  '
-		  'for i as integer=1 to 100
-		  'x0=x0+rnd*5.0-2.5
-		  'x1=x1+rnd*5.0-2.5
-		  'x2=x2+rnd*5.0-2.5
-		  'dummydata0.Append x0
-		  'dummydata1.Append x1
-		  'dummydata2.Append x2
-		  'dummydataX.AddRow i
-		  'next
 		End Sub
 	#tag EndEvent
 
-
-	#tag Method, Flags = &h0
-		Sub AddToBarLayer(x_values() as Double, y_values() as Double, BarColor as Color)
-		  For each x as Double in x_values
-		    BarGraphXValues.AddRow(x)
-		    BarGraphColorValues.AddRow(BarColor)
-		  Next
-		  For each y as Double in y_values
-		    BarGraphYValues.AddRow(y)
-		  Next
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub AddToBarLayer(barNames() as String, y_values() as Double, BarColor as Color)
-		  For each bn as String in barNames
-		    if Not bn.IsEmpty then
-		      BarGraphNameValues.AddRow(bn)
-		      BarGraphColorValues.AddRow(BarColor)
-		    end if
-		  Next
-		  For each y as Double in y_values
-		    BarGraphYValues.AddRow(y)
-		  Next
-		End Sub
-	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub checkZoomMode()
@@ -90,50 +45,6 @@ Inherits Canvas
 		  Me.NeedClear = False
 		  Me.Overlay = Nil
 		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub DrawChartBarLayer()
-		  // Add a multi-bar layer
-		  dim layer as CDBarLayerMBS
-		  layer=c.addBarLayer(BarGraphYValues,BarGraphColorValues)
-		  
-		  // Set bar border to transparent. Use glass lighting effect with light direction
-		  // from left.
-		  layer.setBorderColor(c.kTransparent, c.glassEffect(c.kNormalGlare,c.kLeft))
-		  
-		  // Configure the bars within a group to touch each others (no gap)
-		  layer.setBarGap(0.2, c.kTouchBar)
-		  
-		  // Set the x axis labels
-		  'call XYChart.xAxis.setLabels BarGraphXValues
-		  'layer.setXData(BarGraphXValues)
-		  call c.xAxis.setLabels BarGraphNameValues
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub DrawChartLayer(x_values() as Double, y_values() as Double, XYCurveName as String, LineColor as Color, LineWidth as Integer)
-		  If c = Nil Then Return
-		  
-		  // Add a line layer to the chart using a line width in pixel.
-		  dim layer as CDLineLayerMBS = c.addLineLayer
-		  layer.setLineWidth(LineWidth)
-		  
-		  // Add the data series to the line layer
-		  call layer.setXData(x_values)
-		  call layer.addDataSet(y_values, LineColor, XYCurveName) //set color and legend name
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub EmptyLayers()
-		  BarGraphColorValues.RemoveAllRows
-		  BarGraphNameValues.RemoveAllRows
-		  BarGraphYValues.RemoveAllRows
-		  BarGraphXValues.RemoveAllRows
 		End Sub
 	#tag EndMethod
 
@@ -163,7 +74,7 @@ Inherits Canvas
 		Sub EventMouseDrag(X as Integer, Y as Integer)
 		  showTrackingCursor = False
 		  If (Not (Keyboard.AsyncShiftKey Or ZoomMode <> 0)) And (Not (Keyboard.AsyncAltKey Or ZoomMode <> 0)) And allowMove Then
-		    if viewport.dragTo(CDBaseChartMBS.kDirectionHorizontalVertical, x-Startx,y-Starty) then
+		    If viewport.dragTo(CDBaseChartMBS.kDirectionHorizontalVertical, StartX - X, Y - StartY) Then
 		      redraw
 		    end if
 		  else
@@ -177,7 +88,7 @@ Inherits Canvas
 		    t=min(StartY,StartY2)
 		    w=StartX2-StartX
 		    h=StartY2-StartY
-		    if w<0 then w=-w
+		    If w<0 Then w=-w
 		    if h<0 then h=-h
 		    
 		    // trigger refresh
@@ -195,6 +106,7 @@ Inherits Canvas
 		Sub EventMouseMove(X as Integer, Y as Integer)
 		  myCanvasMouseX = X
 		  myCanvasMouseY = Y
+		  
 		  If (AllowZoom = True) And (Keyboard.AsyncOptionKey = True Or ZoomMode = 1 ) Then
 		    
 		    // Zoom In
@@ -237,6 +149,8 @@ Inherits Canvas
 		    End If
 		    
 		  End If
+		  
+		  HandleTrackLineLegend(X, Y)
 		  
 		  exception
 		End Sub
@@ -299,9 +213,25 @@ Inherits Canvas
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub HandleTrackLineLegend(X as Integer, Y as Integer)
+		  If Not showTrackingCursor Then
+		    Return
+		  End If
+		  
+		  if mHMIGraphClass <> Nil and c <> Nil Then
+		    mHMIGraphClass.TrackLineLegend(c, X, Y)
+		    lastpicture = c.makeChartPicture
+		    Self.Invalidate(False)
+		  End
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub redraw()
-		  If c = Nil Then Return
+		  If mHMIGraphClass = Nil Then
+		    Return
+		  End If
 		  
 		  Dim chartBgColor, plotAreaColor, gridLineColor, labelColor As Integer
 		  If darkModeEnabled Then
@@ -317,12 +247,15 @@ Inherits Canvas
 		  End If
 		  
 		  viewport.validateViewPort
-		  c  = New CDXYChartMBS(Me.Width,Me.Height,chartBgColor,CDBaseChartMBS.kTransparent,1)
-		  Call c.setPlotArea(35, 55, c.getWidth - 70, c.getHeight - 100, plotAreaColor, -1, CDBaseChartMBS.kTransparent, gridLineColor, gridLineColor)
 		  
-		  Call c.addTitle(mHMIGraphClass.Name.FirstValue, "bold", 18, labelColor)
-		  Call c.addLegend(50, 25, False, "bold", 10).setBackground(CDBaseChartMBS.kTransparent)
-		  Call c.getLegend.setFontColor(labelColor)
+		  // Init a new Chart for this Canvas
+		  c  = New CDXYChartMBS(Me.Width,Me.Height,chartBgColor,CDBaseChartMBS.kTransparent,1)
+		  
+		  Call c.setPlotArea(45, 55, c.getWidth - 80, c.getHeight - 100, plotAreaColor, -1, CDBaseChartMBS.kTransparent, gridLineColor, gridLineColor)
+		  
+		  Call c.addTitle(mHMIGraphClass.Title.GIAS, "bold", 18, labelColor)
+		  'Call c.addLegend(50, 25, False, "bold", 10).setBackground(CDBaseChartMBS.kTransparent)
+		  'Call c.getLegend.setFontColor(labelColor)
 		  Call c.xAxis.setLabelStyle("bold", 8,labelColor)
 		  Call c.yAxis.setLabelStyle("bold", 8,labelColor)
 		  
@@ -350,36 +283,31 @@ Inherits Canvas
 		  Dim graphMax_Y As Double = mHMIGraphClass.YAxis.EndD.Values(0)
 		  Dim graphMin_Y As Double = mHMIGraphClass.YAxis.StartD.Values(0)
 		  
-		  'System.DebugLog str(viewport.getViewPortLeft) + " + " + str(viewport.getViewPortWidth) + " " + str(viewport.getViewPortLeft + viewport.getViewPortWidth)
-		  axisUpperLimit = graphMax_X  * (viewport.getViewPortLeft + viewport.getViewPortWidth)
-		  axisLowerLimit = graphMin_X - graphMin_X * viewport.getViewPortLeft
+		  Dim deltaX As Double = graphMax_X - graphMin_X
+		  Dim deltaY As Double = graphMax_Y - graphMin_Y
 		  
-		  //Old constant code
-		  'axisUpperLimit = 300 *(viewport.getViewPortLeft + viewport.getViewPortWidth)
-		  'axisLowerLimit = 100 * viewport.getViewPortLeft
-		  
-		  'System.DebugLog "X: " +  str(axisUpperLimit) + " + " + str(axisLowerLimit) + " " + str(graphMin_X)
+		  axisUpperLimit = graphMax_X - deltaX  * viewport.getViewPortLeft
+		  axisLowerLimit = graphMax_X - deltaX * (viewport.getViewPortLeft + viewport.getViewPortWidth)
 		  
 		  c.xAxis.setLinearScale(axisLowerLimit,axisUpperLimit)
 		  c.xAxis.setRounding(False, False)
 		  
-		  axisLowerLimit =  graphMin_Y  *(viewport.getViewPortTop + viewport.getViewPortHeight)
-		  axisUpperLimit =  graphMax_Y - graphMax_Y * viewport.getViewPortTop
-		  
-		  'axisLowerLimit =  100.0-100.0 *(viewport.getViewPortTop + viewport.getViewPortHeight)
-		  'axisUpperLimit =  300.0-300.0 * viewport.getViewPortTop
-		  'System.DebugLog "view: " + str(viewport.getViewPortTop) + " - " + str(viewport.getViewPortHeight)
-		  'System.DebugLog "Y: " + str(axisUpperLimit) + " + " + str(axisLowerLimit)
+		  axisUpperLimit = graphMax_Y - deltaY  * viewport.getViewPortTop
+		  axisLowerLimit = graphMax_Y - deltaY * (viewport.getViewPortTop + viewport.getViewPortHeight)
 		  
 		  c.yAxis.setLinearScale(axisLowerLimit,axisUpperLimit)
 		  c.yAxis.setRounding(False, False)
 		  c.yAxis2.setLinearScale(axisLowerLimit,axisUpperLimit)
 		  c.yAxis2.setRounding(False, False)
 		  
+		  // Axis steps and title
+		  c.xAxis.setLabelStep(mHMIGraphClass.XAxis.StepD.GIAD)
+		  Call c.xAxis.setTitle(mHMIGraphClass.XAxis.Title.GIAS).setAlignment(CDXYChartMBS.kBottomCenter)
+		  c.yAxis.setLabelStep(mHMIGraphClass.YAxis.StepD.GIAD)
+		  Call c.yAxis.setTitle(mHMIGraphClass.YAxis.Title.GIAS).setAlignment(CDXYChartMBS.kLeft)
+		  
+		  // Populate the Graph
 		  UpdateValues
-		  If showTrackingCursor Then
-		    trackLineLegend(myCanvasMouseX,myCanvasMouseY)
-		  End If
 		  
 		  lastpicture = c.makeChartPicture
 		  
@@ -397,113 +325,8 @@ Inherits Canvas
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub setChart(chart as CDXYChartMBS)
-		  c = chart
-		  
-		  redraw
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub trackLineLegend(mouseX as integer, mousey as Integer)
-		  If c = Nil Then Return
-		  
-		  // Clear the current dynamic layer and get the DrawArea object to draw on it.
-		  dim d as CDDrawAreaMBS = c.initDynamicLayer
-		  
-		  // The plot area object
-		  dim plotArea AS CDPlotAreaMBS = c.getPlotArea
-		  
-		  
-		  // check if we are outside the plotArea
-		  if mousex<plotArea.getLeftX   then Return
-		  if mousey<plotArea.getTopY    then Return
-		  if mousex>plotArea.getRightX  then Return
-		  if mousey>plotArea.getBottomY then Return
-		  // Get the data x-value that is nearest to the mouse, and find its pixel coordinate.
-		  dim xValue as double = c.getNearestXValue(mouseX)
-		  dim xCoor as integer = c.getXCoor(xValue)
-		  
-		  'dim boxLeft as integer = c.getXCoor(xValue - .05)
-		  'dim boxRight as integer = c.getXCoor(xValue + .05)
-		  // If the box is very thin, it is an XY Point, else it is a Bargraph
-		  'System.DebugLog str(boxLeft) + " " + str(boxRight) + " " + str(boxRight - boxLeft)
-		  'If (boxRight - boxLeft) >= 20 then 
-		  'trackLineLegend(mouseX,mousey, True)
-		  'Return
-		  'End If
-		  
-		  dim pointFound as Boolean = False
-		  
-		  Dim tracklineColor As Integer
-		  If darkModeEnabled Then
-		    tracklineColor = &hFFFFFF
-		  Else
-		    tracklineColor = &h000000
-		  End If
-		  
-		  // Draw a vertical track line at the x-position
-		  d.vline(plotArea.getTopY, plotArea.getBottomY, xCoor, d.dashLineColor(tracklineColor, &h0101))
-		  
-		  dim t as CDTTFTextMBS
-		  // Iterate through all layers to draw the data labels
-		  dim u as integer = c.getLayerCount-1
-		  for i as integer = 0 to u
-		    dim layer as CDLayerMBS = c.getLayerByZ(i)
-		    
-		    // The data array index of the x-value
-		    dim xIndex as integer = layer.getXIndexOf(xValue)
-		    
-		    // Iterate through all the data sets in the layer
-		    dim uu as integer = layer.getDataSetCount-1
-		    for j as integer = 0 to uu
-		      
-		      dim dataSet as CDDataSetMBS = layer.getDataSetByZ(j)
-		      dim dataSetName as string = dataSet.getDataName
-		      
-		      // Get the color, name and position of the data label
-		      dim colorvalue as integer = dataSet.getDataColor
-		      dim yCoor as integer = c.getYCoor(dataSet.getPosition(xIndex), dataSet.getUseYAxis)
-		      
-		      // Draw a track dot with a label next to it for visible data points in the plot area
-		      if ((yCoor >= plotArea.getTopY) and (yCoor <= plotArea.getBottomY) and (colorvalue <> CDBaseChartMBS.kTransparent) and dataSetName.len>0) then
-		        pointFound = True
-		        
-		        d.hline(plotArea.getLeftX, plotArea.getRightX,yCoor, d.dashLineColor(tracklineColor, &h0101))
-		        d.circle(xCoor, yCoor, 4, 4, colorvalue, colorvalue)
-		        
-		        dim label as string
-		        dim h as string = hex(colorvalue)
-		        while h.len<6
-		          h = "0" + h
-		        wend
-		        label = "<*font,bgColor=" + h + "*> " + c.formatValue(xValue, "{value|P4}, ") + _
-		        c.formatValue(dataSet.getValue(xIndex), "{value|P4}") + " <*font*>"
-		        t = d.text(label, "arialbd.ttf", 8)
-		        
-		        // Draw the label on the right side of the dot if the mouse is on the left side the
-		        // chart, and vice versa. This ensures the label will not go outside the chart image.
-		        if (xCoor <= (plotArea.getLeftX + plotArea.getRightX) / 2) then
-		          t.draw(xCoor + 5, yCoor, &hffffff, CDBaseChartMBS.kLeft)
-		        else
-		          t.draw(xCoor - 5, yCoor, &hffffff, CDBaseChartMBS.kRight)
-		          
-		          t.destroy
-		        end if
-		      end if
-		    next
-		  next
-		  
-		  If Not pointFound Then
-		    trackLineLegend(mouseX,mousey, True)
-		  End If
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub trackLineLegend(mouseX as integer, mousey as Integer, isBarGraph as Boolean)
+		  
 		  #Pragma isBarGraph
 		  
 		  If c = Nil Then Return
@@ -650,44 +473,28 @@ Inherits Canvas
 
 	#tag Method, Flags = &h0
 		Sub UpdateValues()
-		  
-		  // This was for testing purposes
-		  'dim layer as CDLineLayerMBS = c.addLineLayer
-		  'layer.setLineWidth(2)
-		  '
-		  '// Add the data series to the line layer
-		  ''call layer.setXData(x_values)
-		  'call layer.addDataSet(dummydata0) //set color and legend name
-		  'call layer.addDataSet(dummydata1) //set color and legend name
-		  'call layer.addDataSet(dummydata2) //set color and legend name
-		  'call layer.setXData(dummydataX)
-		  
-		  // draws all included XYCurves
+		  // Draws all included XYCurves
 		  if mHMIGraphClass <> Nil Then
-		    EmptyLayers
-		    
 		    Dim LS as BasicClass = mHMIGraphClass.FirstSubStep
+		    
 		    while LS <> nil
+		      
 		      if LS IsA XYCurve_StepClass then
-		        Select Case XYCurve_StepClass(LS).GraphType.GIAI
-		        Case 0,1,2 //Line Graphs
-		          DrawChartLayer(XYCurve_StepClass(LS).canvasXPoints,XYCurve_StepClass(LS).canvasYPoints, _
-		          LS.Name.FirstValue, XYCurve_StepClass(LS).LineColor.GIAC, XYCurve_StepClass(LS).PenWidth.GIAI)
-		        Case 3,4,5
-		          If XYCurve_StepClass(LS).ValueMode.GIAI <> 3 Then
-		            'AddToBarLayer(XYCurve_StepClass(LS).canvasXPoints,_
-		            'XYCurve_StepClass(LS).canvasYPoints, XYCurve_StepClass(LS).LineColor.GIAC)
-		            AddToBarLayer(XYCurve_StepClass(LS).Title.Values,_
-		            XYCurve_StepClass(LS).canvasYPoints, XYCurve_StepClass(LS).LineColor.GIAC)
-		          End If
-		        End Select
+		        
+		        Dim xyCurve as XYCurve_StepClass = XYCurve_StepClass(LS)
+		        Call xyCurve.SetLayerMBS(Self.c)
+		        
 		      end
+		      
 		      LS = LS.NextStep
 		    wend
-		    If BarGraphNameValues.LastRowIndex <> -1 Then
-		      DrawChartBarLayer
-		    end if
+		    
 		  End
+		  
+		  If mHMIGraphClass isa Mollier_HxDiagram_StepClass Then
+		    Dim mollierGraph as Mollier_HxDiagram_StepClass = Mollier_HxDiagram_StepClass(mHMIGraphClass)
+		    mollierGraph.SetMollierAxes(c)
+		  End If
 		End Sub
 	#tag EndMethod
 
@@ -696,22 +503,6 @@ Inherits Canvas
 		Event SetKeyboardTimer(value As Integer)
 	#tag EndHook
 
-
-	#tag Property, Flags = &h0
-		BarGraphColorValues() As Color
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		BarGraphNameValues() As String
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		BarGraphXValues() As Double
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		BarGraphYValues() As Double
-	#tag EndProperty
 
 	#tag Property, Flags = &h1
 		Protected c As CDXYChartMBS
@@ -739,34 +530,6 @@ Inherits Canvas
 		#tag EndSetter
 		darkModeEnabled As Boolean
 	#tag EndComputedProperty
-
-	#tag Property, Flags = &h21
-		#tag Note
-			// For Testing purposes
-		#tag EndNote
-		Private dummyData0() As Double
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
-		#tag Note
-			// For Testing purposes
-		#tag EndNote
-		Private dummyData1() As Double
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
-		#tag Note
-			// For Testing purposes
-		#tag EndNote
-		Private dummyData2() As Double
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
-		#tag Note
-			// For Testing purposes
-		#tag EndNote
-		Private dummyDataX() As Double
-	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private ImageMapHandler As CDImageMapHandlerMBS
