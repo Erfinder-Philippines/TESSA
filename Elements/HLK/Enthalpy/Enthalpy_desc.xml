@@ -1,0 +1,20 @@
+<Enthalpy>
+	<MainDesc>This element is used to calculate Enthalpy and other values from the given (input) Temperature and Humidity</MainDesc>
+	<Name></Name>
+	<DerivedType></DerivedType>
+	<ELT></ELT>
+	<Wait></Wait>
+	<Description></Description>
+	<LastTime></LastTime>
+	<DoSubSteps></DoSubSteps>
+	<Temperature>in °C</Temperature>
+	<BaroPressure></BaroPressure>
+	<Humidity>%</Humidity>
+	<AirDensity>in cubic meter</AirDensity>
+	<DuePoint></DuePoint>
+	<Enthalpy>in kJ/kg</Enthalpy>
+	<AbsoluteHumidity>in g/kg</AbsoluteHumidity>
+	<AirFlow></AirFlow>
+	<AirMassFlow></AirMassFlow>
+	<AirFlowPower></AirFlowPower>
+</Enthalpy>
