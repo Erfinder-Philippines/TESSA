@@ -97,12 +97,6 @@ Inherits StepClass
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Step_Init()
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub Step_Init_AfterLoad()
 		  Super.Step_Init_AfterLoad
 		  Step_Init
@@ -413,14 +407,6 @@ Inherits StepClass
 			Visible=false
 			Group="Behavior"
 			InitialValue="0"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="SAMStepID"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
