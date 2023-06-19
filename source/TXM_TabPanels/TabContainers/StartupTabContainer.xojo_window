@@ -383,7 +383,7 @@ End
 	#tag Event
 		Sub DarkModeTabElements(value as Boolean)
 		  If value Then
-		    If File_Comment.Value = "Available test sequences" Then
+		    If File_Comment.Text.Contains("Available test sequences") Then
 		      File_Warning.FillColor = &c2D3137
 		      File_Comment.TextColor = Color.White
 		    End If
@@ -392,7 +392,7 @@ End
 		    Chosen_File.TextColor = &cF0F0F0
 		    self.BackgroundColor = &c2D3137
 		  Else
-		    If File_Comment.Value = "Available test sequences" Then
+		    If File_Comment.Text.Contains("Available test sequences") Then
 		      File_Warning.FillColor = &cF0F0F0
 		      File_Comment.TextColor = Color.Black
 		    End If
@@ -617,6 +617,19 @@ End
 		  'Label_ReleaseNotes.Text = Label_ReleaseNotes.Text + " v"+ mStartupTabClass.Version.GIAS
 		  'ReleaseNotes.Text = mStartupTabClass.ReleaseNotes.GIAS
 		  'end
+		  
+		  
+		  If File_List.SelectedRowIndex = -1 Then
+		    Chosen_File.Value = ""
+		    File_Comment.Text="Available test sequences" + chr(13) + "please choose one, then press load"
+		    File_Comment.TextColor = &c262626
+		    If Me.darkModeEnabled Then
+		      File_Warning.FillColor= &c2CC990
+		    Else
+		      File_Warning.FillColor = &cF0F0F0
+		    End If
+		    Return
+		  End If
 		  
 		  Dim SF as string
 		  

@@ -281,6 +281,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub SetVersionText(VersionText As String)
+		  VersionText = VersionText.Trim
 		  If VersionText <> "" Then
 		    VersionLabel.Text = VersionText
 		    VersionString = VersionText

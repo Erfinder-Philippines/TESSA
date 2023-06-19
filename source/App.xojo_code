@@ -15,6 +15,10 @@ Inherits Application
 
 	#tag Event
 		Function CancelClose() As Boolean
+		  If WorkspaceSettings = Nil Then
+		    Return False
+		  End If
+		  
 		  If not MainWindow.QuitButtonPress Then
 		    Return True
 		  End
@@ -54,7 +58,7 @@ Inherits Application
 
 	#tag Event
 		Sub Open()
-		  Dim versionStage As String = "Alpha"
+		  Dim versionStage As String = ""
 		  Me.VersionString = versionStage + " " + str(MajorVersion) + "." + str(MinorVersion) + "." + str(BugVersion) + " Build " + str(NonReleaseVersion)
 		  VersionCopyRight = "© by Tri-B-Werk, Switzerland" 
 		  SplashWindow.SetVersionText("Version " + Me.VersionString) '+ chr(13) + Me.VersionCopyRight)
