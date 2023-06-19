@@ -31,7 +31,7 @@ TESSA is a powerful tool that can help users to save time, improve the efficienc
 
 ## Documentations
 - [**Folder Structure**](https://github.com/Erfinder-Philippines/TESSA/blob/master/Doc/FolderStructure.pdf)
-- [**Formula Element**](https://github.com/Erfinder-Philippines/TESSA/blob/master/Doc/TESSA/FormulaElement-documentation.pdf)
+- [**Formula Element**](https://github.com/Erfinder-Philippines/TESSA/blob/master/Doc/FormulaElement-documentation.pdf)
 
 ## Requirement
  Some functions in TESSA require you to have Monkeybread Software's Xojo plugins, specifically version 210, you can download it through their website.
