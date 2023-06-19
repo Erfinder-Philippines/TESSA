@@ -15,6 +15,10 @@ Inherits Application
 
 	#tag Event
 		Function CancelClose() As Boolean
+		  If WorkspaceSettings = Nil Then
+		    Return False
+		  End If
+		  
 		  If not MainWindow.QuitButtonPress Then
 		    Return True
 		  End
