@@ -11,6 +11,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
    EraseBackground =   True
    HasBackgroundColor=   True
    Height          =   584
+   Index           =   -2147483648
    InitialParent   =   ""
    Left            =   0
    LockBottom      =   False
@@ -25,94 +26,6 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
    Transparent     =   True
    Visible         =   True
    Width           =   1078
-   Begin TextField FilterEdit
-      AllowAutoDeactivate=   True
-      AllowFocusRing  =   True
-      AllowSpellChecking=   False
-      AllowTabs       =   False
-      BackgroundColor =   &cFFFFFF00
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Format          =   ""
-      HasBorder       =   True
-      Height          =   22
-      Hint            =   "Search for an Element"
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   7
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      MaximumCharactersAllowed=   0
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   12
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   0
-      TextColor       =   &c00000000
-      Tooltip         =   "Search for an Element"
-      Top             =   42
-      Transparent     =   False
-      Underline       =   False
-      ValidationMask  =   ""
-      Visible         =   True
-      Width           =   309
-      Begin BevelButton ClearFilterButton
-         AllowAutoDeactivate=   True
-         AllowFocus      =   True
-         BackgroundColor =   &c00000000
-         BevelStyle      =   5
-         Bold            =   False
-         ButtonStyle     =   0
-         Caption         =   "X"
-         CaptionAlignment=   3
-         CaptionDelta    =   0
-         CaptionPosition =   1
-         Enabled         =   True
-         FontName        =   "Consolas"
-         FontSize        =   0.0
-         FontUnit        =   0
-         HasBackgroundColor=   False
-         Height          =   20
-         Icon            =   0
-         IconAlignment   =   0
-         IconDeltaX      =   0
-         IconDeltaY      =   0
-         Index           =   -2147483648
-         InitialParent   =   "FilterEdit"
-         Italic          =   False
-         Left            =   296
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
-         LockTop         =   True
-         MenuStyle       =   0
-         Scope           =   0
-         TabIndex        =   0
-         TabPanelIndex   =   0
-         TabStop         =   True
-         TextColor       =   &c00000000
-         Tooltip         =   ""
-         Top             =   43
-         Transparent     =   True
-         Underline       =   False
-         Value           =   False
-         Visible         =   False
-         Width           =   20
-      End
-   End
    Begin Label HelpLabel
       AllowAutoDeactivate=   True
       Bold            =   True
@@ -126,7 +39,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   675
+      Left            =   664
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -142,7 +55,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       TextAlignment   =   2
       TextColor       =   &c4C4C4C00
       Tooltip         =   ""
-      Top             =   418
+      Top             =   452
       Transparent     =   False
       Underline       =   False
       Visible         =   False
@@ -170,7 +83,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   963
+      Left            =   952
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -182,7 +95,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   316
+      Top             =   350
       Transparent     =   False
       Underline       =   False
       Visible         =   False
@@ -202,7 +115,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       InitialParent   =   ""
       InitialValue    =   "Copy ..\n.. all texts\n.. all not empty texts\n.. Icon\n.. selected item"
       Italic          =   False
-      Left            =   869
+      Left            =   858
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -214,7 +127,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   320
+      Top             =   354
       Transparent     =   False
       Underline       =   False
       Visible         =   False
@@ -250,12 +163,12 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
       HeadingIndex    =   -1
-      Height          =   500
+      Height          =   458
       Index           =   -2147483648
       InitialParent   =   ""
       InitialValue    =   "Attribute	Description"
       Italic          =   False
-      Left            =   336
+      Left            =   326
       ListboxType     =   1
       LockBottom      =   True
       LockedInPosition=   False
@@ -269,11 +182,11 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   "Select an Attribute to modify its description"
-      Top             =   33
+      Top             =   67
       Transparent     =   False
       Underline       =   False
       Visible         =   False
-      Width           =   295
+      Width           =   314
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
@@ -300,7 +213,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   662
+      Left            =   671
       LineHeight      =   0.0
       LineSpacing     =   1.0
       LockBottom      =   True
@@ -319,13 +232,13 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   33
+      Top             =   67
       Transparent     =   False
       Underline       =   False
       UnicodeMode     =   0
       ValidationMask  =   ""
       Visible         =   False
-      Width           =   407
+      Width           =   387
    End
    Begin TextField ElementPath
       AllowAutoDeactivate=   True
@@ -413,7 +326,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   434
+      Top             =   420
       Transparent     =   False
       Underline       =   False
       UnicodeMode     =   0
@@ -450,7 +363,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       TextAlignment   =   0
       TextColor       =   &c4C4C4C00
       Tooltip         =   ""
-      Top             =   409
+      Top             =   395
       Transparent     =   True
       Underline       =   False
       Visible         =   True
@@ -485,7 +398,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       TextAlignment   =   0
       TextColor       =   &c4C4C4C00
       Tooltip         =   ""
-      Top             =   367
+      Top             =   353
       Transparent     =   True
       Underline       =   False
       Visible         =   True
@@ -526,7 +439,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       InitialParent   =   ""
       InitialValue    =   "Name"
       Italic          =   False
-      Left            =   9
+      Left            =   7
       ListboxType     =   5
       LockBottom      =   True
       LockedInPosition=   False
@@ -540,7 +453,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   "Drag an Element into the Hierarchical Test List to add it"
-      Top             =   76
+      Top             =   67
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -559,7 +472,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       Height          =   64
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   248
+      Left            =   245
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -570,7 +483,7 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   358
+      Top             =   352
       Transparent     =   True
       Visible         =   True
       Width           =   66
@@ -610,40 +523,34 @@ Begin GraphicalTabContainer ElementsTabContainer Implements TabInterface
       Visible         =   True
       Width           =   371
    End
-   Begin CustomTextField CustomTextField1
+   Begin SearchField FilterEdit
       AllowAutoDeactivate=   True
-      AllowFocus      =   True
-      AllowFocusRing  =   False
-      AllowTabs       =   True
-      Backdrop        =   0
-      BackgroundColor =   &cFFFFFF00
-      darkModeEnabled =   False
-      DoubleBuffer    =   False
-      Enabled         =   False
-      EraseBackground =   True
-      FontSize        =   20.0
-      HasBackgroundColor=   False
-      Height          =   40
-      Icon            =   739188735
+      AllowFocusRing  =   True
+      AllowRecentItems=   True
+      ClearMenuItemValue=   ""
+      Enabled         =   True
+      Height          =   22
+      Hint            =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   0
+      Left            =   7
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      Scope           =   0
+      MaximumRecentItems=   5
+      RecentItemsValue=   ""
+      Scope           =   2
       TabIndex        =   16
       TabPanelIndex   =   0
       TabStop         =   True
-      TextHint        =   "Search for an Element"
-      TextValue       =   ""
+      Text            =   ""
       Tooltip         =   ""
-      Top             =   -82
-      Transparent     =   True
-      Visible         =   False
-      Width           =   306
+      Top             =   33
+      Transparent     =   False
+      Visible         =   True
+      Width           =   304
    End
 End
 #tag EndWindow
@@ -763,6 +670,18 @@ End
 		    g.ForeColor = &c2589FF
 		    g.FillRectangle(x,y,w,h)
 		  End If
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub Resized()
+		  ShowInspector(HelpAttrList.Visible)
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub Resizing()
+		  ShowInspector(HelpAttrList.Visible)
 		End Sub
 	#tag EndEvent
 
@@ -935,7 +854,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub FIlterChanged()
+		Private Sub FilterChanged()
 		  FilterEditTimer.Reset
 		  FilterEditTimer.Mode = Timer.ModeSingle
 		End Sub
@@ -1000,15 +919,14 @@ End
 
 	#tag Method, Flags = &h0
 		Sub ShowHelpEditor(value as Boolean)
-		  If value <> HelpText.Visible Then
-		    HelpText.Visible = value
-		    CopyToClipboard.Visible = value
-		    SaveButton.Visible = value
-		    If value Then
-		      HelpLabel.Visible = False
-		    End If
-		    Invalidate(False)
+		  HelpText.Visible = value
+		  CopyToClipboard.Visible = value
+		  SaveButton.Visible = value
+		  If value Then
+		    HelpLabel.Visible = False
 		  End If
+		  Invalidate(False)
+		  
 		End Sub
 	#tag EndMethod
 
@@ -1172,36 +1090,10 @@ End
 
 #tag EndWindowCode
 
-#tag Events FilterEdit
-	#tag Event
-		Function KeyDown(Key As String) As Boolean
-		  self.FIlterChanged
-		End Function
-	#tag EndEvent
-	#tag Event
-		Sub TextChange()
-		  self.FIlterChanged
-		  
-		  ClearFilterButton.Visible = me.text <> ""
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events ClearFilterButton
-	#tag Event
-		Sub Action()
-		  FilterEdit.text = ""
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Open()
-		  me.Parent = nil
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events FilterEditTimer
 	#tag Event
 		Sub Action()
-		  Dim filter as String = FilterEdit.Value 'CustomTextField1.TextValue
+		  Dim filter as String = FilterEdit.Text
 		  
 		  self.RebuildElementsListbox filter
 		End Sub
@@ -1254,6 +1146,13 @@ End
 		Sub CellLostFocus(row as Integer, column as Integer)
 		  #Pragma Unused column
 		  HelpAttrList.Cell(row, 1) = HelpText.Text
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Change()
+		  If me.SelectedRowIndex = -1 Then
+		    ShowHelpEditor(False)
+		  End If
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1424,15 +1323,15 @@ End
 		End Function
 	#tag EndEvent
 #tag EndEvents
-#tag Events CustomTextField1
+#tag Events FilterEdit
 	#tag Event
-		Sub IconAction()
-		  Me.TextValue = ""
+		Sub TextChanged()
+		  self.FilterChanged
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub TextChanged()
-		  self.FIlterChanged
+		Sub Pressed()
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
