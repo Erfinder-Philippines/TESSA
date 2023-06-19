@@ -155,7 +155,6 @@ Begin Window WorkspaceWindow
       Width           =   80
    End
    Begin Timer AnimationTimer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Period          =   10
@@ -393,9 +392,10 @@ End
 
 	#tag Method, Flags = &h0
 		Sub SetVersionText(VersionText As String)
+		  VersionText = VersionText.Trim
 		  If VersionText <> "" Then
 		    VersionLabel.Text = "Version: " + VersionText
-		    VersionString = VersionText
+		    VersionString = "Version: " + VersionText
 		    Refresh
 		  End
 		End Sub
