@@ -1,19 +1,1 @@
-<TESSA_Config Name="Resources" Version="1" ComLog%S="Buffersize 1000 500" User%S="user_1" Remote%S="on" >
-	<StartupTab Name="BasicClass_1" TabName="Startup" />
-	<TableTab Name="TableTab" TabName="Tables" State%S="TRUE" Position%S="1" />
-	<GraphTab Name="GraphTab" TabName="Graphs" State%S="TRUE" Position%S="2" />
-	<EEPROMTab Name="EEPROMTab" TabName="EEPROM" State%S="TRUE" Position%S="3" />
-	<SourceTab Name="SourceTab" TabName="Source" State%S="TRUE" Position%S="4" />
-	<ReportTab Name="ReportTab" TabName="Reports" State%S="TRUE" Position%S="5" />
-	<LogTab Name="LogTab" TabName="Log" State%S="TRUE" Position%S="6" />
-	<CamTab Name="CamTab" TabName="Cam Test" State%S="TRUE" Position%S="7" />
-	<COMTab Name="COMTab" TabName="COM Test" State%S="TRUE" Position%S="8" />
-	<EthernetComTab Name="EthernetCOMTab" TabName="EthernetCOM" State%S="TRUE" Position%S="10" />
-	<ElementsTab Name="ElementsTab" TabName="Elements" State%S="TRUE" Position%S="12" />
-	<HelpTab Name="HelpTab" TabName="?" State%S="TRUE" Position%S="13" />
-	<AttributesTab Name="BasicClass_2" TabName="Attributes" />
-	<SchematicTab Name="BasicClass_3" TabName="Schematic" />
-	<Network Name="Local_Test_Network" ComLog="Buffersize 1000 500" NetworkCardID="1" IP_Address="192.168.1.200" Subnet_Mask="255.255.255.0" />
-	<PIIOXTab Name="BasicClass" TabName="PIIOX" />
-	<Cam_Resource Name="Cam_Resource" ComLog="Buffersize 1000 500" FrameCoordinates="0 0 0 640 480" />
-</TESSA_Config>
+<TESSA_Config Name="Resources" Version="1" ComLog%S="Buffersize 1000 500" User%S="user_1" Remote%S="on" >	<StartupTab Name="BasicClass_1" TabName="Startup" Default="Sample_Testsequence" />	<TableTab Name="TableTab" TabName="Tables" State%S="TRUE" Position%S="1" />	<GraphTab Name="GraphTab" TabName="Graphs" State%S="TRUE" Position%S="2" />	<EEPROMTab Name="EEPROMTab" TabName="EEPROM" State%S="TRUE" Position%S="3" />	<SourceTab Name="SourceTab" TabName="Source" State%S="TRUE" Position%S="4" />	<ReportTab Name="ReportTab" TabName="Reports" State%S="TRUE" Position%S="5" />	<LogTab Name="LogTab" TabName="Log" State%S="TRUE" Position%S="6" />	<CamTab Name="CamTab" TabName="Cam Test" State%S="TRUE" Position%S="7" />	<COMTab Name="COMTab" TabName="COM Test" State%S="TRUE" Position%S="8" />	<EthernetComTab Name="EthernetCOMTab" TabName="EthernetCOM" State%S="TRUE" Position%S="10" />	<ElementsTab Name="ElementsTab" TabName="Elements" State%S="TRUE" Position%S="12" />	<HelpTab Name="HelpTab" TabName="?" State%S="TRUE" Position%S="13" />	<AttributesTab Name="BasicClass_2" TabName="Attributes" />	<SchematicTab Name="BasicClass_3" TabName="Schematic" />	<Network Name="Local_Test_Network" ComLog="Buffersize 1000 500" NetworkCardID="1" IP_Address="192.168.1.200" Subnet_Mask="255.255.255.0" />	<Cam_Resource Name="Cam_Resource" CheckAfterStart="on" ComLog="Buffersize 1000 500" VideoDeviceName="Integrated Camera" VideoInputName="Integrated Camera" AutomaticCorection="off" HorizontalMirroring="off" VerticalMirroring="off" Rotate="off" FrameCoordinates="0 0 0 640 480" />	<PIIOXTab Name="BasicClass" TabName="PIIOX" /></TESSA_Config>
