@@ -4,9 +4,6 @@ TESSA_Config/SYNCPrefs.xml
 TESSA_Prefs.xml
 TESSA_Config.xml
 WorkFolderPrefs.xml
-*.obsolete*
-*.xojo_uistate
-*.debug.app/
 
 /• My TessaData/
 src/DebugTexts
@@ -17,7 +14,6 @@ TESSA.debug
 TESSA_Prefs Kopie.xml
 Elements
 DebugTexts
-Testsequences
 
 Builds*
 *.debug
