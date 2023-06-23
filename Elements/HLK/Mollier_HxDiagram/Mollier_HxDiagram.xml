@@ -1,1 +1,3 @@
-<Mollier_HxDiagram Name="Mollier_HxDiagram"  />
+<Mollier_HxDiagram Name="Mollier_HxDiagram" > 
+<Graph_XYCurve Name="XYCurve" XValues="5" YValues="20" GraphType="Line&Points" PointType="circle" ValueMode="AllValues" />
+</Mollier_HxDiagram>

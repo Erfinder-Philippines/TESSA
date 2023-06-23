@@ -210,7 +210,7 @@ Inherits Graph_StepClass
 		  Self.Chart = c
 		  
 		  call c.addTitle(Self.Title.GIAS, "bold", 18)
-		  Call c.setPlotArea(60, 30, width - 120, height - 100).setGridColor(&hcccccc, &hffffff)
+		  Call c.setPlotArea(60, 30, width - 120, height - 100).setGridColor(&hcccccc, &hcccccc)
 		  Call c.setClipping
 		  
 		  c.xAxis.setWidth(2)
