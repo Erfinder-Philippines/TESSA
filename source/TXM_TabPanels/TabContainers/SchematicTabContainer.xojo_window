@@ -171,32 +171,54 @@ End
 		    dim pic as Picture
 		    Do
 		      If Not elementExists(bc.GetUniqueID) Then
-		        pic = ElementTypeFactory.instance.GetBasicStepBigIcon(bc)
-		        x = bc.ELT.X
-		        y = bc.ELT.Y
-		        width = bc.ELT.Width
-		        height = bc.ELT.Height
-		        //(element name, elementnum, attributes, parentTestStep, ID, icon)
-		        dim ec as new ElementContainer(bc.Name.FirstValue, eNumber, getAttributeList(bc),_
-		        bc.UpperStep.GetUniqueID, bc.GetUniqueID, pic)
-		        ec.Visible = False
-		        ec.EmbedWithin(SchemCanvas, x, y)
-		        If (width >= ec.minWidth and width <= ec.maxWidth) And _
-		          (height >= ec.minHeight and height <= ec.maxHeight) Then
-		          ec.Width = width
-		          ec.Height = height
-		        Else
-		          resetElementContainerSize(bc,width,height,ec)
-		        End If
-		        ec.Parent = SchemCanvas
-		        SchemCanvas.Container.Append(ec)
-		        eNumber = eNumber + 1
+		        drawElements(bc, eNumber, bc.UpperStep.GetUniqueID)
 		      End If
+		      
+		      If Not (bc isa TESSA_Prog_StepClass or bc isa Test_StepClass) Then
+		        // For direct child elements. E.g. XY_Curve under Graph
+		        If bc.FirstSubStep <> Nil Then
+		          Dim childBs as BasicClass = bc.FirstSubStep
+		          While childBs <> Nil
+		            drawElements(childBs, eNumber, bc.UpperStep.GetUniqueID)
+		            childBs = childBs.NextStep
+		          Wend
+		          
+		        End If
+		      End If
+		      
 		      bc = bc.NextStep
 		    Loop Until bc = Nil
 		  End If
 		  
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub drawElements(bc as BasicClass, ByRef elementNum as Integer, parentID as String)
+		  Dim eNumber,x,y,width,height As Integer
+		  dim pic as Picture
+		  
+		  pic = ElementTypeFactory.instance.GetBasicStepBigIcon(bc)
+		  x = bc.ELT.X
+		  y = bc.ELT.Y
+		  width = bc.ELT.Width
+		  height = bc.ELT.Height
+		  //(element name, elementnum, attributes, parentTestStep, ID, icon)
+		  dim ec as new ElementContainer(bc.Name.GIAS, elementNum, getAttributeList(bc),_
+		  parentID, bc.GetUniqueID, pic)
+		  ec.Visible = False
+		  ec.EmbedWithin(SchemCanvas, x, y)
+		  If (width >= ec.minWidth and width <= ec.maxWidth) And _
+		    (height >= ec.minHeight and height <= ec.maxHeight) Then
+		    ec.Width = width
+		    ec.Height = height
+		  Else
+		    resetElementContainerSize(bc,width,height,ec)
+		  End If
+		  ec.Parent = SchemCanvas
+		  SchemCanvas.Container.Append(ec)
+		  elementNum  = elementNum  + 1
 		End Sub
 	#tag EndMethod
 
@@ -301,7 +323,7 @@ End
 		    bc = stack.Pop
 		    
 		    If bc IsA Test_StepClass Then
-		      SchemCanvasContainer.testStepNames.Append(bc.Name.FirstValue)
+		      SchemCanvasContainer.testStepNames.Append(bc.Name.GIAS)
 		      SchemCanvasContainer.testStepIDs.Append(bc.GetUniqueID)
 		    End If
 		    drawElements(bc)
@@ -325,7 +347,7 @@ End
 		    
 		    bc = stack.Pop
 		    
-		    If bc IsA Test_StepClass Then
+		    If bc IsA Test_StepClass or bc.FirstSubStep <> Nil Then
 		      drawLinks(bc)
 		    End If
 		    
@@ -404,7 +426,7 @@ End
 		    If SchemCanvas.canvasPage = BS.GetUniqueID then return
 		    //Display the selected TestStep in the Canvas
 		    initCanvasTestSteps
-		    CurrentTestStep.Text = BS.Name.FirstValue
+		    CurrentTestStep.Text = BS.Name.GIAS
 		    SchemCanvas.canvasPage = BS.GetUniqueID
 		    SchemCanvasContainer.pageIndex = SchemCanvasContainer.testStepIDs.IndexOf(BS.GetUniqueID)
 		    SchemCanvasContainer.hidePageElements
@@ -416,7 +438,7 @@ End
 		        'If SchemCanvas.canvasPage = BS.UpperStep.GetUniqueID then return
 		        //Display the selected Element's TestStep in the Canvas
 		        initCanvasTestSteps
-		        CurrentTestStep.Text = BS.UpperStep.Name.FirstValue
+		        CurrentTestStep.Text = BS.UpperStep.Name.GIAS
 		        SchemCanvas.canvasPage = BS.UpperStep.GetUniqueID
 		        SchemCanvasContainer.pageIndex = SchemCanvasContainer.testStepIDs.IndexOf(BS.UpperStep.GetUniqueID)
 		        SchemCanvasContainer.hidePageElements
