@@ -135,8 +135,21 @@ End
 		  Width = W + Offset + mTextEditStep.Measure.GIAS.Len * mTextEditStep.TextSize.GIAI + 2 * HMI_StepClass.cCanvasMargin
 		  Height = H + 2 * HMI_StepClass.cCanvasMargin
 		  
+		  Dim txtFieldTop as Integer = HMI_StepClass.cCanvasMargin
+		  If mTextEditStep <> Nil Then
+		    Select case mTextEditStep.TitlePlacement.GIAI
+		    Case 0 // default
+		      
+		    Case 1,2 // top, none
+		      txtFieldTop = txtFieldTop + 20
+		      W = W + Offset - 2 * HMI_StepClass.cCanvasMargin
+		      Offset = HMI_StepClass.cCanvasMargin
+		      H = H - 20
+		    End Select
+		  End If
+		  
 		  HMI_TextEdit.Left = Offset
-		  HMI_TextEdit.Top = HMI_StepClass.cCanvasMargin
+		  HMI_TextEdit.Top = txtFieldTop
 		  HMI_TextEdit.Height = H
 		  HMI_TextEdit.Width = W
 		  if TargetWin32 Then
