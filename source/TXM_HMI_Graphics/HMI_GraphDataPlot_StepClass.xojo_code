@@ -48,12 +48,6 @@ Inherits HMI_StepClass
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Step_Init()
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub Step_Init_AfterLoad()
 		  Me.Step_Init
 		End Sub
@@ -247,14 +241,6 @@ Inherits HMI_StepClass
 			Visible=false
 			Group="Behavior"
 			InitialValue="0"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="SAMStepID"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
