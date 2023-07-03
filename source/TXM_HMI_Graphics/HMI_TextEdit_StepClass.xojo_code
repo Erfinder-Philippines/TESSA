@@ -12,6 +12,7 @@ Inherits HMI_StepClass
 		  AutoFill = IAE("AutoFill", "0 none date time date&time user computer",false)
 		  DateFormat = IAE("DateFormat","0 YYYY.MM.DD YY.MM.DD DD.MM.YYYY DD.MM.YY",false)
 		  DateSeparator = IAS("DateSeparator",".",false)
+		  TitlePlacement = IAE("TitlePlacement", "0 default top none",false)
 		  TimeFormat = IAE("TimeFormat","0 hh:mm:ss hh:mm",false)
 		  TimeSeparator = IAS("TimeSeparator",":",false)
 		  
@@ -39,15 +40,19 @@ Inherits HMI_StepClass
 		Sub Paint(g as Graphics, mode As Integer)
 		  // title and measure
 		  Super.Paint(g, mode)
-		  DrawString(g, Title.GIAS, 5, 18)
-		  DrawString(g, Measure.GIAS, Coordinates.Width + Coordinates.Offset + 2, 18)
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Step_Init()
 		  
+		  Dim y as Integer = 18
+		  Select case TitlePlacement.GIAI
+		  Case 0 // default 
+		    DrawString(g, Title.GIAS, 5, y)
+		  Case 1 // top
+		    DrawString(g, Title.GIAS, 5, y)
+		    y = y + 20
+		  Case 2 // none
+		    y = y + 20
+		  End Select
 		  
+		  DrawString(g, Measure.GIAS, Coordinates.Width + Coordinates.Offset + 2, y)
 		End Sub
 	#tag EndMethod
 
@@ -141,6 +146,10 @@ Inherits HMI_StepClass
 
 	#tag Property, Flags = &h0
 		TimeSeparator As String_AttributeClass = nil
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		TitlePlacement As Enum_AttributeClass
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -306,14 +315,6 @@ Inherits HMI_StepClass
 			Visible=false
 			Group="Behavior"
 			InitialValue="0"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="SAMStepID"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty

@@ -95,38 +95,6 @@ Begin GraphicalTabContainer SchematicTabContainer Implements TabInterface
       Visible         =   True
       Width           =   142
    End
-   Begin PushButton PushButton1
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Cancel          =   False
-      Caption         =   "TreeElements"
-      Default         =   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   22
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   708
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      MacButtonStyle  =   0
-      Scope           =   0
-      TabIndex        =   8
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   5
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   False
-      Width           =   107
-   End
    Begin SchematicCanvasContainer SchemCanvasContainer
       AllowAutoDeactivate=   True
       AllowFocus      =   False
@@ -203,27 +171,21 @@ End
 		    dim pic as Picture
 		    Do
 		      If Not elementExists(bc.GetUniqueID) Then
-		        pic = ElementTypeFactory.instance.GetBasicStepBigIcon(bc)
-		        x = bc.ELT.X
-		        y = bc.ELT.Y
-		        width = bc.ELT.Width
-		        height = bc.ELT.Height
-		        //(element name, elementnum, attributes, parentTestStep, ID, icon)
-		        dim ec as new ElementContainer(bc.Name.FirstValue, eNumber, getAttributeList(bc),_
-		        bc.UpperStep.GetUniqueID, bc.GetUniqueID, pic)
-		        ec.Visible = False
-		        ec.EmbedWithin(SchemCanvas, x, y)
-		        If (width >= ec.minWidth and width <= ec.maxWidth) And _
-		          (height >= ec.minHeight and height <= ec.maxHeight) Then
-		          ec.Width = width
-		          ec.Height = height
-		        Else
-		          resetElementContainerSize(bc,width,height,ec)
-		        End If
-		        ec.Parent = SchemCanvas
-		        SchemCanvas.Container.Append(ec)
-		        eNumber = eNumber + 1
+		        drawElements(bc, eNumber, bc.UpperStep.GetUniqueID)
 		      End If
+		      
+		      If Not (bc isa TESSA_Prog_StepClass or bc isa Test_StepClass) Then
+		        // For direct child elements. E.g. XY_Curve under Graph
+		        If bc.FirstSubStep <> Nil Then
+		          Dim childBs as BasicClass = bc.FirstSubStep
+		          While childBs <> Nil
+		            drawElements(childBs, eNumber, bc.UpperStep.GetUniqueID)
+		            childBs = childBs.NextStep
+		          Wend
+		          
+		        End If
+		      End If
+		      
 		      bc = bc.NextStep
 		    Loop Until bc = Nil
 		  End If
@@ -233,8 +195,35 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub drawElements(bc as BasicClass, ByRef elementNum as Integer, parentID as String)
+		  Dim eNumber,x,y,width,height As Integer
+		  dim pic as Picture
+		  
+		  pic = ElementTypeFactory.instance.GetBasicStepBigIcon(bc)
+		  x = bc.ELT.X
+		  y = bc.ELT.Y
+		  width = bc.ELT.Width
+		  height = bc.ELT.Height
+		  //(element name, elementnum, attributes, parentTestStep, ID, icon)
+		  dim ec as new ElementContainer(bc.Name.GIAS, elementNum, getAttributeList(bc),_
+		  parentID, bc.GetUniqueID, pic)
+		  ec.Visible = False
+		  ec.EmbedWithin(SchemCanvas, x, y)
+		  If (width >= ec.minWidth and width <= ec.maxWidth) And _
+		    (height >= ec.minHeight and height <= ec.maxHeight) Then
+		    ec.Width = width
+		    ec.Height = height
+		  Else
+		    resetElementContainerSize(bc,width,height,ec)
+		  End If
+		  ec.Parent = SchemCanvas
+		  SchemCanvas.Container.Append(ec)
+		  elementNum  = elementNum  + 1
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub drawLinks(bc as BasicClass)
-		  'System.DebugLog "LINKS: " + bc.Name.FirstValue
 		  If (bc<>Nil) And (bc.FirstSubStep<>Nil) Then
 		    bc = bc.FirstSubStep
 		    Do
@@ -285,7 +274,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub ExitTab()
-		  'refreshTimer.RunMode = Timer.RunModes.Off
+		  
 		End Sub
 	#tag EndMethod
 
@@ -308,7 +297,6 @@ End
 		    dim s as string = ""
 		    s = s + bc.GetAttribute(i).Name + ": " + bc.GetAttribute(i).GOAS
 		    arr.Append(s)
-		    'System.DebugLog s
 		  Next
 		  Return arr
 		End Function
@@ -318,201 +306,87 @@ End
 		Sub initCanvasTestSteps()
 		  resetCanvasPages
 		  SchemCanvas.outStepContainer = OutgoingStep
-		  If App.GlobalTestSequence <> Nil and App.GlobalTestSequence.FirstSubStep <> Nil then
-		    dim testProg as BasicClass = App.GlobalTestSequence //Testprogram
-		    If testProg.FirstSubStep <> Nil Then
-		      Dim bc As BasicClass = testProg.FirstSubStep
-		      Dim depth As Integer = 0
-		      While bc <> Nil
-		        //Methods here
-		        'System.DebugLog bc.Name.FirstValue + " " + bc.GetUniqueID
-		        If bc IsA Test_StepClass Then
-		          SchemCanvasContainer.testStepNames.Append(bc.Name.FirstValue)
-		          SchemCanvasContainer.testStepIDs.Append(bc.GetUniqueID)
-		        End If
-		        drawElements(bc)
-		        
-		        //Iteration traversing through Tree instead of recursion
-		        If bc isA Test_StepClass or bc isA TESSA_Prog_StepClass Then
-		          If bc.FirstSubStep <> Nil Then
-		            bc = bc.FirstSubStep
-		            depth = depth + 1
-		            continue
-		          End If
-		        End If
-		        
-		        If bc.NextStep <> nil Then
-		          bc = bc.NextStep
-		        Else
-		          If bc.UpperStep <> Nil and depth > 0 Then
-		            If bc.UpperStep.NextStep <> nil then
-		              depth = depth - 1
-		              bc = bc.UpperStep.NextStep
-		            ElseIf depth > 0 Then
-		              While bc.NextStep = nil
-		                depth = depth - 1
-		                bc = bc.UpperStep
-		                If depth < 0 then
-		                  EXIT
-		                End If
-		              Wend
-		              bc = bc.NextStep
-		            Else
-		              EXIT
-		            End If
-		          Else
-		            EXIT
-		          End If
-		        End If
-		      Wend
-		      
-		      bc = testProg.FirstSubStep
-		      depth = 0
-		      //a separate loop for drawing links, since you cannot draw links
-		      //until the all the ElementContainers have been embedded into the Canvas
-		      While bc <> Nil
-		        //Methods here
-		        'System.DebugLog bc.Name.FirstValue + " " + bc.GetUniqueID
-		        If bc IsA Test_StepClass Then
-		          drawLinks(bc)
-		        End If
-		        
-		        //Iteration traversing through Tree instead of recursion
-		        If bc isA Test_StepClass or bc isA TESSA_Prog_StepClass Then
-		          If bc.FirstSubStep <> Nil Then
-		            bc = bc.FirstSubStep
-		            depth = depth + 1
-		            continue
-		          End If
-		        End If
-		        
-		        If bc.NextStep <> nil Then
-		          bc = bc.NextStep
-		        Else
-		          If bc.UpperStep <> Nil and depth > 0 Then
-		            If bc.UpperStep.NextStep <> nil then
-		              depth = depth - 1
-		              bc = bc.UpperStep.NextStep
-		            ElseIf depth > 0 Then
-		              While bc.NextStep = nil
-		                depth = depth - 1
-		                bc = bc.UpperStep
-		                If depth < 0 Then
-		                  Exit
-		                End If
-		              Wend
-		              bc = bc.NextStep
-		            Else
-		              EXIT
-		            End If
-		          Else
-		            EXIT
-		          End If
-		        End If
-		      Wend
-		      
-		      OutgoingStep.loadSteps(SchemCanvasContainer.testStepIDs)
-		      //Display first TestStep
-		      CurrentTestStep.Text = SchemCanvasContainer.testStepNames(0)
-		      SchemCanvas.canvasPage = SchemCanvasContainer.testStepIDs(0)
-		      SchemCanvasContainer.pageIndex = 0
-		      SchemCanvas.darkModeEC(SchemCanvas.darkModeEnabled)
-		      'hidePageElements
-		      'showPageElements
-		      'NextBtn.Enabled = True
-		      'PrevBtn.Enabled = True
-		    End If
+		  Dim stack() as BasicClass
+		  
+		  If App.GlobalTestSequence = Nil Or App.GlobalTestSequence.FirstSubStep = Nil then
+		    Return
 		  End If
 		  
+		  Dim testProg as BasicClass = App.GlobalTestSequence //Testprogram
 		  
-		  'dim depth as Integer = 0
-		  'While bc <> nil
-		  '//Methods here
-		  ''System.DebugLog bc.Name.FirstValue + " " + bc.GetUniqueID
-		  '
-		  '
-		  '//Iteration traversing through Tree instead of recursion
-		  'If bc isA Test_StepClass or bc isA TESSA_Prog_StepClass Then
-		  'If bc.FirstSubStep <> Nil Then
-		  'bc = bc.FirstSubStep
-		  'depth = depth + 1
-		  'continue
-		  'End If
-		  'End If
-		  '
-		  'If bc.NextStep <> nil Then
-		  'bc = bc.NextStep
-		  'Else
-		  'If bc.UpperStep <> Nil and depth > 0 Then
-		  'If bc.UpperStep.NextStep <> nil then
-		  'depth = depth - 1
-		  'bc = bc.UpperStep.NextStep
-		  'ElseIf depth > 0 Then
-		  'While bc.NextStep = nil
-		  'depth = depth - 1
-		  'bc = bc.UpperStep
-		  'If depth < 0 then
-		  'EXIT
-		  'End If
-		  'Wend
-		  'bc = bc.NextStep
-		  'Else
-		  'EXIT
-		  'End If
-		  'Else
-		  'EXIT
-		  'End If
-		  'End If
-		  'Wend
+		  Dim bc As BasicClass = testProg.FirstSubStep
+		  stack.Add(bc)
+		  
+		  //Iteration traversing through Tree instead of recursion
+		  While (stack.Count > 0)
+		    
+		    bc = stack.Pop
+		    
+		    If bc IsA Test_StepClass Then
+		      SchemCanvasContainer.testStepNames.Append(bc.Name.GIAS)
+		      SchemCanvasContainer.testStepIDs.Append(bc.GetUniqueID)
+		    End If
+		    drawElements(bc)
+		    
+		    if bc.NextStep <> Nil then
+		      stack.Add(bc.NextStep)
+		    end if
+		    if bc.FirstSubStep <> Nil then
+		      stack.Add(bc.FirstSubStep)
+		    end if
+		  Wend
+		  
+		  //a separate loop for drawing links, since you cannot draw links
+		  //until the all the ElementContainers have been embedded into the Canvas
+		  
+		  bc = testProg.FirstSubStep
+		  stack.RemoveAll
+		  stack.Add(bc)
+		  
+		  While (stack.Count > 0)
+		    
+		    bc = stack.Pop
+		    
+		    If bc IsA Test_StepClass or bc.FirstSubStep <> Nil Then
+		      drawLinks(bc)
+		    End If
+		    
+		    if bc.NextStep <> Nil then
+		      stack.Add(bc.NextStep)
+		    end if
+		    if bc.FirstSubStep <> Nil then
+		      stack.Add(bc.FirstSubStep)
+		    end if
+		  Wend
+		  
+		  OutgoingStep.loadSteps(SchemCanvasContainer.testStepIDs)
+		  //Display first TestStep
+		  CurrentTestStep.Text = SchemCanvasContainer.testStepNames(0)
+		  SchemCanvas.canvasPage = SchemCanvasContainer.testStepIDs(0)
+		  SchemCanvasContainer.pageIndex = 0
+		  SchemCanvas.darkModeEC(SchemCanvas.darkModeEnabled)
+		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub ListElements()
-		  'dim bc as BasicClass = startBC
-		  
-		  'dim depth as Integer = 0
-		  'dim lastDepth as Integer
-		  'dim bcNames() as String
-		  '
-		  'While bc <> nil
-		  '//Methods here
-		  'bcNames.AddRow(bc.GetUniqueID)
-		  'MessageBox bc.Name.FirstValue + " " + bc.GetUniqueID
-		  '
-		  '//Iteration traversing through Tree instead of recursion
-		  'If bc isA Test_StepClass or bc isA TESSA_Prog_StepClass Then
-		  'If bc.FirstSubStep <> Nil Then
-		  'bc = bc.FirstSubStep
-		  'depth = depth + 1
-		  'continue
-		  'End If
-		  'End If
-		  '
-		  'If bc.NextStep <> nil Then
-		  'bc = bc.NextStep
-		  'Else
-		  'If bc.UpperStep <> Nil and depth > 0 Then
-		  'If bc.UpperStep.NextStep <> nil then
-		  'depth = depth - 1
-		  'bc = bc.UpperStep.NextStep
-		  'ElseIf depth > 0 Then
-		  'While bc.NextStep = nil
-		  'depth = depth - 1
-		  'bc = bc.UpperStep
-		  'If depth < 0 then
-		  'EXIT
-		  'End If
-		  'Wend
-		  'bc = bc.NextStep
-		  'Else
-		  'EXIT
-		  'End If
-		  'Else
-		  'EXIT
-		  'End If
-		  'End If
-		  'Wend
+		Sub Iterate(BS as BasicClass)
+		  Dim stack() as BasicClass
+		  Dim curr as BasicClass = BS
+		  if bs = Nil then
+		    Return
+		  end if
+		  stack.Add(curr)
+		  While (stack.Count > 0)
+		    curr = stack.Pop
+		    System.DebugLog curr.Name.GIAS
+		    if curr.NextStep <> Nil then
+		      stack.Add(curr.NextStep)
+		    end if
+		    if curr.FirstSubStep <> Nil then
+		      stack.Add(curr.FirstSubStep)
+		    end if
+		  Wend
 		End Sub
 	#tag EndMethod
 
@@ -552,7 +426,7 @@ End
 		    If SchemCanvas.canvasPage = BS.GetUniqueID then return
 		    //Display the selected TestStep in the Canvas
 		    initCanvasTestSteps
-		    CurrentTestStep.Text = BS.Name.FirstValue
+		    CurrentTestStep.Text = BS.Name.GIAS
 		    SchemCanvas.canvasPage = BS.GetUniqueID
 		    SchemCanvasContainer.pageIndex = SchemCanvasContainer.testStepIDs.IndexOf(BS.GetUniqueID)
 		    SchemCanvasContainer.hidePageElements
@@ -564,7 +438,7 @@ End
 		        'If SchemCanvas.canvasPage = BS.UpperStep.GetUniqueID then return
 		        //Display the selected Element's TestStep in the Canvas
 		        initCanvasTestSteps
-		        CurrentTestStep.Text = BS.UpperStep.Name.FirstValue
+		        CurrentTestStep.Text = BS.UpperStep.Name.GIAS
 		        SchemCanvas.canvasPage = BS.UpperStep.GetUniqueID
 		        SchemCanvasContainer.pageIndex = SchemCanvasContainer.testStepIDs.IndexOf(BS.UpperStep.GetUniqueID)
 		        SchemCanvasContainer.hidePageElements
@@ -579,53 +453,7 @@ End
 
 	#tag Method, Flags = &h1
 		Protected Sub StepSelected(BS as BasicClass)
-		  'startingTestStep(BS)
 		  startBC = BS
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub TreeElements()
-		  dim BS as BasicClass = App.GlobalTopmostElement
-		  dim depth as Integer = 0
-		  While BS <> nil
-		    //Methods here
-		    
-		    System.DebugLog BS.Name.FirstValue + " " + Str(depth)'BS.GetUniqueID
-		    'If BS isA Test_StepClass or BS isA TESSA_Prog_StepClass or BS isA StepClass Then
-		    'End If
-		    
-		    //Iteration traversing through Tree instead of recursion
-		    If BS.FirstSubStep <> Nil Then
-		      BS = BS.FirstSubStep
-		      depth = depth + 1
-		      continue
-		    End If
-		    
-		    If BS.NextStep <> nil Then
-		      BS = BS.NextStep
-		    Else
-		      If BS.UpperStep <> Nil and depth > 0 Then
-		        If BS.UpperStep.NextStep <> nil then
-		          depth = depth - 1
-		          BS = BS.UpperStep.NextStep
-		        ElseIf depth > 0 Then
-		          While BS.NextStep = Nil
-		            depth = depth - 1
-		            BS = BS.UpperStep
-		            If depth < 0 then
-		              EXIT
-		            End If
-		          Wend
-		          
-		          If depth < 0 then
-		            Exit
-		          End If
-		          BS = BS.NextStep
-		        End If
-		      End If
-		    End If
-		  Wend
 		End Sub
 	#tag EndMethod
 
@@ -633,27 +461,6 @@ End
 		Function tStepExists(testStepName as String) As Boolean
 		  return (SchemCanvasContainer.testStepNames.IndexOf(testStepName) <> -1)
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Untitled()
-		  ' While BS<>Nil
-		  ' If BS.FirstSubStep<>Nil Then
-		  ' BS=BS.FirstSubStep
-		  ' ElseIf BS.NextStep<>Nil Then
-		  ' BS=BS.NextStep
-		  ' ElseIf BS.UpperStep<>Self Then
-		  ' While BS=Nil And (BS.UpperStep<>Self )
-		  ' BS=BS.UpperStep.NextStep
-		  ' Wend
-		  ' If BS.UpperStep=Self Then 
-		  ' BS=Nil
-		  ' End
-		  ' Else
-		  ' BS=Nil
-		  ' End
-		  ' wend
-		End Sub
 	#tag EndMethod
 
 
@@ -681,13 +488,6 @@ End
 	#tag Event
 		Sub SelectedTStepChanged()
 		  SchemCanvasContainer.myRefresh
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events PushButton1
-	#tag Event
-		Sub Action()
-		  TreeElements
 		End Sub
 	#tag EndEvent
 #tag EndEvents
