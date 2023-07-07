@@ -311,30 +311,37 @@ End
 	#tag Method, Flags = &h1021
 		Private Sub ElementAttributeDidChange(UpdateAttribute As AttributeClass)
 		  'break '!!! need to pass this up to the window that maintains the HTL
-		  'If UpdateAttribute <> Nil Then
-		  'Dim BS As BasicClass = UpdateAttribute.MyStep
-		  'If BS <> Nil Then
-		  'If UpdateAttribute.Name = "Name" Then
-		  'For i As Integer = 0 to HTL.ListCount - 1
-		  'If HTL.RowTag(i) = BS.GetUniqueID Then
-		  'HTL.Cell(i, 0) = BS.Name.GIAS
-		  'If BS.Name_Error Then
-		  'BS.Name_Error = False
-		  'End
-		  '//update all out links
-		  'For j as Integer = 0 to BS.AttributesUbound
-		  'Dim Attr As AttributeClass = BS.GetAttribute(j)
-		  'If Attr <> Nil Then
-		  'Dim Count As Integer = 0
-		  'Attr.GetOutlinkCount(App.GlobalTopmostElement, True, Count)
-		  'End
-		  'Next
-		  'HTL.FillTreeRow(i, BS)
-		  'Exit
-		  'End
-		  'Next
-		  'End
-		  '
+		  If UpdateAttribute = Nil Then
+		    Return
+		  End
+		  
+		  Dim BS As BasicClass = UpdateAttribute.MyStep
+		  If BS = Nil Then
+		    Return
+		  End
+		  
+		  If UpdateAttribute.Name = "Name" Then
+		    Dim HTL as BasicTreeListBox = MainWindow.HTL // implicit instance call to MainWindow
+		    For i As Integer = 0 to HTL.ListCount - 1
+		      If HTL.RowTag(i) = BS.GetUniqueID Then
+		        HTL.Cell(i, 0) = BS.Name.GIAS
+		        If BS.Name_Error Then
+		          BS.Name_Error = False
+		        End
+		        //update all out links
+		        For j as Integer = 0 to BS.AttributesUbound
+		          Dim Attr As AttributeClass = BS.GetAttribute(j)
+		          If Attr <> Nil Then
+		            Dim Count As Integer = 0
+		            Attr.GetOutlinkCount(App.GlobalTopmostElement, True, Count)
+		          End
+		        Next
+		        HTL.FillTreeRow(i, BS)
+		        Exit
+		      End
+		    Next
+		  End
+		  
 		  'Select Case BS
 		  'Case IsA Table_StepClass
 		  'Dim TableTab As TableTabClass = TabManager.GetTableTabClass
@@ -391,8 +398,6 @@ End
 		  'HMI_StepClass(BS).Step_HMI_Update(3)
 		  'else
 		  'HMI_StepClass(BS).Step_HMI_Update(1)
-		  'End
-		  'End
 		  'End
 		  'End
 		End Sub
@@ -520,7 +525,9 @@ End
 
 	#tag Method, Flags = &h21
 		Private Sub HTL_UpdateBasicStep(sc as BasicClass)
-		  'break '!!! need to pass this up to the Tree list: HTL.UpdateBasicStep(attr.MyStep)
+		   '!!! need to pass this up to the Tree list: 
+		  Dim HTL as BasicTreeListBox = MainWindow.HTL
+		  HTL.UpdateBasicStep(sc)
 		End Sub
 	#tag EndMethod
 
