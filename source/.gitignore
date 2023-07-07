@@ -1,18 +1,17 @@
 # Xojo (formerly REALbasic and Real Studio)
 
-TESSA_Config
+# ===== TESSA Config
+# TESSA_Config
 WorkFolderPrefs.xml
 
-/• My TessaData/
-src/DebugTexts
-PIIOXListener.debug
+# ===== TESSA Source
 Result.txt
 Text99.txt
-TESSA.debug
 TESSA_Prefs Kopie.xml
 # Elements
 # DebugTexts
 
+# ===== Xojo
 Builds*
 *.debug
 *.debug.app
