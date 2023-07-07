@@ -1,4 +1,0 @@
-<Port>
-	<MainDesc>Port element that represents a connection of a port to all contained scripts (TestFrames, FrameBlocks, Modifier).</MainDesc>
-	<Port>Port selection of this port instance: </Port>
-</Port>
