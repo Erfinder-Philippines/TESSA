@@ -1,0 +1,9 @@
+<Goto>
+	<MainDesc>Goto will force the upper Test_Step to step to the designated Test_Step in TeststepName.
+The command can be suppressed by setting Goto_OnOff to false.
+When the GoSub attribute is set true then after performing the jump the program will branch back to the calling TestStep.</MainDesc>
+	<DerivedType></DerivedType>
+	<TeststepName></TeststepName>
+	<Goto_OnOff></Goto_OnOff>
+	<GoSub></GoSub>
+</Goto>

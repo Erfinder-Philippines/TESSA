@@ -1,0 +1,24 @@
+<SCPI>
+	<MainDesc>This element sends a command to an measurements instrument over TCP/IPThe command does not need to be a SCPI command.</MainDesc>
+	<Command>This attribut holds the command that has to be sent, e.g. MEAS:VOLT:DC? </Command>
+	<Parameter>The content of this attribute wil be added to the Command attribute, e.g. (@301) can be added to the command MEAS:DC?</Parameter>
+	<ChannelList></ChannelList>
+	<NumberOfResults></NumberOfResults>
+	<Result>This attribute will hold the result of a measurement</Result>
+	<Result1></Result1>
+	<Result2></Result2>
+	<Result3></Result3>
+	<Result4></Result4>
+	<Result5></Result5>
+	<ResultText></ResultText>
+	<Echo>definies if the instruments sends an echo that has to be suppressedoff: no echoon: echo suppression</Echo>
+	<Prompt>Promt that will be sent by the instrument. It will be used to determine that the transfer is finished</Prompt>
+	<Response>Defines if there will be a reply off: no replyon: wait for reply (see attribute Prompt)</Response>
+	<RepetitionsOnZero>It might be that zero is not a valid result and the measurement has to be repeated. Any number greater than 0 means that the command will be repeated as many times as long as the result is zero.</RepetitionsOnZero>
+	<NumberOfRepetitions>In this attribute the number of repetitions of the measurement will be counted.</NumberOfRepetitions>
+	<Format>String used to format the result into a more readable one: #####.## will display only 2 digits after the comma.</Format>
+	<Offset>Offset that will be added to the result.</Offset>
+	<Gain>The result will be multiplied with this number. Set it to 1 for no impact.</Gain>
+	<TimeoutValue>Value to be displayed when a timeout occurs. </TimeoutValue>
+	<Resource>Name of the Resource being addressed.</Resource>
+</SCPI>

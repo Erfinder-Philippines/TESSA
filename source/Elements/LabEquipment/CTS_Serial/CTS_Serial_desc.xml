@@ -1,0 +1,10 @@
+<CTS_Serial>
+	<MainDesc></MainDesc>
+	<WithReply></WithReply>
+	<COM_Port></COM_Port>
+	<CommandString></CommandString>
+	<BaudRate></BaudRate>
+	<Parity></Parity>
+	<StopBits></StopBits>
+	<Bits></Bits>
+</CTS_Serial>

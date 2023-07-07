@@ -1,0 +1,12 @@
+<ResourceCall>
+	<MainDesc></MainDesc>
+	<Name></Name>
+	<DerivedType></DerivedType>
+	<Wait></Wait>
+	<Description></Description>
+	<LastTime></LastTime>
+	<DoSubSteps></DoSubSteps>
+	<ResourceAttribute></ResourceAttribute>
+	<Value></Value>
+	<Immediate_Execution></Immediate_Execution>
+</ResourceCall>

@@ -1,0 +1,12 @@
+<Ramp>
+	<MainDesc>This element will produce a rising or decending output value, during a definied time frame.The element has to working modes. In one mode other instruments will be placed inside the ramp and will be called during its execution.</MainDesc>
+	<Start>Start value of the ramp. Can be any double value</Start>
+	<End>End value of the ramp. Can be any double value</End>
+	<StartTime>StartTime of the ramp. Not to be definied by the user, will be set upon start.</StartTime>
+	<EndTime>EndTime of the ramp. Not to be definied by the user, will be set when reaching the end.</EndTime>
+	<RampValue>Actual output value of the ramp</RampValue>
+	<RampCounter>Counts the number of loops that the ramp makes to produce the ramp. Not to be set by the user.</RampCounter>
+	<Duration>Duration of the ramp from Start to End-value.</Duration>
+	<RampTime>Time of the ramp start counting at 0 when the ramp started.</RampTime>
+	<RampMode>Running mode of the ramp element.Wait: execution is stopped at the ramp. Only elements inside the ramp will be called.   After reaching the end time, the ramp will give control to the following element. Repeat: execution will proceed and calculate each run a new RampValueStepout: execution will proceed and calculate each run a new RampValue at the end a Stepout from the containing test step is performed</RampMode>
+</Ramp>

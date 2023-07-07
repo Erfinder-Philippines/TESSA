@@ -1,8 +1,6 @@
 # Xojo (formerly REALbasic and Real Studio)
 
-TESSA_Config/SYNCPrefs.xml
-TESSA_Prefs.xml
-TESSA_Config.xml
+TESSA_Config
 WorkFolderPrefs.xml
 
 /• My TessaData/
@@ -12,8 +10,8 @@ Result.txt
 Text99.txt
 TESSA.debug
 TESSA_Prefs Kopie.xml
-Elements
-DebugTexts
+# Elements
+# DebugTexts
 
 Builds*
 *.debug

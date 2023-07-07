@@ -1,0 +1,23 @@
+<Table>
+	<MainDesc></MainDesc>
+	<File></File>
+	<BasicPath></BasicPath>
+	<FileFormat></FileFormat>
+	<FileAppend></FileAppend>
+	<LoadAtStart></LoadAtStart>
+	<SaveAtEnd></SaveAtEnd>
+	<SaveEvery></SaveEvery>
+	<TableType></TableType>
+	<ResetAtTestStepStart></ResetAtTestStepStart>
+	<Rows></Rows>
+	<FilterAttribute></FilterAttribute>
+	<FilterValue></FilterValue>
+	<RecordAttribute></RecordAttribute>
+	<Date></Date>
+	<Time></Time>
+	<Picture></Picture>
+	<Action></Action>
+	<Test1></Test1>
+	<channel></channel>
+	<Result></Result>
+</Table>

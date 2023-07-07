@@ -1,0 +1,8 @@
+<Cam_Resource>
+	<MainDesc>This Element will connect to a defined Camera attached to the system. Depending on the task it will deliver video streams or pictures in different formats.</MainDesc>
+	<Name></Name>
+	<ResourceFunction></ResourceFunction>
+	<FunctionEnum></FunctionEnum>
+	<VideoName>Place here the name of the camera in your system. You may set this name also on the Cam Test page.</VideoName>
+	<VideoIndex>index of the connected cam within your system. </VideoIndex>
+</Cam_Resource>

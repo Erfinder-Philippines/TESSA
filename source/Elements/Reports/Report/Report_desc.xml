@@ -1,0 +1,22 @@
+<Report>
+	<MainDesc></MainDesc>
+	<ReportContent></ReportContent>
+	<Mode></Mode>
+	<NumberofTestRuns></NumberofTestRuns>
+	<Report_Teststep_Name></Report_Teststep_Name>
+	<Barcode></Barcode>
+	<EEPROM></EEPROM>
+	<Teststation_Name></Teststation_Name>
+	<Teststation_Version></Teststation_Version>
+	<Testprogramm_Name></Testprogramm_Name>
+	<Testprogramm_Version></Testprogramm_Version>
+	<TestDate></TestDate>
+	<Tester_Name></Tester_Name>
+	<FileName></FileName>
+	<ModuleType></ModuleType>
+	<ArticleNumber></ArticleNumber>
+	<ModuleRevision></ModuleRevision>
+	<SerialNumber></SerialNumber>
+	<TestType></TestType>
+	<SubFolder></SubFolder>
+</Report>

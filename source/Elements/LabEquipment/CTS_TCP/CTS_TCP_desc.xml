@@ -1,0 +1,7 @@
+<CTS_TCP>
+	<MainDesc></MainDesc>
+	<WithReply></WithReply>
+	<IP_Address></IP_Address>
+	<IP_Port></IP_Port>
+	<LF></LF>
+</CTS_TCP>

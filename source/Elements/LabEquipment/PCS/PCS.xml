@@ -1,0 +1,1 @@
+<SCPI Name="PCS" Type="PCS" Resource="PCS_ETH" Echo="off" Gain="1" Prompt="" Format="" Command="SOUR:VOLT " Parameter="30" Result="" Wait="2000"/>

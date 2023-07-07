@@ -1,0 +1,8 @@
+<Omicron_Resource>
+	<MainDesc>This Element grants the access to an OMICRON CMC 256 device.</MainDesc>
+	<Name></Name>
+	<ResourceFunction></ResourceFunction>
+	<FunctionEnum></FunctionEnum>
+	<IP_Address>IP_Address of the defined Omicron device. But the device will not be accessed directly over TCP/IP but through a OLE element (by Omicron)</IP_Address>
+	<ProgPath>Path to the activeX program element of Omicron (CMEngine)</ProgPath>
+</Omicron_Resource>

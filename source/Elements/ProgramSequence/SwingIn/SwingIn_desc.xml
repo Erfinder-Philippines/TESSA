@@ -1,0 +1,43 @@
+<SwingIn>
+	<MainDesc>This element will wait for an input to come into defined limits. Once the input is within the limits it will further wait until the signal stays within a dynamical limit for a certain time.</MainDesc>
+	<Title></Title>
+	<XStart></XStart>
+	<XEnd></XEnd>
+	<XStep></XStep>
+	<XTitle></XTitle>
+	<XAutoScale></XAutoScale>
+	<YStart></YStart>
+	<YEnd></YEnd>
+	<YStep></YStep>
+	<YTitle></YTitle>
+	<YAutoScale></YAutoScale>
+	<HMI></HMI>
+	<Input>Input value for the swinging process. </Input>
+	<Input_Relative></Input_Relative>
+	<AbsoluteDeviation></AbsoluteDeviation>
+	<RelativeDeviation></RelativeDeviation>
+	<SetPoint></SetPoint>
+	<SwingInTime></SwingInTime>
+	<RelativeSetPoint></RelativeSetPoint>
+	<Countdown></Countdown>
+	<MaxTime></MaxTime>
+	<SwingState></SwingState>
+	<LoopCounter></LoopCounter>
+	<SCPI Name></SCPI Name>
+	<Resource></Resource>
+	<Echo></Echo>
+	<Prompt></Prompt>
+	<Command></Command>
+	<Parameter></Parameter>
+	<Result></Result>
+	<File></File>
+	<FileFormat></FileFormat>
+	<LoadAtStart></LoadAtStart>
+	<SaveAtEnd></SaveAtEnd>
+	<Time></Time>
+	<Temp></Temp>
+	</>		
+	<CTC_Klima Name><//>
+	<Temperature></Temperature>
+	<Humidity></Humidity>
+</SwingIn>

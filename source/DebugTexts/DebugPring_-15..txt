@@ -1,0 +1,12 @@
+
+Initialize and Load elements - ok
+Load configuration - ok
+Initialize resources
+   - Resources - ok
+     - Local_Test_Network - 192.168.1.200 no connection
+     - Cam_Resource - ok
+Init Tabs - ok
+Load testprogram list - ok
+Load Sync settings - ok
+Check Resource State - ok
+Check Automatic Startup - ok

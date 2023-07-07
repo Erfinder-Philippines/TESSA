@@ -1,0 +1,9 @@
+<TablePicker>
+	<MainDesc>This element will pick one value from a defined column. The element is outdate, please replace by the element "ArrayPicker" that does the same.</MainDesc>
+	<Table></Table>
+	<Attribute></Attribute>
+	<Value></Value>
+	<LinkName></LinkName>
+	<LinkVar></LinkVar>
+	<Output></Output>
+</TablePicker>

@@ -1,0 +1,8 @@
+<Netzer>
+	<MainDesc></MainDesc>
+	<GetGPIO></GetGPIO>
+	<SetGPIO></SetGPIO>
+	<Result></Result>
+	<ResultText></ResultText>
+	<TimeoutValue></TimeoutValue>
+</Netzer>

@@ -1,0 +1,26 @@
+<ArrayAppend>
+	<MainDesc>This element will add/append the values of one array to another array. Input attributes should be linked to the source arrays, the output arrays to the ones to which the values are added to.</MainDesc>
+	<DerivedType></DerivedType>
+	<InputTable>Link to the name of the Input Table. When done all columns of a table are automatically added. Use this attribute only when using 2 tables with the same columns to be connected.</InputTable>
+	<OutputTable>Link to the name of the Output Table. When done all columns of a table are automatically added. Use this attribute only when using 2 tables with the same columns to be connected.</OutputTable>
+	<ValueIndex>Number of rounds of appending the values</ValueIndex>
+	<CopyMode>CopyMode defines how the source array is copied into the result array.
+Active-1:
+All values until but without the active value are being copied
+Active:
+All values until and with the active value are being copied
+All:
+All values of the array are being copied
+FromTo:
+if given a positive number the Array is copied FromPosition to ToPosition. If ToPosition is greater than the number of values, it is limited to the number of values. If FromPosition is negative it is set to 0. If ToPosition is -1 all values until and with the last one are copied. If ToPosition is -2, all values until/without the active values are being copied. If ToPosition is -3 All values until/without the active are being copied.
+</CopyMode>
+	<FromPosition>Only active in mode „FromTo“
+If FromPosition is negative it is set to 0.</FromPosition>
+	<ToPosition>Only active in mode „FromTo“
+If ToPosition is greater than the number of values, it is limited to the number of values.
+If ToPosition is -1 all values until and with the last one are copied. 
+If ToPosition is -2, all values until/without the active values are being copied. 
+If ToPosition is -3 All values until/without the active are being copied.</ToPosition>
+	<Input_1>Link to Input array 1</Input_1>
+	<Output_1>Link to Output array 1</Output_1>
+</ArrayAppend>

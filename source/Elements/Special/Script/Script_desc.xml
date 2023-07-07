@@ -1,0 +1,6 @@
+<Script>
+	<MainDesc>This element will interpret a script written in XOJO language an object oriented Basic dialect</MainDesc>
+	<Source>This attribute holds the script that has to be interpreted.</Source>
+	<FileName></FileName>
+	<ErrorText></ErrorText>
+</Script>

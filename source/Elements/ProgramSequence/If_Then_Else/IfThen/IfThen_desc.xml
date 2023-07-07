@@ -1,0 +1,14 @@
+<IfThen>
+	<MainDesc>This element compares the two inputs and set the output according the choosen operation.
+Included elements will only be run on „true“ condition. 
+The element can also contain „If_TRUE“ and „if_FLASE“ elements. The included elements will be run depending on the if_then condition. Pleas note that in this case elements contained inside the IfThen element will be run unconditionally. Please copy them into the If_TRUE element.</MainDesc>
+	<DerivedType></DerivedType>
+	<Input1>Input1 connect or put first value</Input1>
+	<Input2>Input2 connect or put second value</Input2>
+	<Operation>contains the comparison operation that has to be perfomred. As the normally used signs are already occupied by xml letters have been taken:g: Input1 greater than Input2ge: Input1 is greater or equal than Input2e: Input1 equal as Input2 (numerical)c: Input1 equal as Input2 (string)s: Input1 smaller than Input2se: Input1 smaller or equal than Input2</Operation>
+	<OutputTrue>The output is set to this value in case of result true</OutputTrue>
+	<OutputFalse>The output is set to this value in case of result false</OutputFalse>
+	<Output>Output result will be filled either with OutputTrue or OutputFalse attribute. 
+
+Pressing on the „Add If-then-else“ button will add one if_TURE and one If_FALSE element inside. </Output>
+</IfThen>

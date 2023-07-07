@@ -1,0 +1,38 @@
+<TestStep>
+	<MainDesc>This element defines a teststep within a testsequence. Each teststep can have its own display page on the HMI (human machine interface)</MainDesc>
+	<Picture>file path of picture shown in background of HMI window for this test step. Picture format can be jpg or png. 
+(default is no picture)</Picture>
+	<Picture_Mode>Defines how the picture in background of HMI window is sized. The following options are available.
+
+Plain: the picutre is displayed as it is. Parts that are too big will be cut.
+
+FixScale: the picture will be scaled to the given factor Picture_Scale. Parts too big will be cut.
+
+ScaleToScreen: Picture will be scale to maximal fit into the screen, so no part as to be cut.
+ 
+FillScreen: Picture will be scaled to fit the entire screen. Parts to big will be cut.
+ 
+FillScreenProportional: Pictrue will be sized in each axis so that it completely fits the screen. No parts will be cut.</Picture_Mode>
+	<Picture_Scale>Scale factor for picture mode FixScale.1: means no change0..1: will make it smaller1..10: will enlarge the picture.</Picture_Scale>
+	<Picture_X>X-coordinate of picture left upper corner (default is 0)</Picture_X>
+	<Picture_Y>Y-coordinate of picture left upper corner (default is 0)</Picture_Y>
+	<ExecuteFlag></ExecuteFlag>
+	<Repeat>If this attribute is true, then the test step will be repeated until the ExecuteFlag is set to false.</Repeat>
+	<Skip>If set true the test step will be skipped. (default is off)</Skip>
+	<HMI>Definies if the test step is displayed with its own screen on the HMI wwindow. (default is on)</HMI>
+	<ExecuteTest>If set true the test for gathering a test report is being performed at the end of the test step. Any element being able to perform such a test (report-interface) will contribute to its result. One fail will make the test step fail.</ExecuteTest>
+	<ErrorMessage>Error message produced for test report if test result is fail.</ErrorMessage>
+	<ErrorButtons>Defines what buttons are shown at the end of the test step, if HMI is set on.The definition is done by 1 and 0. Where 1 means the button is visible, 0 the button is not visible. 1011 will show the "Reset", "Repeat" and "Ignore" button but not the "step back" button.</ErrorButtons>
+	<TestResult></TestResult>
+	<TestResult_DisplayTrigger></TestResult_DisplayTrigger>
+	<TestResult_DisplayType></TestResult_DisplayType>
+	<TestResult_Halt></TestResult_Halt>
+	<Retries_on_Error></Retries_on_Error>
+	<UserHalt>If set on the program halts at the end of the test step (after having processed all included steps). A "true" on the ExecuteFlag will make the program continue.</UserHalt>
+	<UserWait>If set on the program halts at the beginning of the test step (after having processed all included steps). A "true" on the ExecuteFlag will make the program continue.</UserWait>
+	<InitOnRepeat></InitOnRepeat>
+	<Next>Text on the right user button. Default text is ignore or continue.If text is not empty the button will automatically be displayed.</Next>
+	<Back>Text on the middle left user button. Default text is "back".If text is not empty the button will automatically be displayed.If pressed the program will step back to the previous step.</Back>
+	<Reset>Text on the left user button. Default text is "reset".If text is not empty the button will automatically be displayed.If pressed the program will be reset to the very first step.</Reset>
+	<Action></Action>
+</TestStep>

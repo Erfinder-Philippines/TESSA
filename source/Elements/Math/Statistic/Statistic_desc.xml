@@ -1,0 +1,13 @@
+<Statistic>
+	<MainDesc></MainDesc>
+	<Input></Input>
+	<Number_of_Values></Number_of_Values>
+	<Mean></Mean>
+	<Minimum></Minimum>
+	<MinimumValueNr></MinimumValueNr>
+	<Maximum></Maximum>
+	<MaximumValueNr></MaximumValueNr>
+	<Sum></Sum>
+	<Standard_Deviation></Standard_Deviation>
+	<Mode></Mode>
+</Statistic>

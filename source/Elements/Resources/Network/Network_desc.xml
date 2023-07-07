@@ -1,0 +1,7 @@
+<Network>
+	<MainDesc></MainDesc>
+	<NetworkCardID></NetworkCardID>
+	<IP_Address></IP_Address>
+	<Mac_Address></Mac_Address>
+	<Subnet_Mask></Subnet_Mask>
+</Network>

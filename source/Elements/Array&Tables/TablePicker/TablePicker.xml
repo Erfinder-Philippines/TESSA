@@ -1,0 +1,1 @@
+<TablePicker Name="TablePicker" Table="Table" Attribute="Load" Value="Link LoadLoop.LoopValue" Output="0" Wait="10"/>

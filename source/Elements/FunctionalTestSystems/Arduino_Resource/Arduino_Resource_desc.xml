@@ -1,0 +1,17 @@
+<Arduino_Resource>
+	<MainDesc></MainDesc>
+	<Name></Name>
+	<ResourceFunction></ResourceFunction>
+	<FunctionEnum></FunctionEnum>
+	<WithReply></WithReply>
+	<IP_Address></IP_Address>
+	<IP_Port></IP_Port>
+	<LF></LF>
+	<ResultText></ResultText>
+	<Prompt></Prompt>
+	<Echo></Echo>
+	<TimeOut></TimeOut>
+	<Mode></Mode>
+	<Byte0></Byte0>
+	<Byte1></Byte1>
+</Arduino_Resource>

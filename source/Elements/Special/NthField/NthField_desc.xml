@@ -1,0 +1,8 @@
+<NthField>
+	<MainDesc>This element finds the Nth element in a string which is separated by the specified Separator.</MainDesc>
+	<Name>Name of the element</Name>
+	<Result>The result of the operation will be copied into this attribute.</Result>
+	<N>The number of the field we want to extract from the separated string.</N>
+	<Separator>The separator string.</Separator>
+	<Input>The Input string</Input>
+</NthField>

@@ -1,0 +1,10 @@
+<Polygon>
+	<MainDesc></MainDesc>
+	<Input></Input>
+	<Output></Output>
+	<X_Values></X_Values>
+	<Y_Values></Y_Values>
+	<LimitLow></LimitLow>
+	<LimitHigh></LimitHigh>
+	<Inverse></Inverse>
+</Polygon>
