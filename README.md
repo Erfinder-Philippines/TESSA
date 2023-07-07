@@ -34,7 +34,32 @@ TESSA is a powerful tool that can help users to save time, improve the efficienc
 - [**Formula Element**](https://github.com/Erfinder-Philippines/TESSA/blob/master/Doc/FormulaElement-documentation.pdf)
 
 ## Requirement
- Some functions in TESSA require you to have Monkeybread Software's Xojo plugins, specifically version 210, you can download it through their website.
+### Xojo
+Xojo is a cross-platform development tool that allows you to create native apps for macOS, Windows, Linux, iOS, the web, and Raspberry Pi. It is a proprietary object-oriented programming language that is similar to Visual Basic and Java. Xojo is known for its ease of use, rapid application development (RAD) capabilities, and cross-platform support. You can download Xojo at their website: [**https://xojo.com/**](https://xojo.com/)
+### Plugins
+**Xojo Office Automation** - TESSA requires the use of Xojo's Office Automation which is already included of your copy of Xojo.
+
+For Windows:
+1. Go to the installation folder of Xojo located in **C:\Program Files\Xojo**
+2. Open **Extras** folder
+3. There you should see a folder called **Office Automation**, open that folder.
+4. A file called **MSOfficeAutomation.rbx** should be in there, **Copy** the file.
+5. Go back to the installation folder of Xojo in **Step 1**.
+6. Locate the **Plugins** folder and open.
+7. Paste the file **MSOfficeAutomation.rbx** and restart Xojo if it is already open.
+
+For Mac:
+1. Open **Finder** and open a **New Window**
+2. On the left side panel, locate **Applications** and click.
+3. Find the latest version of Xojo and open.
+4. Open **Extras** folder
+3. There you should see a folder called **Office Automation**, open that folder.
+4. A file called **MSOfficeAutomation.rbx** should be in there, **Copy** the file.
+5. Go back to **Applications** and find again Xojo.
+6. Locate the **Plugins** folder and open.
+7. Paste the file **MSOfficeAutomation.rbx** and restart Xojo if it is already open.
+
+ **Xojo MBS Plugins** - Some functions in TESSA require you to have Monkeybread Software's Xojo plugins, specifically version 210, you can download it through their website.
  [**MacOS - MBS Xojo Plugins v210**](https://www.monkeybreadsoftware.de/xojo/download/plugin/Archive/MBS-Xojo-Plugins21/MBS-Xojo-Plugins210.dmg)
  [**Windows/Linux - MBS Xojo Plugins v210**](https://www.monkeybreadsoftware.de/xojo/download/plugin/Archive/MBS-Xojo-Plugins21/MBS-Xojo-Plugins210.zip)
 
