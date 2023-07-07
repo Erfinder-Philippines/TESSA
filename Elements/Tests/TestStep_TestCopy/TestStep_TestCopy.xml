@@ -1,1 +1,0 @@
-<Teststep Name="Teststep" DerivedType="TestStep_TestCopy" >	<Loop Name="Loop" Wait="100" Start="0" End="7" LoopValue="1" >		<MathOp Name="MathOperation" />		<MathOp Name="MathOperation_1" Input1="Link Loop.MathOperation.Output" />	</Loop></Teststep>

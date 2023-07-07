@@ -1,3 +1,0 @@
-<Wait>
-	<MainDesc>Stops the testflow for the number of msec given in the attribute wait</MainDesc>
-</Wait>

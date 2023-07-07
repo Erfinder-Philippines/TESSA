@@ -1,13 +1,0 @@
-<External_Application>
-	<MainDesc>With this element external programs can be called via shell commands. The element will open an invisible shell command window and process the given commands. In the running mode “Interactive Shell” it will issue a command and then wait for the correct reply. If received it will either issue the next command if the Parameter attribute is an array or  close the shell and go to the next element.</MainDesc>
-	<Mode>The element can run in the following mode:Application: Call of a application with a parameter line (not implemented yet)Shell_Command: Simple shell command the will be executed immediately. No replay is expected.Shell_Interactive: Processing of one or multiple commands where each command has a expected reply and a timeout.DLL</Mode>
-	<Folder>Folder where to find the data.</Folder>
-	<ProgramName>Name of the application (only mode Application)</ProgramName>
-	<Parameter1>Parameter for shell command. Can be turned into a array if multiple commands are going to be used.</Parameter1>
-	<Parameter2>Same as parameter1, will be added to the Parameter1 with a space inbetween. Can be single or multiline depending on need.</Parameter2>
-	<Parameter3>Same as parameter1, will be added to the Parameter2 with a space inbetween. Can be single or multiline depending on need.</Parameter3>
-	<ResultText>Here the reply of the shell window will be pasted. Add multiple lines if working with more than one command.</ResultText>
-	<EndOfPoll>Part of the expected reply of the shell command. If found in the ResultText the element will either take the next command in line or finish the element with the result "Pass". If working with multiple commands add an expected reply for each command.</EndOfPoll>
-	<ErrorDetect>If a command could be answered with a known error message, then add it here. When the element detects it within the ResultTest, it will end the element and issue a "Fail" report. Add one line for each command. If the </ErrorDetect>
-	<ErrorPresetMessage>Add here an error message that will be reported together with an error on the specific command when an error occurs.</ErrorPresetMessage>
-</External_Application>

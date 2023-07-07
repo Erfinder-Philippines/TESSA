@@ -1,10 +1,0 @@
-<CamCapture>
-	<MainDesc>When CamCapture is connected to a CamResource it will take a picture and store it when ever it is called. CamCapture will be shown on the HMI Window.</MainDesc>
-	<Coordinates>Coordinates of the element on the HMI Window</Coordinates>
-	<BackgroundColor></BackgroundColor>
-	<TextColor></TextColor>
-	<TextSize></TextSize>
-	<Title>Title of the element on the HMI Window</Title>
-	<Picture>Attribute with the taken picture of the CamCapture. When no picture has been taken, the ReferencePicture of the CamResource is being shown.</Picture>
-	<CamResourceName>CamResource</CamResourceName>
-</CamCapture>

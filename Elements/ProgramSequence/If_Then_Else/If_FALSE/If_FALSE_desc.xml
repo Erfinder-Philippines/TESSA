@@ -1,4 +1,0 @@
-<If_FALSE>
-	<MainDesc>This element can only be used inside a If_Then element. It will run included elements when the upper If_Then condition is false.</MainDesc>
-	<DerivedType></DerivedType>
-</If_FALSE>

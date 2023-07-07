@@ -1,4 +1,0 @@
-<PHY>
-	<MainDesc>This element is only used to connect the port to a physical PHY. Each element can be output (TX) or input (RX). There are 5 different PHYs numbered 0,1,2,3,4.</MainDesc>
-	<PHY>Choice of physical PHY: RX PHY0..4 and TX PHY0..4</PHY>
-</PHY>

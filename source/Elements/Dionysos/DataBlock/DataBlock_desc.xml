@@ -1,9 +1,0 @@
-<DataBlock>
-	<MainDesc>DataBlock will automatically generate a script dependent on the given attributes Register and Data. The script can also be directly edited in the FrameText Attribute. When any of the upper attributes is changed by the user a new script is automatically being made and the old one override.</MainDesc>
-	<DerivedType>Gives the name of the element in the library if this element is not a original TESSA element but a derived one.</DerivedType>
-	<Comment>Comment that will be added in front of each script block being produced.</Comment>
-	<NumberofDataBlocks>Number of blocks that will be produced. Changing this value will result in changing the number of values in the attributes cComment, Register and Data.</NumberofDataBlocks>
-	<Register>6 digit hex value that defines the register of the Dionysos write command. If the attributes starts with an „h“, that value is interpreted as hex, (missing 0 will be added to a 6 digit value), if not the value is interpreted as decimal value and will be converted into a hex value with 6 digits. </Register>
-	<Data>4 digit hex value that defines the data being written. If the attributes starts with an „h“, that value is interpreted as hex, (missing 0 will be added to a 4 digit value), if not the value is interpreted as decimal value and will be converted into a hex value with 4 digits.</Data>
-	<FrameText>Final script test that is produced from above attributes. This test can be edited and will be saved with the element. As long as none of the main attributes is changed (Mode, Register, Date) it will preserve its value.</FrameText>
-</DataBlock>

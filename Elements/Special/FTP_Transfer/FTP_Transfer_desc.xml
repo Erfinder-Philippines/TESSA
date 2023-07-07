@@ -1,13 +1,0 @@
-<FTP_Transfer>
-	<MainDesc>This function enables to transfer files as FTP-Client to a FTP-Server.</MainDesc>
-	<URL>URL  address of the FTP-Server</URL>
-	<Directory>Directory on the FTP-Server</Directory>
-	<Username>Username for the FTP-Server Login </Username>
-	<Password>Password for the FTP-Server Login </Password>
-	<FTP_Function>Function that has to be performed on the FTP-Server:Upload will save a new file on the FTP-ServerDownload will get a new file from the FTP-Server and save it locally</FTP_Function>
-	<LocalFolder>Local Folder where to save/load the file</LocalFolder>
-	<LocalFile>Loacal File Name of the transfered file</LocalFile>
-	<FileType>File Type can be ASCII or Binary</FileType>
-	<Result>Result of the process can be "Pass" or "Fail"</Result>
-	<ResultText>ResultText will hold the error message if the transfer failed</ResultText>
-</FTP_Transfer>
