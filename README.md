@@ -27,7 +27,7 @@ If you are a user who is looking for a way to save time, improve the efficiency 
 
 TESSA is a powerful tool that can help users to save time, improve the efficiency of their work, and improve the reproducibility of their results. If you are a user who is looking for a way to improve your workflow, then you should consider using TESSA.
 
-**Additional information:** TESSA is a powerful tool, but it is still in its Alpha stage. which means that it is still under development and may not be fully accurate or reliable. The results of TESSA should always be checked by a human before being used. 
+**Additional information:** TESSA is a powerful tool, but it is still under development and may not be fully accurate or reliable. The results of TESSA should always be checked by a human before being used. 
 
 ## Documentations
 - [**Folder Structure**](https://github.com/Erfinder-Philippines/TESSA/blob/master/Doc/FolderStructure.pdf)
