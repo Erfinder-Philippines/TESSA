@@ -439,15 +439,6 @@ Inherits Application
 		  LoadSYNCSettings
 		  SplashWindow.AddToProgressText(" - ok",false,false)
 		  
-		  // check status of Resources and update StartupTab
-		  
-		  SplashWindow.AddToProgressText("Check Resource State",true,true)
-		  Dim StartupTab As StartupTabClass = TabManager.GetStartupTabClass
-		  If StartupTab <> Nil Then
-		    StartupTab.CheckResourcesState
-		  end
-		  SplashWindow.AddToProgressText(" - ok",false,false)
-		  
 		  SplashWindow.AddToProgressText("Check Automatic Startup",true,true)
 		  mStartupProgram = ""
 		  Dim arguments(-1) As String = CommandLineHandler.Instance.Arguments

@@ -1,14 +1,6 @@
 #tag Class
 Protected Class StartupTabClass
 Inherits TabClass
-	#tag Method, Flags = &h0
-		Sub CheckResourcesState()
-		  if TabContainer <> Nil And TabContainer IsA StartupTabContainer Then
-		    StartupTabContainer(TabContainer).CheckResourceStates
-		  End
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h1000
 		Sub Constructor(ConfigText as String)
 		  Super.Constructor(ConfigText)
@@ -168,14 +160,6 @@ Inherits TabClass
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Num_Links"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="SAMStepID"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
