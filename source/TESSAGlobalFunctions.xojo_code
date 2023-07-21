@@ -2885,14 +2885,16 @@ Protected Module TESSAGlobalFunctions
 		Sub PrepStringForXMLSaving(byRef Value as string)
 		  // replaces all pre-occupied key letters (in xml file) by numbered ones for saving into a attribute value a="..."
 		  if Value<>"" then
-		    Value=Value.ReplaceAll("<","&#060")
-		    Value=Value.ReplaceAll("/","&#047")
-		    Value=Value.ReplaceAll(">","&#062")
-		    Value=Value.ReplaceAll("=","&#061")
-		    Value=Value.ReplaceAll(chr(13),"&#013")
-		    Value=Value.ReplaceAll(chr(10),"&#010")
-		    Value=Value.ReplaceAll(chr(9),"&#009")
-		    Value=Value.ReplaceAll(chr(34),"&#034")
+		    // note: old code did not have ";" delimiter
+		    Value=Value.ReplaceAll("&","&amp;")
+		    Value=Value.ReplaceAll("<","&#060;")
+		    Value=Value.ReplaceAll("/","&#047;")
+		    Value=Value.ReplaceAll(">","&#062;")
+		    Value=Value.ReplaceAll("=","&#061;")
+		    Value=Value.ReplaceAll(chr(13),"&#013;")
+		    Value=Value.ReplaceAll(chr(10),"&#010;")
+		    Value=Value.ReplaceAll(chr(9),"&#009;")
+		    Value=Value.ReplaceAll(chr(34),"&#034;")
 		  end
 		End Sub
 	#tag EndMethod
@@ -2901,20 +2903,22 @@ Protected Module TESSAGlobalFunctions
 		Sub PrepStringFromXMLLoading(byRef Value as string)
 		  // replaces all &#... letters in a loaded xml file with the real characters
 		  if Value<>"" then
-		    // old code, saved for testing
-		    // https://git.vakoms.com/main/tessa/issues/63
-		    'Value=Value.ReplaceAll("&quot;","""")
-		    'Value=Value.ReplaceAll("&#074","<")
-		    'Value=Value.ReplaceAll("&#057","/")
-		    'Value=Value.ReplaceAll("&#076",">")
-		    'Value=Value.ReplaceAll("&#060","<")
-		    'Value=Value.ReplaceAll("&#047","/")
-		    'Value=Value.ReplaceAll("&#062",">")
-		    'Value=Value.ReplaceAll("&#061","=")
-		    
-		    // new
 		    Value = Value.ReplaceAll("&quot;", """")
-		    Value = Value.ReplaceAll("&#060", "<")
+		    
+		    // newer implementation, has delimiter ";" for proper XML syntax
+		    Value = Value.ReplaceAll("&#060;", "<")
+		    Value = Value.ReplaceAll("&#062;", ">")
+		    Value = Value.ReplaceAll("&#047;", "/")
+		    Value = Value.ReplaceAll("&#061;", "=")
+		    Value = Value.ReplaceAll("&amp;", "&")
+		    Value = Value.ReplaceAll("&#013;",chr(13))
+		    Value = Value.ReplaceAll("&#010;",chr(10))
+		    Value = Value.ReplaceAll("&#009;",chr(9))
+		    Value = Value.ReplaceAll("&#034;",chr(34))
+		    
+		    // Support for older testsequences, that did not have
+		    // the ";" delimiter
+		    Value = Value.ReplaceAll("&#060", "<") 
 		    Value = Value.ReplaceAll("&#062", ">")
 		    Value = Value.ReplaceAll("&#047", "/")
 		    Value = Value.ReplaceAll("&#061", "=")
