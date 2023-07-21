@@ -267,22 +267,45 @@ Inherits BasicTreeListBox
 
 	#tag MenuHandler
 		Function EditCopy() As Boolean Handles EditCopy.Action
-			Return CopyStepToClipborad
+		  Return CopyStepToClipborad
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function EditCut() As Boolean Handles EditCut.Action
-			Return CutStepToClipboard
+		  Return CutStepToClipboard
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function EditPaste() As Boolean Handles EditPaste.Action
-			Return PasteStepFromClipboard
+		  Return PasteStepFromClipboard
 		End Function
 	#tag EndMenuHandler
 
+
+	#tag Method, Flags = &h0
+		Function CheckResource(FS as BasicClass) As boolean
+		  Dim RV as boolean = true
+		  
+		  if FS isA Resource_StepClass then
+		    if Resource_StepClass(FS).CheckAfterStart.GIAB then
+		      if Not(Resource_StepClass(FS).Connected.GIAB) then
+		        RV = False
+		      end if
+		    end if
+		  end
+		  
+		  Dim BS as BasicClass = FS.FirstSubStep
+		  while BS<>nil
+		    if not(CheckResource(BS)) then
+		      RV = False
+		    end
+		    BS=BS.NextStep
+		  wend
+		  return RV
+		End Function
+	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function CopyStepToClipborad() As Boolean
@@ -317,12 +340,40 @@ Inherits BasicTreeListBox
 		    Cell(LocRow,1) = C
 		    
 		    C=""
+		    If BS = App.GlobalResources Then
+		      // Overall check for Resources
+		      Dim overallResourceState as Boolean = CheckResource(BS)
+		      If overallResourceState Then
+		        C="C"
+		      Else
+		        C="O"
+		      End If
+		    End If
+		    
 		    if BS IsA Resource_StepClass then
-		      if  Resource_StepClass(BS).Connected.GIAB then
+		      if Resource_StepClass(BS).Connected.GIAB then
 		        C="C"
 		      else
 		        C="O"
 		      end
+		      
+		      // We consider "CheckAfterStart" flag, and
+		      // we recursively check the state of child resources
+		      If Resource_StepClass(BS).CheckAfterStart.GIAB Then
+		        Dim overallResourceState as Boolean = CheckResource(BS)
+		        If overallResourceState Then
+		          C="C"
+		        Else
+		          C="O"
+		        End If
+		        
+		        If not overallResourceState and not Resource_StepClass(BS).Connected.GIAB Then
+		          C = "X"
+		        End If
+		      ElseIf not Resource_StepClass(BS).Connected.GIAB Then
+		        Me.CellTagAt(LocRow, 2) = "O"
+		      End If
+		      
 		    end
 		    if BS.Num_Links > 0 then
 		      C = C+Str(BS.Num_Links)
