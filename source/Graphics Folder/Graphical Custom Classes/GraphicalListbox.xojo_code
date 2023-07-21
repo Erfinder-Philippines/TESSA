@@ -143,8 +143,13 @@ Inherits Listbox
 		          g.DrawingColor = &cA0FFA0
 		          g.FillRoundRectangle(x,y,rectW,rectH,10,10)
 		        ElseIf Cell(Row,2).Mid(1,1)="O" Then
-		          'g.DrawingColor = &cFFFFA0
-		          g.DrawingColor = &cffcc62
+		          g.DrawingColor = &cFFCC62
+		          If CellTagAt(Row, 2) = "O" Then
+		            g.DrawingColor = &cA9A9A9
+		          End If
+		          g.FillRoundRectangle(x,y,rectW,rectH,10,10)
+		        ElseIf Cell(Row,2).Mid(1,1)="X" Then
+		          g.DrawingColor = &cFFA0A0
 		          g.FillRoundRectangle(x,y,rectW,rectH,10,10)
 		        end
 		      end
@@ -186,7 +191,6 @@ Inherits Listbox
 		  End Select
 		  
 		  Return True
-		  
 		End Function
 	#tag EndEvent
 

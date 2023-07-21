@@ -25,43 +25,38 @@ Begin GraphicalTabContainer StartupTabContainer
    Transparent     =   False
    Visible         =   True
    Width           =   768
-   Begin GraphicalListbox File_List
-      ActiveColumn    =   -1
-      ActiveRow       =   -1
+   Begin Listbox File_List
       AllowAutoDeactivate=   True
       AllowAutoHideScrollbars=   True
-      AllowExpandableRows=   False
+      AllowExpandableRows=   True
       AllowFocusRing  =   True
-      AllowResizableColumns=   False
+      AllowResizableColumns=   True
       AllowRowDragging=   False
       AllowRowReordering=   False
       Bold            =   False
-      ColumnCount     =   1
+      ColumnCount     =   2
       ColumnWidths    =   ""
-      darkModeEnabled =   False
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   50
       DropIndicatorVisible=   False
       Enabled         =   True
       FontName        =   "System"
-      FontSize        =   24.0
+      FontSize        =   25.0
       FontUnit        =   2
-      genericTblHorizontal=   False
       GridLinesHorizontalStyle=   1
       GridLinesVerticalStyle=   0
       HasBorder       =   True
-      HasHeader       =   False
+      HasHeader       =   True
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
       HeadingIndex    =   -1
-      Height          =   457
+      Height          =   453
       Index           =   -2147483648
       InitialParent   =   ""
-      InitialValue    =   ""
+      InitialValue    =   "Testsequence	Description"
       Italic          =   False
-      Left            =   290
-      ListboxType     =   5
+      Left            =   20
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -74,11 +69,11 @@ Begin GraphicalTabContainer StartupTabContainer
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   "Choose a Testsequence"
-      Top             =   162
+      Top             =   189
       Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   458
+      Width           =   728
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
@@ -91,7 +86,7 @@ Begin GraphicalTabContainer StartupTabContainer
       Height          =   64
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   290
+      Left            =   314
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -101,209 +96,11 @@ Begin GraphicalTabContainer StartupTabContainer
       TabIndex        =   30
       TabPanelIndex   =   0
       Tooltip         =   ""
-      Top             =   24
+      Top             =   -191
       TopLeftColor    =   &c97AAC400
       Transparent     =   True
       Visible         =   True
       Width           =   382
-      Begin Label File_Comment
-         AllowAutoDeactivate=   True
-         Bold            =   True
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   16.0
-         FontUnit        =   0
-         Height          =   44
-         Index           =   -2147483648
-         InitialParent   =   "File_Warning"
-         Italic          =   False
-         Left            =   298
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   True
-         LockTop         =   True
-         Multiline       =   True
-         Scope           =   0
-         Selectable      =   False
-         TabIndex        =   0
-         TabPanelIndex   =   0
-         TabStop         =   True
-         Text            =   "Available test sequences\r\nplease choose one, then press load"
-         TextAlignment   =   0
-         TextColor       =   &c51515100
-         Tooltip         =   ""
-         Top             =   38
-         Transparent     =   True
-         Underline       =   False
-         Visible         =   True
-         Width           =   365
-      End
-   End
-   Begin GraphicalListbox ResourceList
-      ActiveColumn    =   -1
-      ActiveRow       =   -1
-      AllowAutoDeactivate=   True
-      AllowAutoHideScrollbars=   True
-      AllowExpandableRows=   False
-      AllowFocusRing  =   True
-      AllowResizableColumns=   False
-      AllowRowDragging=   False
-      AllowRowReordering=   False
-      Bold            =   False
-      ColumnCount     =   2
-      ColumnWidths    =   ",30"
-      darkModeEnabled =   False
-      DataField       =   ""
-      DataSource      =   ""
-      DefaultRowHeight=   -1
-      DropIndicatorVisible=   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   16.0
-      FontUnit        =   0
-      genericTblHorizontal=   False
-      GridLinesHorizontalStyle=   1
-      GridLinesVerticalStyle=   3
-      HasBorder       =   True
-      HasHeader       =   False
-      HasHorizontalScrollbar=   False
-      HasVerticalScrollbar=   True
-      HeadingIndex    =   -1
-      Height          =   297
-      Index           =   -2147483648
-      InitialParent   =   ""
-      InitialValue    =   ""
-      Italic          =   False
-      Left            =   20
-      ListboxType     =   4
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      RequiresSelection=   False
-      RowSelectionType=   0
-      Scope           =   0
-      TabIndex        =   31
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   100
-      Transparent     =   True
-      Underline       =   False
-      Visible         =   True
-      Width           =   258
-      _ScrollOffset   =   0
-      _ScrollWidth    =   -1
-   End
-   Begin Label ReleaseNotes
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   197
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   True
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   33
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Untitled"
-      TextAlignment   =   0
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   422
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   False
-      Width           =   250
-   End
-   Begin Label Label_ReleaseNotes
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   34
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Release notes"
-      TextAlignment   =   0
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   401
-      Transparent     =   True
-      Underline       =   False
-      Visible         =   True
-      Width           =   100
-   End
-   Begin GraphicalButton CheckResources
-      AllowAutoDeactivate=   True
-      AllowFocus      =   True
-      AllowFocusRing  =   True
-      AllowTabs       =   False
-      BackColor       =   &c00FF0000
-      Backdrop        =   0
-      Bottom          =   0
-      Caption         =   "Resources OK"
-      darkModeEnabled =   False
-      DoubleBuffer    =   False
-      Enabled         =   True
-      Height          =   64
-      icon            =   755492059
-      IconAlignment   =   0
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Right           =   0
-      Scope           =   0
-      Selected        =   False
-      TabIndex        =   32
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   24
-      Transparent     =   True
-      useBackColor    =   False
-      Visible         =   True
-      Width           =   258
    End
    Begin GraphicalButton BB_LoadSequence
       AllowAutoDeactivate=   True
@@ -322,11 +119,11 @@ Begin GraphicalTabContainer StartupTabContainer
       IconAlignment   =   -1
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   684
+      Left            =   20
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   True
       Right           =   0
       Scope           =   0
@@ -335,7 +132,7 @@ Begin GraphicalTabContainer StartupTabContainer
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   "Load Sequence"
-      Top             =   24
+      Top             =   113
       Transparent     =   True
       useBackColor    =   False
       Visible         =   True
@@ -348,13 +145,13 @@ Begin GraphicalTabContainer StartupTabContainer
       DataSource      =   ""
       Enabled         =   True
       FontName        =   "System"
-      FontSize        =   36.0
+      FontSize        =   25.0
       FontUnit        =   0
       Height          =   48
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   290
+      Left            =   96
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -370,11 +167,132 @@ Begin GraphicalTabContainer StartupTabContainer
       TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   100
+      Top             =   129
       Transparent     =   False
       Underline       =   False
       Visible         =   True
+      Width           =   542
+   End
+   Begin PushButton NewProjectButton
+      AllowAutoDeactivate=   True
+      Bold            =   True
+      Cancel          =   False
+      Caption         =   "New Testsequence with HMI"
+      Default         =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   17.0
+      FontUnit        =   0
+      Height          =   43
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MacButtonStyle  =   6
+      Scope           =   0
+      TabIndex        =   35
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   20
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   258
+   End
+   Begin Label File_Comment
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   17.0
+      FontUnit        =   0
+      Height          =   48
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   290
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Multiline       =   True
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   36
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Or select from the available test sequences\r\nbelow, then press load"
+      TextAlignment   =   0
+      TextColor       =   &c51515100
+      Tooltip         =   ""
+      Top             =   17
+      Transparent     =   True
+      Underline       =   False
+      Visible         =   True
       Width           =   458
+   End
+   Begin Separator Separator1
+      AllowAutoDeactivate=   True
+      Enabled         =   True
+      Height          =   26
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   37
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   75
+      Transparent     =   False
+      Visible         =   True
+      Width           =   728
+   End
+   Begin PushButton BtnRefreshList
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   False
+      Caption         =   "Refresh"
+      Default         =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   22
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   668
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      MacButtonStyle  =   0
+      Scope           =   0
+      TabIndex        =   38
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   "Refreshes the list"
+      Top             =   155
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   80
    End
 End
 #tag EndWindow
@@ -387,8 +305,6 @@ End
 		      File_Warning.FillColor = &c2D3137
 		      File_Comment.TextColor = Color.White
 		    End If
-		    Label_ReleaseNotes.TextColor = Color.White
-		    ReleaseNotes.TextColor = Color.White
 		    Chosen_File.TextColor = &cF0F0F0
 		    self.BackgroundColor = &c2D3137
 		  Else
@@ -396,16 +312,12 @@ End
 		      File_Warning.FillColor = &cF0F0F0
 		      File_Comment.TextColor = Color.Black
 		    End If
-		    Label_ReleaseNotes.TextColor = Color.Black
-		    ReleaseNotes.TextColor = Color.Black
 		    Chosen_File.TextColor = &c2D3137
 		    self.BackgroundColor = &cF5F6F7
 		  End If
 		  
 		  BB_LoadSequence.darkModeEnabled = value
-		  CheckResources.darkModeEnabled = value
-		  File_List.darkModeEnabled = value
-		  ResourceList.darkModeEnabled = value
+		  'File_List.darkModeEnabled = value
 		  
 		  Invalidate(False)
 		End Sub
@@ -423,54 +335,28 @@ End
 
 
 	#tag Method, Flags = &h0
-		Function CheckResource(FS as BasicClass) As boolean
-		  Dim RV as boolean = true
+		Function CheckReleaseNotes(f as FolderItem) As String
+		  If f = Nil or not f.Exists Then
+		    Return ""
+		  End If
 		  
-		  if FS isA ResourceClass then
-		    if ResourceClass(FS).CheckAfterStart.GIAB then
-		      ResourceList.AddRow(FS.Name.GIAS)
-		      if  not(ResourceClass(FS).Connected.GIAB) then
-		        RV=false
-		        ResourceList.Cell(ResourceList.ListCount-1,1)="off"
-		      else
-		        ResourceList.Cell(ResourceList.ListCount-1,1)="ok"
-		      end
-		    end
-		  end
+		  Var xml As New XmlDocument
+		  Try
+		    xml.LoadXml(f)
+		  Catch e As XmlException
+		    System.DebugLog (f.DisplayName + "> XML error: " + e.Message)
+		    Return ""
+		  End Try
 		  
-		  Dim BS as BasicClass = FS.FirstSubStep
-		  while BS<>nil
-		    if not(CheckResource(BS)) then
-		      RV=false
-		    end
-		    BS=BS.NextStep
-		  wend
-		  return RV
+		  If xml.FirstChild = Nil or Not (xml.FirstChild.LocalName.Lowercase = "testprogram") Then
+		    Return ""
+		  End If
+		  
+		  Dim testProgram as XMLNode = xml.FirstChild
+		  Dim notes as String = testProgram.GetAttribute("Description").Trim
+		  System.DebugLog (notes)
+		  Return notes
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub CheckResourceStates()
-		  Dim BS as BasicClass
-		  
-		  OverallResourceState=true
-		  ResourceList.DeleteAllRows
-		  if App.GlobalResources<>nil then
-		    OverallResourceState=CheckResource(App.GlobalResources)
-		  end
-		  
-		  if OverallResourceState then
-		    CheckResources.Caption = "Resources OK"
-		    CheckResources.BackColor = &c00DE80
-		    CheckResources.Icon = Icon_Pass
-		  else
-		    CheckResources.Caption = "Resources not ready!"
-		    CheckResources.BackColor = &cFF6E6E
-		    CheckResources.Icon = Icon_Fail
-		  end
-		  
-		  
-		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -487,7 +373,6 @@ End
 		  
 		  'Me.Folder=Me.IAFolder("Folder","Testsequences",false)
 		  mStartupTabClass = StartupTabClass(ParentTabClass)
-		  
 		End Sub
 	#tag EndMethod
 
@@ -531,6 +416,8 @@ End
 		            if (vType = "") or (item.DisplayName.Instr(1,vType)>0) then
 		              File_List.InsertRow(Row, item.DisplayName)
 		              File_List.RowTag(row) = item
+		              
+		              File_List.CellValueAt(Row, 1) = CheckReleaseNotes(item)
 		              // now check if it belongs to the default if yes set it into the
 		              if item.DisplayName.Instr(1,DF)>0 then
 		                VE=item.DisplayName
@@ -618,16 +505,11 @@ End
 		  'ReleaseNotes.Text = mStartupTabClass.ReleaseNotes.GIAS
 		  'end
 		  
-		  
 		  If File_List.SelectedRowIndex = -1 Then
 		    Chosen_File.Value = ""
-		    File_Comment.Text="Available test sequences" + chr(13) + "please choose one, then press load"
+		    File_Comment.Text= "Or select from the available test sequences" + chr(13) + "below, then press load"
 		    File_Comment.TextColor = &c262626
-		    If Me.darkModeEnabled Then
-		      File_Warning.FillColor= &c2CC990
-		    Else
-		      File_Warning.FillColor = &cF0F0F0
-		    End If
+		    
 		    Return
 		  End If
 		  
@@ -640,21 +522,21 @@ End
 		    if SF.Instr(1,mStartupTabClass.Default.GIAS)>0 then
 		      if mStartupTabClass.ActualTestSequence.GIAS=SF then
 		        File_Warning.FillColor= &c2CC990 '&c00DE80 '00FF00 //RGB(0,255,0)
-		        File_Comment.Text="Lastest Test Sequence for this Test Machine"
+		        'File_Comment.Text="Lastest Test Sequence for this Test Machine"
 		        FileType_SecurityLevel=5
 		      else
 		        File_Warning.FillColor= &cFBF257 'FFD700 'FFFF00 //RGB(255,255,0)
-		        File_Comment.Text="Older Test Sequence for this Test Machine"
+		        'File_Comment.Text="Older Test Sequence for this Test Machine"
 		        FileType_SecurityLevel=4
 		      end
 		    else
 		      if SF.Instr(1,mStartupTabClass.Type.GIAS)>0 then
 		        File_Warning.FillColor = &cFCB941'&cFF8000 //RGB(255,128,0)
-		        File_Comment.Text="Test Sequence fits Type tested on this Test Machine"
+		        'File_Comment.Text="Test Sequence fits Type tested on this Test Machine"
 		        FileType_SecurityLevel=3
 		      else
 		        File_Warning.FillColor= &cFC6042 '&cFF6E6E 'FF0000 //RGB(255,0,0)
-		        File_Comment.Text="Test Sequence does not fit Type, please check before loading"
+		        'File_Comment.Text="Test Sequence does not fit Type, please check before loading"
 		        FileType_SecurityLevel=2
 		      end
 		    end
@@ -663,17 +545,45 @@ End
 		  end
 		End Sub
 	#tag EndEvent
-#tag EndEvents
-#tag Events CheckResources
 	#tag Event
-		Sub LeftClick()
-		  CheckResourceStates
-		End Sub
+		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
+		  g.FontSize = 18
+		  If row <> me.SelectedRowIndex Then
+		    g.DrawingColor = &c262626
+		  Elseif row > -1 and row = me.SelectedRowIndex Then
+		    g.DrawingColor = Color.Black
+		  End If
+		  
+		  If column = 1 Then
+		    g.FontSize = 14
+		  End If
+		End Function
 	#tag EndEvent
 	#tag Event
-		Sub Open()
-		  Me.useBackColor = True
-		End Sub
+		Function HeaderContentPaint(g As Graphics, column As Integer) As Boolean
+		  g.Bold = True
+		  g.FontSize = 20
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
+		  If row <> -1 and row = me.SelectedRowIndex Then
+		    g.DrawingColor = &cFFFFFF
+		    g.FillRectangle(-1, -1, g.Width + 1, g.Height + 1)
+		    
+		    g.DrawingColor = &c2589FF80
+		    g.FillRectangle(-1, -1, g.Width + 1, g.Height + 1)
+		    
+		    If column = 0 Then
+		      g.DrawingColor = &c2589FF
+		      g.FillRectangle(0, 0, 3, g.Height)
+		    End If
+		    
+		    Return True
+		  End If
+		  
+		  Return False
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events BB_LoadSequence
@@ -709,7 +619,33 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events NewProjectButton
+	#tag Event
+		Sub Action()
+		  if App.Security_Check(2) then
+		    Dim S as string = "<TESSA Name=" + chr(34) + "TESSA_Testsequence" + chr(34) +" HMI="+ chr(34) + "on" + chr(34) + " Hierarchical_Links="+ chr(34) + "on" + chr(34) +" >"+CR+  "<Teststep Name=" + chr(34) + "Teststep" + chr(34) +  " />" +CR+ "</TESSA>" 
+		    if App.ParseTestsequenceFile(S) then
+		    end
+		  end
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events BtnRefreshList
+	#tag Event
+		Sub Action()
+		  Load_File_List("")
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag ViewBehavior
+	#tag ViewProperty
+		Name="Index"
+		Visible=true
+		Group="ID"
+		InitialValue="-2147483648"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
 	#tag ViewProperty
 		Name="darkModeEnabled"
 		Visible=true

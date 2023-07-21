@@ -320,8 +320,9 @@ End
 		    Return
 		  End
 		  
-		  If UpdateAttribute.Name = "Name" Then
-		    Dim HTL as BasicTreeListBox = MainWindow.HTL // implicit instance call to MainWindow
+		  Dim HTL as BasicTreeListBox = MainWindow.HTL // implicit instance call to MainWindow
+		  Select Case UpdateAttribute.Name
+		  Case "Name"
 		    For i As Integer = 0 to HTL.ListCount - 1
 		      If HTL.RowTag(i) = BS.GetUniqueID Then
 		        HTL.Cell(i, 0) = BS.Name.GIAS
@@ -340,66 +341,27 @@ End
 		        Exit
 		      End
 		    Next
-		  End
-		  
-		  'Select Case BS
-		  'Case IsA Table_StepClass
-		  'Dim TableTab As TableTabClass = TabManager.GetTableTabClass
-		  'If TableTab <> Nil Then
-		  'TableTab.UpdateTableTab(UpdateAttribute)
-		  'End
-		  'Case IsA Graph_StepClass
-		  'Dim GraphTab As GraphTabClass = TabManager.GetGraphTabClass
-		  'If GraphTab <> Nil Then
-		  'GraphTab.UpdateGraphTab(UpdateAttribute)
-		  'End
-		  'Case IsA EEPROM_Module.HMI_EEPROM_StepClass
-		  'Dim EEPROMTab As EEPROM_Module.EEPROMTabClass = TabManager.GetEEPROMTabClass
-		  'If EEPROMTab <> Nil Then
-		  'EEPROMTab.UpdateEEPROMTab(UpdateAttribute)
-		  'End
-		  'Case IsA TESSA_Prog_StepClass
-		  'If UpdateAttribute.Name = TESSA_Prog_StepClass(BS).HMI.Name Then
-		  'If UpdateAttribute.GIAB Then
-		  'HMI_Window.Show
-		  'Handle_HMI(BS, True)
-		  'Else
-		  'RemoveHMIForBasicStep(BS, True)
-		  'HMI_Window.Close
-		  'End
-		  'End
-		  'If App.HMI_Active Then
-		  'If UpdateAttribute.Name = TESSA_Prog_StepClass(BS).HMI_Toolbar.Name Then
-		  'HMI_Window.SetButtonFrame(UpdateAttribute.GIAI)
-		  'ElseIf UpdateAttribute.Name = TESSA_Prog_StepClass(BS).HMIWindowSize.Name Then
-		  'HMI_Window.Left = App.GlobalTestSequence.HMIWindowSize.X
-		  'HMI_Window.Top = App.GlobalTestSequence.HMIWindowSize.Y
-		  'HMI_Window.Width = App.GlobalTestSequence.HMIWindowSize.Width
-		  'HMI_Window.Height = App.GlobalTestSequence.HMIWindowSize.Height
-		  'TESSA_Prog_StepClass(BS).HMI_Size.SIAI(0)
-		  'ElseIf UpdateAttribute.Name = TESSA_Prog_StepClass(BS).HMIPageOffset.Name Then
-		  'HMI_Window.UpdateHMIListWidth(TESSA_Prog_StepClass(BS).HMIPageOffset.GIAI)
-		  'End
-		  'End
-		  'Case IsA Test_StepClass
-		  'If App.HMI_Active Then
-		  'HMI_Window.UpdateTestStepList(UpdateAttribute)
-		  'If UpdateAttribute.Name = Test_StepClass(BS).HMI_Page.Name Then
-		  'RemoveHMIForBasicStep(BS, true)
-		  'Handle_HMI(BS, true)
-		  'End
-		  'End
-		  'Select case UpdateAttribute.Name
-		  'Case "ErrorButtons", "Next","Repeat", "Back", "Reset", "ExecuteSkip","UserHalt"
-		  'Adjust_Buttons(Test_StepClass(BS))
-		  'End
-		  'Case IsA HMI_StepClass
-		  'if UpdateAttribute IsA Coordinates_AttributeClass Then
-		  'HMI_StepClass(BS).Step_HMI_Update(3)
-		  'else
-		  'HMI_StepClass(BS).Step_HMI_Update(1)
-		  'End
-		  'End
+		  Case "connected", "CheckAfterStart"
+		    // We refresh the resource list visuals in the HTL
+		    If BS isa Resource_StepClass and App.GlobalResources <> Nil Then
+		      Dim globalResources as BasicClass = App.GlobalResources
+		      Dim currBS as BasicClass
+		      For i As Integer = 0 to HTL.ListCount - 1
+		        currBS = globalResources.FindElementByUniqueID(HTL.RowTag(i))
+		        
+		        if HTL.RowTagAt(i) = globalResources.GetUniqueID Then
+		          HTL.FillTreeRow(i, globalResources)
+		          Continue
+		        End
+		        
+		        If currBS = Nil Then
+		          Continue
+		        End If
+		        
+		        HTL.FillTreeRow(i, currBS)
+		      Next
+		    End If
+		  End Select
 		End Sub
 	#tag EndMethod
 
@@ -480,18 +442,22 @@ End
 		            if (LA.MyStep IsA ResourceFunctionClass)  then
 		              if LA.Name="Value" then
 		                if ResourceClass(LA.MyStep).ResourceConnected then
-		                  FillList.CellTag(i, 0)=&cbdf800
+		                  FillList.CellTag(i, 0)=&cA0FFA0 '&cbdf800
 		                else
-		                  FillList.CellTag(i, 0)=&cfbfaca
+		                  FillList.CellTag(i, 0)=&cFFA0A0 '&cfbfaca
 		                end
 		              end
 		            end
 		          else
 		            if LA.Name="Connected" then
 		              if LA.GIAB then
-		                FillList.CellTag(i, 0)=&cbdf800
+		                FillList.CellTag(i, 0)=&cA0FFA0 '&cbdf800
 		              else
-		                FillList.CellTag(i, 0)=&cfbfaca
+		                FillList.CellTag(i, 0)=&cFFA0A0 '&cfbfaca
+		              end
+		            Elseif LA.Name = "CheckAfterStart" Then
+		              if LA.GIAB then
+		                FillList.CellTag(i, 0)=&cFFCC62
 		              end
 		            end
 		          end
@@ -525,7 +491,7 @@ End
 
 	#tag Method, Flags = &h21
 		Private Sub HTL_UpdateBasicStep(sc as BasicClass)
-		   '!!! need to pass this up to the Tree list: 
+		  '!!! need to pass this up to the Tree list: 
 		  Dim HTL as BasicTreeListBox = MainWindow.HTL
 		  HTL.UpdateBasicStep(sc)
 		End Sub
