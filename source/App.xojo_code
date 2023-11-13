@@ -334,14 +334,17 @@ Inherits Application
 		  Dim f As FolderItem = GetFolderItem("")
 		  If f <> Nil And f.Exists Then
 		    AppFolder = f.NativePath // absolut => native
-		    #if DebugBuild And TargetWin32 Then
+		    #If DebugBuild And TargetWin32 Then
 		      If f.NativePath.InStr("Debug") > 0 And f.Parent <> Nil Then
 		        AppFolder = f.Parent.NativePath
 		      End
-		    #endif
+		    #EndIf
+		    
+		    #If TargetMacOS Or TargetLinux
+		      AppFolder = AppFolder + "/"
+		    #EndIf
 		  End
 		  SetAppFolder(AppFolder)
-		  
 		End Sub
 	#tag EndMethod
 

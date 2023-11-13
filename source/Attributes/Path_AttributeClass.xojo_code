@@ -1,6 +1,7 @@
 #tag Class
 Protected Class Path_AttributeClass
 Inherits String_AttributeClass
+	#tag CompatibilityFlags = (TargetConsole and (Target32Bit or Target64Bit)) or  (TargetWeb and (Target32Bit or Target64Bit)) or  (TargetDesktop and (Target32Bit or Target64Bit)) or  (TargetIOS and (Target64Bit)) or  (TargetAndroid and (Target64Bit))
 	#tag Method, Flags = &h1
 		Protected Function CheckParentFolders(Name As String, parent As FolderItem, ByRef count As Integer) As FolderItem
 		  If Name = "" Or parent = Nil Or count < 0 Then
@@ -43,8 +44,8 @@ Inherits String_AttributeClass
 	#tag Method, Flags = &h0
 		Function GOASave(Index as integer) As String
 		  // Get Local Value as String (from Index)
-		  Dim S As String = Super.GOAS()
-		  if Not isNativePath Then
+		  Dim S As String = Super.GOASave(index)
+		  If Not isNativePath Then
 		    S = S.ReplaceAll("""", "&quot;")
 		    S = GetTemplateValueFromPath(S)
 		  End

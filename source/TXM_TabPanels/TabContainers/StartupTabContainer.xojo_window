@@ -11,6 +11,7 @@ Begin GraphicalTabContainer StartupTabContainer
    EraseBackground =   True
    HasBackgroundColor=   True
    Height          =   662
+   Index           =   -2147483648
    InitialParent   =   ""
    Left            =   0
    LockBottom      =   False
@@ -336,7 +337,7 @@ End
 
 	#tag Method, Flags = &h0
 		Function CheckReleaseNotes(f as FolderItem) As String
-		  If f = Nil or not f.Exists Then
+		  If f = Nil Or Not f.Exists Then
 		    Return ""
 		  End If
 		  
@@ -348,13 +349,12 @@ End
 		    Return ""
 		  End Try
 		  
-		  If xml.FirstChild = Nil or Not (xml.FirstChild.LocalName.Lowercase = "testprogram") Then
+		  If xml.FirstChild = Nil Or Not (xml.FirstChild.LocalName.Lowercase = "testprogram") Then
 		    Return ""
 		  End If
 		  
-		  Dim testProgram as XMLNode = xml.FirstChild
-		  Dim notes as String = testProgram.GetAttribute("Description").Trim
-		  System.DebugLog (notes)
+		  Dim testProgram As XMLNode = xml.FirstChild
+		  Dim notes As String = testProgram.GetAttribute("Description").Trim
 		  Return notes
 		End Function
 	#tag EndMethod
@@ -385,7 +385,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub Load_File_List(vType as string)
-		  Dim Row as integer=0
+		  Dim Row As Integer=0
 		  Dim DF,VE as string
 		  Dim Vers,NewVers as integer=-1
 		  
@@ -419,7 +419,7 @@ End
 		              
 		              File_List.CellValueAt(Row, 1) = CheckReleaseNotes(item)
 		              // now check if it belongs to the default if yes set it into the
-		              if item.DisplayName.Instr(1,DF)>0 then
+		              If item.DisplayName.InStr(1,DF)>0 Then
 		                VE=item.DisplayName
 		                NewVers=VE.Instr(1," v")
 		                if NewVers>0 then
@@ -445,9 +445,13 @@ End
 		            end
 		          end
 		        end
-		      end
+		      End
 		    next
-		  end
+		  End
+		  
+		  File_List.ColumnSortDirectionAt(0) = ListBox.SortDirections.Descending
+		  File_List.SortingColumn = 0
+		  File_List.Sort
 		End Sub
 	#tag EndMethod
 
@@ -583,6 +587,38 @@ End
 		  End If
 		  
 		  Return False
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function CompareRows(row1 as Integer, row2 as Integer, column as Integer, ByRef result as Integer) As Boolean
+		  If column <> 0 Then
+		    Return False
+		  End If
+		  
+		  If Not (Me.RowTagAt(row1) IsA FolderItem And Me.RowTagAt(row2) IsA FolderItem) Then
+		    Return False
+		  End If
+		  
+		  Dim f1 As FolderItem = Me.RowTagAt(row1)
+		  Dim f2 As FolderItem = Me.RowTagAt(row2)
+		  
+		  If f1.ModificationDateTime = Nil Or f2.ModificationDate = Nil Then
+		    Return False
+		  End If
+		  
+		  If f1.ModificationDateTime < f2.ModificationDate Then
+		    result = -1
+		  ElseIf f1.ModificationDateTime > f2.ModificationDate Then
+		    result = 1
+		  Else
+		    result = 0
+		  End If
+		  Return True
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function SortColumn(column As Integer) As Boolean
+		  
 		End Function
 	#tag EndEvent
 #tag EndEvents
