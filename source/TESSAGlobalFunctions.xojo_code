@@ -956,8 +956,13 @@ Protected Module TESSAGlobalFunctions
 		  f = File_Open(FileContent, FileName, FilePath, False, showDialog)
 		  
 		  if f<>nil then
-		    if (f.exists) and not(f.Directory) then
-		      t=TextInputStream.Open(f)
+		    If (f.exists) And Not(f.Directory) Then
+		      Try
+		        t=TextInputStream.Open(f)
+		      Catch
+		        t = Nil
+		      End Try
+		      
 		      if t<>nil then
 		        FileContent=t.ReadAll(Encodings.UTF8)
 		        t.Close
@@ -1417,6 +1422,39 @@ Protected Module TESSAGlobalFunctions
 		  
 		  return s
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub GenerateLookupDict(BS as BasicClass)
+		  // This creates a dictionary of all the elements under
+		  // and starting from the Root (BS). Recursive.
+		  
+		  If BS_UID_LookupDict = Nil Then
+		    BS_UID_LookupDict = New Dictionary
+		  End If
+		  
+		  If BS = Nil Then
+		    // We intend to empty this dictionary after Testsequence parse
+		    Break
+		    BS_UID_LookupDict.RemoveAll
+		  Else
+		    If BS_UID_LookupDict.HasKey(BS.GetUniqueID) Then
+		      // Something is wrong if this is already added here
+		      Break
+		    Else
+		      // Save uniqueID in dictionary
+		      BS_UID_LookupDict.Value(BS.GetUniqueID) = BS
+		    End If
+		    
+		    Dim bc as BasicClass = BS.FirstSubStep
+		    While bc <> Nil
+		      GenerateLookupDict(bc)
+		      bc = bc.NextStep
+		    Wend
+		  End If
+		  
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -2602,6 +2640,25 @@ Protected Module TESSAGlobalFunctions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function LookupBS_by_UID(uniqueID as String) As BasicClass
+		  If uniqueID = "" Then
+		    Return Nil
+		  End If
+		  
+		  If BS_UID_LookupDict = Nil Then
+		    BS_UID_LookupDict = New Dictionary
+		  End If
+		  
+		  If BS_UID_LookupDict.HasKey(uniqueID) Then
+		    Dim bc As BasicClass = BS_UID_LookupDict.Value(uniqueID)
+		    Return bc
+		  End If
+		  
+		  Return Nil
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub MarkMenuItemAsChekcedByIndex(menu As MenuItem, index As Integer)
 		  If menu <> Nil Then
 		    For i As Integer = 0  to menu.Count - 1
@@ -3550,6 +3607,10 @@ Protected Module TESSAGlobalFunctions
 
 	#tag Property, Flags = &h0
 		Ascii_Hex_Table() As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		BS_UID_LookupDict As Dictionary
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

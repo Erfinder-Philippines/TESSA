@@ -611,76 +611,90 @@ Inherits Application
 		Function ParseTestsequenceFile(ByRef parse_input as string, withDialog As Boolean = True, SP as ProgressWindow = nil, MergingMode as integer = 0) As Boolean
 		  // mergingmode: 0 = delete existing testsequence, 1 = merge the 2 testsequences into the existing, 2 = merge & sync testsequences using the sync feature 
 		  
-		  if parse_input <> "" then
-		    if GlobalTopmostElement <> nil then
+		  If parse_input <> "" Then
+		    If GlobalTopmostElement <> Nil Then
 		      If withDialog Then
-		        if MergingMode=0 then
-		          If not MainWindow.CloseSequence Then
+		        If MergingMode=0 Then
+		          If Not MainWindow.CloseSequence Then
 		            Return False
 		          End
-		        end
+		        End
 		      Else
-		        if MergingMode=0 then
+		        If MergingMode=0 Then
 		          MainWindow.Element_Delete(App.GlobalTestSequence)
-		        end
+		        End
 		      End
-		      Dim XML_Text_Pointer as integer = 1
-		      Select case MergingMode
-		      case 0 // delete existing sequence
+		      Dim XML_Text_Pointer As Integer = 1
+		      Select Case MergingMode
+		      Case 0 // delete existing sequence
 		        Parse_XML(GlobalTopmostElement,parse_input,XML_Text_Pointer,SP )
-		      case 1 // merge into new one
-		        if App.GlobalTestSequence <> Nil then
+		      Case 1 // merge into new one
+		        If App.GlobalTestSequence <> Nil Then
 		          // remove Testsequence/Testprogram  parts
-		          Dim i1 as integer = parse_input.Instr(1,"<Testprogram")
-		          if i1=0 then
-		            i1 = parse_input.Instr(1,"<Testsequence")
-		            if i1>0 then
-		              Dim i2 as integer = parse_input.Instr(i1+1,">")
-		              parse_input = parse_input.Mid(i2+1,parse_input.len-i2-15)
-		            end
-		          else
-		            Dim i2 as integer = parse_input.Instr(i1+1,">")
-		            parse_input = parse_input.Mid(i2+1,parse_input.len-i2-14)
-		          end
+		          Dim i1 As Integer = parse_input.InStr(1,"<Testprogram")
+		          If i1=0 Then
+		            i1 = parse_input.InStr(1,"<Testsequence")
+		            If i1>0 Then
+		              Dim i2 As Integer = parse_input.InStr(i1+1,">")
+		              parse_input = parse_input.Mid(i2+1,parse_input.Len-i2-15)
+		            End
+		          Else
+		            Dim i2 As Integer = parse_input.InStr(i1+1,">")
+		            parse_input = parse_input.Mid(i2+1,parse_input.Len-i2-14)
+		          End
 		          Parse_XML(GlobalTestSequence,parse_input,XML_Text_Pointer,SP )
-		        else
+		        Else
 		          Parse_XML(GlobalTopmostElement,parse_input,XML_Text_Pointer,SP )
-		        end
-		      case 2 // merge with SYNC
+		        End
+		      Case 2 // merge with SYNC
 		        // remove Testsequence/Testprogram  parts
-		        #if SYNC_Feature
-		          Dim SYNC_Element as BasicClass = new BasicClass("")
+		        #If SYNC_Feature
+		          Dim SYNC_Element As BasicClass = New BasicClass("")
 		          SYNC_Element.Name.SIAS("SYNC_Element")
 		          Parse_XML(SYNC_Element,parse_input,XML_Text_Pointer,SP )
-		          if App.GlobalTestSequence = Nil then
-		            if SYNC_Element.FirstSubStep IsA TESSA_Prog_StepClass then
+		          If App.GlobalTestSequence = Nil Then
+		            If SYNC_Element.FirstSubStep IsA TESSA_Prog_StepClass Then
 		              App.GlobalTestSequence=TESSA_Prog_StepClass(SYNC_Element.FirstSubStep)
 		              GlobalTopmostElement.AddSubElement(SYNC_Element.FirstSubStep)
-		            end
-		          else
+		            End
+		          Else
 		            GlobalTopmostElement.AddSubElement(SYNC_Element)
-		            Dim BS1,BS2 AS BasicClass
+		            Dim BS1,BS2 As BasicClass
 		            // for all elements in the SYNC_Elements do:
 		            // find partner in MainProgram if found sync, if not add to GlobalTestSequence at same place
 		            BS1=SYNC_Element.FirstSubStep
 		            BS1.SyncElement(App.GlobalTestSequence)
 		            
-		            DeleteBasicStepClass(SYNC_Element,true)
-		          end
-		        #else
+		            DeleteBasicStepClass(SYNC_Element,True)
+		          End
+		        #Else
 		          MsgBox("Feature not yet implemented")
-		        #endif
-		      end
-		      if GlobalTopmostElement <> nil then
+		        #EndIf
+		      End
+		      If GlobalTopmostElement <> Nil Then
 		        // load external elements
+		        System.DebugLog "Loading External Elements"
 		        GlobalTopmostElement.LoadExternals
+		        
+		        // DEBUG TEST: Speedup attempt, create a dictionary
+		        // from GlobalTopmostElement.
+		        System.DebugLog "Generating Lookup Tree"
+		        TESSAGlobalFunctions.GenerateLookupDict(GlobalTopmostElement)
+		        
 		        // handle special gui element function such as tables, graphs
+		        System.DebugLog "Handling GUI Elements"
 		        MainWindow.Handle_All_Special_GUI_Elements(GlobalTopmostElement)
 		        // establish all links
+		        System.DebugLog "Connecting Links"
 		        GlobalTopmostElement.ConnectAllLinks
 		        GlobalTopmostElement.CheckAllSubNames
-		      end
-		      if App.GlobalTestSequence <> Nil then
+		        
+		        // DEBUG: Empty the lookup dictionary after the long processes
+		        // to save memory
+		        TESSAGlobalFunctions.BS_UID_LookupDict.RemoveAll
+		      End
+		      If App.GlobalTestSequence <> Nil Then
+		        System.DebugLog "StepInit After Load for Testsequence"
 		        App.GlobalTestSequence.Step_Init_AfterLoad
 		        MainWindow.RefillTreeMenu("Active_TestSequence")
 		      End
