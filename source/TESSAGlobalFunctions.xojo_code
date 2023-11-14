@@ -1496,6 +1496,37 @@ Protected Module TESSAGlobalFunctions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function GenericCopyFileOrFolder(source As FolderItem, destination As FolderItem) As Boolean
+		  Dim newFolder As FolderItem
+		  If source.IsFolder Then ' it's a folder
+		    newFolder = destination.Child(source.Name)
+		    
+		    If Not newFolder.Exists Then
+		      newFolder.CreateFolder
+		    End If
+		    
+		    For Each file As FolderItem In source.Children
+		      If file = Nil Then
+		        ' inaccessible
+		        Return False
+		      End If
+		      If Not GenericCopyFileOrFolder(file, newFolder) Then
+		        ' copy operation failed
+		        Return False
+		      End If
+		    Next
+		  Else ' it's not a folder
+		    Try
+		      source.CopyTo(destination)
+		    Catch e As IOException
+		      // This file probably exists already, we can skip this
+		    End Try
+		  End If
+		  Return True
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function GetAbsTime() As String
 		  Dim d As New Date
 		  return d.ShortDate +" "+ d.LongTime
