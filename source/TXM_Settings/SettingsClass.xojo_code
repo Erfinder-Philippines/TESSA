@@ -301,18 +301,33 @@ Inherits BasicClass
 		    End
 		  End
 		  If settings = Nil Then
-		    settings = new SettingsClass("")
+		    settings = New SettingsClass("")
 		    settings = SettingsClass(SNMS(settings, "Settings", 1,""))
 		    settings.Name.SIAS("Settings")
 		    settings.Name.Changed = False
 		  End
 		  
-		  if CheckFolder(workingFolder) Then
+		  If CheckFolder(workingFolder) Then
 		    settings.WorkingFolder.SIAF(workingFolder)
 		    settings.WorkingFolder.Changed = False
 		  End
+		  
 		  If useGlobal Then
-		    settings.ElementsFolder.SIAS(MainSettings.Instance.GlobalWorkFolder.GIAS)
+		    Dim globalWorkFolderPath As String = MainSettings.Instance.GlobalWorkFolder.GIAS
+		    settings.ElementsFolder.SIAS(globalWorkFolderPath)
+		  ElseIf CheckFolder(workingFolder) Then
+		    // We also copy the Global Elements to the Workspace Elements
+		    Dim globalWorkFolder As FolderItem = MainSettings.Instance.GlobalWorkFolder.GIAF
+		    If CheckFolder(globalWorkFolder) Then
+		      Dim globalElementsFolder As FolderItem = globalWorkFolder.Child("Elements")
+		      If CheckFolder(globalElementsFolder) And _ 
+		        globalWorkFolder.NativePath <> workingFolder.NativePath Then
+		        If Not GenericCopyFileOrFolder(globalElementsFolder, workingFolder) Then
+		          // Some files are not copied
+		        End If
+		      End If
+		    End If
+		    settings.ElementsFolder.SIAS(workingFolder.NativePath)
 		  End
 		  
 		  settings.InitAppFolderTemplate
@@ -548,14 +563,6 @@ Inherits BasicClass
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Num_Links"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="SAMStepID"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

@@ -44,7 +44,7 @@ Protected Class BasicClassFactory
 		    Functional_Testsystems.AddElements(self)
 		    Arrays_Tables.AddElements(Self)
 		    
-		    SYNCModule.AddElements(Self)
+		    'SYNCModule.AddElements(Self) // Disabled for now
 		    HLKModule.AddElements(Self)
 		    TESSA_DataBase.AddElements(Self)
 		  #Endif

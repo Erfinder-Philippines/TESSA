@@ -808,13 +808,21 @@ Protected Class BasicClass
 	#tag Method, Flags = &h0
 		Function FindElementByUniqueID(UniqueID As String) As BasicClass
 		  //Search for an element inside an element with that Unique ID and give it back if found
-		  if UniqueID <> "" Then
+		  If UniqueID <> "" Then
+		    
+		    If TESSAGlobalFunctions.BS_UID_LookupDict <> Nil Then
+		      Dim bc As BasicClass = TESSAGlobalFunctions.LookupBS_by_UID(UniqueID)
+		      If bc <> Nil Then
+		        Return bc
+		      End If
+		    End If
+		    
 		    Dim it As BasicIteratorInterface = Iterator
 		    While it.HasNext
 		      Dim BS As BasicClass = it.NextItem
-		      if BS.GetUniqueID = UniqueID Then
+		      If BS.GetUniqueID = UniqueID Then
 		        Return BS
-		      end
+		      End
 		    Wend
 		  End
 		  Return Nil

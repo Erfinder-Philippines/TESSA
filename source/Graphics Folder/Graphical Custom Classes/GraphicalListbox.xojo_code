@@ -1,6 +1,7 @@
 #tag Class
 Protected Class GraphicalListbox
 Inherits Listbox
+	#tag CompatibilityFlags = (TargetDesktop and (Target32Bit or Target64Bit))
 	#tag Event
 		Function CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
 		  //Initialize the color scheme
@@ -277,10 +278,8 @@ Inherits Listbox
 		  
 		  Select Case(ListboxType)
 		  Case GraphicalListbox.LboxType.HTL
-		    If column = 0 Then
-		      g.FontSize = 14
-		    Else
-		      g.FontSize = 12
+		    g.FontSize = 12
+		    If column > 0 Then
 		      Me.CellAlignmentAt(row,column) = ListBox.Alignments.Center
 		    End If
 		  Case GraphicalListbox.LboxType.AttributesList

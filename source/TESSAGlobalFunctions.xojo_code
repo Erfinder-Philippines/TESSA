@@ -4,8 +4,8 @@ Protected Module TESSAGlobalFunctions
 		Sub AddDebugText(S as string)
 		  
 		  
-		  if DebugDirect then
-		    Dim txtName As String = "DebugPring_"
+		  If DebugDirect Then
+		    Dim txtName As String = "DebugPrint_"
 		    Dim f As FolderItem = GetFolderItem(GetScreenshotsFolder)
 		    If CheckFolder(f) Then
 		      f = f.Child("DebugTexts")
@@ -16,7 +16,7 @@ Protected Module TESSAGlobalFunctions
 		        Dim CurrentDate As new Date
 		        f = f.Child(txtName + "-" + Format(CurrentDate.Hour, "0#\.") + ".txt")
 		        If f <> Nil Then
-		          Call OpenMeasFileForSave(S, f, true)
+		          Call OpenMeasFileForSave(S, f, True)
 		        End
 		      End
 		    End
@@ -956,8 +956,13 @@ Protected Module TESSAGlobalFunctions
 		  f = File_Open(FileContent, FileName, FilePath, False, showDialog)
 		  
 		  if f<>nil then
-		    if (f.exists) and not(f.Directory) then
-		      t=TextInputStream.Open(f)
+		    If (f.exists) And Not(f.Directory) Then
+		      Try
+		        t=TextInputStream.Open(f)
+		      Catch
+		        t = Nil
+		      End Try
+		      
 		      if t<>nil then
 		        FileContent=t.ReadAll(Encodings.UTF8)
 		        t.Close
@@ -1419,6 +1424,39 @@ Protected Module TESSAGlobalFunctions
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Sub GenerateLookupDict(BS as BasicClass)
+		  // This creates a dictionary of all the elements under
+		  // and starting from the Root (BS). Recursive.
+		  
+		  If BS_UID_LookupDict = Nil Then
+		    BS_UID_LookupDict = New Dictionary
+		  End If
+		  
+		  If BS = Nil Then
+		    // We intend to empty this dictionary after Testsequence parse
+		    Break
+		    BS_UID_LookupDict.RemoveAll
+		  Else
+		    If BS_UID_LookupDict.HasKey(BS.GetUniqueID) Then
+		      // Something is wrong if this is already added here
+		      Break
+		    Else
+		      // Save uniqueID in dictionary
+		      BS_UID_LookupDict.Value(BS.GetUniqueID) = BS
+		    End If
+		    
+		    Dim bc as BasicClass = BS.FirstSubStep
+		    While bc <> Nil
+		      GenerateLookupDict(bc)
+		      bc = bc.NextStep
+		    Wend
+		  End If
+		  
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function GenerateUID() As String
 		  Dim Block As MemoryBlock
@@ -1454,6 +1492,37 @@ Protected Module TESSAGlobalFunctions
 		  
 		  'Get UUID.
 		  Return EncodeHex(MD5(Block.StringValue(0, 36)))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function GenericCopyFileOrFolder(source As FolderItem, destination As FolderItem) As Boolean
+		  Dim newFolder As FolderItem
+		  If source.IsFolder Then ' it's a folder
+		    newFolder = destination.Child(source.Name)
+		    
+		    If Not newFolder.Exists Then
+		      newFolder.CreateFolder
+		    End If
+		    
+		    For Each file As FolderItem In source.Children
+		      If file = Nil Then
+		        ' inaccessible
+		        Return False
+		      End If
+		      If Not GenericCopyFileOrFolder(file, newFolder) Then
+		        ' copy operation failed
+		        Return False
+		      End If
+		    Next
+		  Else ' it's not a folder
+		    Try
+		      source.CopyTo(destination)
+		    Catch e As IOException
+		      // This file probably exists already, we can skip this
+		    End Try
+		  End If
+		  Return True
 		End Function
 	#tag EndMethod
 
@@ -2602,6 +2671,25 @@ Protected Module TESSAGlobalFunctions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function LookupBS_by_UID(uniqueID as String) As BasicClass
+		  If uniqueID = "" Then
+		    Return Nil
+		  End If
+		  
+		  If BS_UID_LookupDict = Nil Then
+		    BS_UID_LookupDict = New Dictionary
+		  End If
+		  
+		  If BS_UID_LookupDict.HasKey(uniqueID) Then
+		    Dim bc As BasicClass = BS_UID_LookupDict.Value(uniqueID)
+		    Return bc
+		  End If
+		  
+		  Return Nil
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub MarkMenuItemAsChekcedByIndex(menu As MenuItem, index As Integer)
 		  If menu <> Nil Then
 		    For i As Integer = 0  to menu.Count - 1
@@ -3553,6 +3641,10 @@ Protected Module TESSAGlobalFunctions
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		BS_UID_LookupDict As Dictionary
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		CR As string
 	#tag EndProperty
 
@@ -3639,7 +3731,7 @@ Protected Module TESSAGlobalFunctions
 	#tag Constant, Name = AT_String, Type = Double, Dynamic = False, Default = \"0", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = DebugDirect, Type = Boolean, Dynamic = False, Default = \"true", Scope = Public
+	#tag Constant, Name = DebugDirect, Type = Boolean, Dynamic = False, Default = \"False", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = ErrorCodeEnum, Type = String, Dynamic = False, Default = \"1 Pass Off NotDone InProgress AcceptedFail Skipped Fail", Scope = Public
