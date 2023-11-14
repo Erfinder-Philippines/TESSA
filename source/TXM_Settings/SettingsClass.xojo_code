@@ -327,7 +327,7 @@ Inherits BasicClass
 		        End If
 		      End If
 		    End If
-		    settings.ElementsFolder.SIAS("%ELEMENTSFOLDER%")
+		    settings.ElementsFolder.SIAS(workingFolder.NativePath)
 		  End
 		  
 		  settings.InitAppFolderTemplate
