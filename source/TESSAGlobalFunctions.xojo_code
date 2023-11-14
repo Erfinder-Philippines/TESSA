@@ -4,8 +4,8 @@ Protected Module TESSAGlobalFunctions
 		Sub AddDebugText(S as string)
 		  
 		  
-		  if DebugDirect then
-		    Dim txtName As String = "DebugPring_"
+		  If DebugDirect Then
+		    Dim txtName As String = "DebugPrint_"
 		    Dim f As FolderItem = GetFolderItem(GetScreenshotsFolder)
 		    If CheckFolder(f) Then
 		      f = f.Child("DebugTexts")
@@ -16,7 +16,7 @@ Protected Module TESSAGlobalFunctions
 		        Dim CurrentDate As new Date
 		        f = f.Child(txtName + "-" + Format(CurrentDate.Hour, "0#\.") + ".txt")
 		        If f <> Nil Then
-		          Call OpenMeasFileForSave(S, f, true)
+		          Call OpenMeasFileForSave(S, f, True)
 		        End
 		      End
 		    End
@@ -3700,7 +3700,7 @@ Protected Module TESSAGlobalFunctions
 	#tag Constant, Name = AT_String, Type = Double, Dynamic = False, Default = \"0", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = DebugDirect, Type = Boolean, Dynamic = False, Default = \"true", Scope = Public
+	#tag Constant, Name = DebugDirect, Type = Boolean, Dynamic = False, Default = \"False", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = ErrorCodeEnum, Type = String, Dynamic = False, Default = \"1 Pass Off NotDone InProgress AcceptedFail Skipped Fail", Scope = Public
