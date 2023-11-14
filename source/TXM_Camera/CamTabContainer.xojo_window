@@ -1,5 +1,5 @@
 #tag Window
-Begin ContainerControl CamTabContainer Implements CamCanvasInterface
+Begin ContainerControl CamTabContainer Implements CamCanvasInterface,TabInterface
    AllowAutoDeactivate=   True
    AllowFocus      =   False
    AllowFocusRing  =   False
@@ -11,6 +11,7 @@ Begin ContainerControl CamTabContainer Implements CamCanvasInterface
    EraseBackground =   True
    HasBackgroundColor=   False
    Height          =   738
+   Index           =   -2147483648
    InitialParent   =   ""
    Left            =   0
    LockBottom      =   False
@@ -25,73 +26,6 @@ Begin ContainerControl CamTabContainer Implements CamCanvasInterface
    Transparent     =   False
    Visible         =   True
    Width           =   1040
-   Begin PopupMenu Cam_List
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   26
-      Index           =   -2147483648
-      InitialParent   =   ""
-      InitialValue    =   ""
-      Italic          =   False
-      Left            =   124
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Scope           =   0
-      SelectedRowIndex=   0
-      TabIndex        =   0
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   55
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   330
-   End
-   Begin Label Label1
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   12.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   3
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Cams Resources"
-      TextAlignment   =   0
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   61
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   104
-   End
    Begin PushButton UpdateDevicesButton
       AllowAutoDeactivate=   True
       Bold            =   False
@@ -106,7 +40,7 @@ Begin ContainerControl CamTabContainer Implements CamCanvasInterface
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   934
+      Left            =   925
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -153,7 +87,7 @@ Begin ContainerControl CamTabContainer Implements CamCanvasInterface
       Height          =   158
       Index           =   -2147483648
       InitialParent   =   ""
-      InitialValue    =   "Camera device	Input"
+      InitialValue    =   "Camera devices	Input"
       Italic          =   False
       Left            =   691
       LockBottom      =   False
@@ -198,7 +132,7 @@ Begin ContainerControl CamTabContainer Implements CamCanvasInterface
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   93
+      Top             =   60
       Transparent     =   True
       Visible         =   True
       Width           =   659
@@ -220,9 +154,8 @@ Begin ContainerControl CamTabContainer Implements CamCanvasInterface
          Scope           =   0
          TabIndex        =   2
          TabPanelIndex   =   0
-         TabStop         =   "True"
          Tooltip         =   ""
-         Top             =   160
+         Top             =   127
          TopLeftColor    =   &c00000000
          Transparent     =   False
          Visible         =   False
@@ -244,9 +177,9 @@ Begin ContainerControl CamTabContainer Implements CamCanvasInterface
             Scope           =   0
             TabIndex        =   0
             TabPanelIndex   =   0
-            TabStop         =   "True"
+            TabStop         =   True
             Tooltip         =   ""
-            Top             =   253
+            Top             =   220
             Transparent     =   False
             Value           =   0.0
             Visible         =   True
@@ -281,7 +214,7 @@ Begin ContainerControl CamTabContainer Implements CamCanvasInterface
             TextAlignment   =   2
             TextColor       =   &c00000000
             Tooltip         =   ""
-            Top             =   188
+            Top             =   155
             Transparent     =   False
             Underline       =   False
             Visible         =   True
@@ -310,7 +243,7 @@ Begin ContainerControl CamTabContainer Implements CamCanvasInterface
          TabPanelIndex   =   0
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   336
+         Top             =   303
          Transparent     =   True
          Visible         =   False
          Width           =   237
@@ -330,7 +263,7 @@ Begin ContainerControl CamTabContainer Implements CamCanvasInterface
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   466
+      Left            =   691
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -346,7 +279,7 @@ Begin ContainerControl CamTabContainer Implements CamCanvasInterface
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   213
+      Width           =   222
    End
    Begin PushButton TakeButton
       AllowAutoDeactivate=   True
@@ -379,41 +312,6 @@ Begin ContainerControl CamTabContainer Implements CamCanvasInterface
       Underline       =   False
       Visible         =   True
       Width           =   165
-   End
-   Begin Label Label2
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   703
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   11
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "List of accessible cameras"
-      TextAlignment   =   0
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   60
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   204
    End
    Begin Label Label3
       AllowAutoDeactivate=   True
@@ -839,7 +737,7 @@ Begin ContainerControl CamTabContainer Implements CamCanvasInterface
    Begin CheckBox MirrorH
       AllowAutoDeactivate=   True
       Bold            =   False
-      Caption         =   "Mirror Horizonyally"
+      Caption         =   "Mirror Horizontally"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -1482,7 +1380,6 @@ Begin ContainerControl CamTabContainer Implements CamCanvasInterface
          Scope           =   0
          TabIndex        =   2
          TabPanelIndex   =   0
-         TabStop         =   "True"
          Tooltip         =   ""
          Top             =   444
          Transparent     =   False
@@ -1844,10 +1741,6 @@ End
 
 	#tag Method, Flags = &h0
 		Sub EnterTab()
-		  If Cam_List.ListCount > 0 Then
-		    Cam_List.ListIndex = 0
-		  End
-		  
 		  UpdateCamResourceControls
 		End Sub
 	#tag EndMethod
@@ -1865,21 +1758,7 @@ End
 	#tag Method, Flags = &h0
 		Sub Init_Cams()
 		  // this routine initializes all definied and connected Cam
-		  if App.GlobalResources<>nil then
-		    Dim LastCAM as BasicClass = nil
-		    Dim CAM as BasicClass = App.GlobalResources.FindElement(GetTypeInfo(CameraModule.Cam_ResourceClass),LastCAM)
-		    Cam_List.DeleteAllRows
-		    while Cam<>nil
-		      LastCAM=Cam
-		      Cam_List.AddRow(Cam.Name.GIAS)
-		      Cam_List.RowTag(Cam_List.ListCount - 1) = Cam.GetUniqueID
-		      Cam = App.GlobalResources.FindElement(GetTypeInfo(CameraModule.Cam_ResourceClass),LastCAM)
-		    wend
-		  end
-		  
-		  if Cam_List.ListCount <= 0 then
-		    mCurrentCamResourceClass = Nil
-		  End
+		  mCurrentCamResourceClass = Nil
 		End Sub
 	#tag EndMethod
 
@@ -1900,6 +1779,27 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
+		Private Sub ResetVideoSource(BS as BasicClass)
+		  'Reset the video source
+		  If BS IsA CameraModule.Cam_ResourceClass Then
+		    mCurrentCamResourceClass = CameraModule.Cam_ResourceClass(BS)
+		    UpdateCamList
+		    If Not SelectDevice(mCurrentCamResourceClass) Then
+		      If mCurrentCamGrabber <> Nil Then
+		        mCurrentCamGrabber.CloseGrabber
+		      End
+		      mCurrentCamGrabber = Nil
+		      cvsPreview.Refresh
+		    End
+		    
+		    UpdateCamResourceControls
+		  End
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Function SelectDevice(CamRes As CameraModule.Cam_ResourceClass) As Boolean
 		  If CamRes <> Nil Then
 		    for i as Integer = 0 to CamListbox.LastIndex
@@ -1911,6 +1811,17 @@ End
 		  End
 		  Return False
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub StepSelected(BS as BasicClass)
+		  // Part of the TabInterface interface.
+		  
+		  If BS IsA CameraModule.Cam_ResourceClass Then
+		    mCurrentCamResourceClass = CameraModule.Cam_ResourceClass(BS)
+		  End If
+		  ResetVideoSource(BS)
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -1957,7 +1868,7 @@ End
 
 	#tag Method, Flags = &h1
 		Protected Sub UpdateCamResourceControls()
-		  Dim DoSetup as boolean = mCurrentCamResourceClass <> Nil
+		  Dim DoSetup As Boolean = mCurrentCamResourceClass <> Nil
 		  MirrorH.Enabled = DoSetup
 		  MirrorV.Enabled = DoSetup
 		  
@@ -2020,32 +1931,6 @@ End
 
 #tag EndWindowCode
 
-#tag Events Cam_List
-	#tag Event
-		Sub Change()
-		  'Reset the video source
-		  Dim BS As BasicClass = App.GlobalTopmostElement.FindElementByUniqueID(Me.RowTag(Me.ListIndex))
-		  if BS IsA CameraModule.Cam_ResourceClass Then
-		    mCurrentCamResourceClass = CameraModule.Cam_ResourceClass(BS)
-		    UpdateCamList
-		    If Not SelectDevice(mCurrentCamResourceClass) Then
-		      If mCurrentCamGrabber <> Nil then
-		        mCurrentCamGrabber.CloseGrabber
-		      End
-		      mCurrentCamGrabber = Nil
-		      cvsPreview.Refresh
-		    End
-		  End
-		  
-		  UpdateCamResourceControls
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Open()
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events UpdateDevicesButton
 	#tag Event
 		Sub Action()
@@ -2149,7 +2034,7 @@ End
 #tag Events AssignButton
 	#tag Event
 		Sub Action()
-		  if mCurrentCamResourceClass <> Nil And mCurrentCamGrabber <> Nil Then
+		  If mCurrentCamResourceClass <> Nil And mCurrentCamGrabber <> Nil Then
 		    mCurrentCamResourceClass.VideoName.SIAS(mCurrentCamGrabber.VideoDevice)
 		    mCurrentCamResourceClass.VideoInputName.SIAS(mCurrentCamGrabber.VideoDeviceInputName)
 		    mCurrentCamResourceClass.VideoIndex.SIAI(mCurrentCamGrabber.VideoDeviceIndex)
@@ -2440,6 +2325,14 @@ End
 	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior
+	#tag ViewProperty
+		Name="Index"
+		Visible=true
+		Group="ID"
+		InitialValue="-2147483648"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
 	#tag ViewProperty
 		Name="AllowAutoDeactivate"
 		Visible=true
