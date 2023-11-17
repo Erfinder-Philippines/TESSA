@@ -3116,7 +3116,7 @@ End
 		    'if not(App.Security_WindowVisible) then
 		    'PasswordWindow.Show
 		    'end
-		    if App.Security_Check(2) then
+		    If App.Security_Check(2) Then
 		      If App.GlobalResources <> Nil And App.GlobalResources.FindElementByUniqueID(SelectedStep.GetUniqueID) <> Nil Then
 		        If App.SaveConfigFile Then
 		          MsgBox "Configuration data has been saved."
@@ -3124,9 +3124,9 @@ End
 		      ElseIf App.GlobalTestSequence <> Nil And App.GlobalTestSequence.FindElementByUniqueID(SelectedStep.GetUniqueID) <> Nil Then
 		        Dim newName As String = SaveSequence(App.GlobalTestSequence)
 		        SetFileName( newName )
-		      ElseIf App.GlobalSYNC.FindElementByUniqueID(SelectedStep.GetUniqueID) <> Nil then
-		        if App.SaveSYNCSettings then
-		          'MsgBox "TASSA settings has been saved"
+		      ElseIf App.GlobalSYNC <> Nil And App.GlobalSYNC.FindElementByUniqueID(SelectedStep.GetUniqueID) <> Nil Then
+		        If App.SaveSYNCSettings Then
+		          'MsgBox "TESSA settings has been saved"
 		        End
 		      ElseIf MainSettings.Instance.FindElementByUniqueID(SelectedStep.GetUniqueID) <> Nil Then
 		        MainSettings.Instance.SaveSettings

@@ -41,11 +41,11 @@ Begin Window HMI_Window
       darkModeEnabled =   False
       DataField       =   ""
       DataSource      =   ""
-      DefaultRowHeight=   30
+      DefaultRowHeight=   25
       DropIndicatorVisible=   False
       Enabled         =   True
       FontName        =   "System"
-      FontSize        =   16.0
+      FontSize        =   12.0
       FontUnit        =   2
       genericTblHorizontal=   False
       GridLinesHorizontalStyle=   1
@@ -439,6 +439,7 @@ Begin Window HMI_Window
       Scope           =   0
       TabIndex        =   25
       TabPanelIndex   =   0
+      TabStop         =   True
       Tooltip         =   ""
       Top             =   90
       Transparent     =   True
@@ -459,6 +460,7 @@ Begin Window HMI_Window
       EraseBackground =   True
       HasBackgroundColor=   False
       Height          =   64
+      Index           =   -2147483648
       InitialParent   =   ""
       Left            =   448
       LockBottom      =   True

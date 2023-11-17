@@ -2,22 +2,23 @@
 Protected Class ExternalProgram_StepClass
 Inherits ReportStepClass
 Implements UserFunctions
+	#tag CompatibilityFlags = (TargetConsole and (Target32Bit or Target64Bit)) or  (TargetWeb and (Target32Bit or Target64Bit)) or  (TargetDesktop and (Target32Bit or Target64Bit)) or  (TargetIOS and (Target64Bit)) or  (TargetAndroid and (Target64Bit))
 	#tag Method, Flags = &h1000
 		Sub Constructor(ConfigText as string)
 		  // Calling the overridden superclass constructor.
 		  
 		  Super.Constructor(ConfigText)
 		  
-		  Me.Mode=Me.IAE("Mode","0 Application Shell_Command Shell_Interactive",false)
-		  Me.Folder=Me.IAS("Folder","",false)
-		  Me.ProgramName=Me.IAS("ProgramName","Shell",false)
-		  Me.Parameter1=Me.IAS("Parameter1","",false)
-		  Me.Parameter2=Me.IAS("Parameter2","",false)
-		  Me.Parameter3=Me.IAS("Parameter3","",false)
-		  Me.ResultText=Me.IAS("ResultText","",false)
-		  Me.EndOfPoll=Me.IAS("EndOfPoll","",false)
-		  Me.ErrorDetect=Me.IAS("ErrorDetect","",false)
-		  Me.ErrorPresetMessage=Me.IAS("ErrorPresetMessage","",false)
+		  Mode=IAE("Mode","0 Application Shell_Command Shell_Interactive",false)
+		  Folder=IAPath("Folder","",false)
+		  ProgramName=IAPath("ProgramName","Shell",false)
+		  Parameter1=IAS("Parameter1","",false)
+		  Parameter2=IAS("Parameter2","",false)
+		  Parameter3=IAS("Parameter3","",false)
+		  ResultText=IAS("ResultText","",false)
+		  EndOfPoll=IAS("EndOfPoll","",false)
+		  ErrorDetect=IAS("ErrorDetect","",false)
+		  ErrorPresetMessage=IAS("ErrorPresetMessage","",false)
 		  
 		  MaxRetries=1
 		  
@@ -53,7 +54,7 @@ Implements UserFunctions
 
 	#tag Method, Flags = &h21
 		Private Sub InternalInit()
-		  if Parameter1.GetAsLinkableAttributeClass<>nil then
+		  If Parameter1.GetAsLinkableAttributeClass<>Nil Then
 		    Parameter1.IsArray=false
 		  end
 		  if Parameter2.GetAsLinkableAttributeClass<>nil then
@@ -69,15 +70,18 @@ Implements UserFunctions
 		  
 		  Select case Me.Mode.GIAI
 		  case 0 // start application
-		  case 1 // do one shell command
-		    if SH = nil then
-		      SH = new Shell
+		    If SH = Nil Then
+		      SH = New Shell
 		    end
+		  case 1 // do one shell command
+		    If SH = Nil Then
+		      SH = new Shell
+		    End
 		  case 2 // do interactive shell commands
 		    if SH = nil then
 		      SH = new Shell
 		    end
-		    SH.Mode = 2
+		    SH.ExecuteMode = Shell.ExecuteModes.Interactive
 		  end
 		End Sub
 	#tag EndMethod
@@ -120,12 +124,23 @@ Implements UserFunctions
 
 	#tag Method, Flags = &h0
 		Function RunShell() As boolean
-		  Select case Me.Mode.GIAI
-		  case 1 // do one shell command
-		    Dim S as string
-		    SH.execute Me.Parameter1.GIAS
+		  // We "cd" to Folder directory where we will execute our Parameters
+		  If Folder.GIAF <> Nil And Folder.GIAF.Exists  And Folder.GIAF.IsFolder Then
+		    Dim f As FolderItem = Folder.GIAF
+		    Dim command As String = "cd " + f.ShellPath
+		    SH.Execute (command)
+		  End If
+		  
+		  Select Case Me.Mode.GIAI
+		  Case 1 // do one shell command
+		    
+		    Dim S As String
+		    Dim command As String
+		    command = Me.Parameter1.GIAS
+		    SH.Execute (command)
 		    S=SH.result
-		    If SH.errorCode = 0 then
+		    
+		    If SH.errorCode = 0 Then
 		      Me.ResultText.SIAS(S)
 		      if  (Me.EndOfPoll.GIAS.Len>4) and (S.Instr(1,Me.EndOfPoll.GIAS)>0) then
 		        Me.SendState=0
@@ -146,7 +161,7 @@ Implements UserFunctions
 		      Me.ResultText.SIAS(S)
 		      'MsgBox "Error opening shell command code: " + Str(SH.errorCode)
 		      Me.SetErrorMessage(ErrorCode_Fail,"Error opening shell command code: " + Str(SH.errorCode),S,"","")
-		    end if
+		    End If
 		    
 		  case 2 // do interactive shell commands
 		    'AddDebugTextCR("Run CommandLineNr "+str(CommandLineNr))
@@ -203,26 +218,21 @@ Implements UserFunctions
 
 	#tag Method, Flags = &h0
 		Function StartProg() As Boolean
-		  Dim OpenOk as boolean = false
+		  Dim OpenOk As Boolean = False
 		  Dim n as integer = 0
 		  
-		  while n<4
-		    Dim f As FolderItem = GetWorkingFolderItem //file type defined in File Type Sets Editor
-		    If CheckFolder(f) then
-		      if Me.Folder.GIAS<>"" then
-		        f=f.Child(Me.Folder.GIAS)
-		      end
-		      
-		      if CheckFolder(f) then
-		        f=f.Child(Me.ProgramName.GIAS)
-		        if f<>nil And f.exists then
-		          f.Launch(Me.Parameter1.GIAS+" "+Me.Parameter2.GIAS,true)
-		          OpenOk=true
-		        end
-		      end
-		    end
-		    n=n+1
-		  wend
+		  Dim f As FolderItem = Me.Folder.GIAF // Get the Folder directory
+		  If f <> Nil And f.Exists And f.IsFolder Then
+		    Dim programFolderItem As FolderItem = f.Child(Me.ProgramName.GIAS) // Get the executable
+		    If programFolderItem <> Nil And programFolderItem.Exists Then
+		      Dim parameters As String
+		      parameters = parameters + " " + (Me.Parameter1.GIAS)
+		      parameters = parameters + " " + (Me.Parameter2.GIAS)
+		      parameters= parameters + " " +(Me.Parameter3.GIAS)
+		      programFolderItem.Open(parameters, True) // Open file, include parameters
+		      OpenOk=True
+		    End If
+		  End If
 		  
 		  if not OpenOk then
 		    'MsgBox("No external program "+Me.ProgramName.GIAS+" found")
@@ -394,10 +404,10 @@ Implements UserFunctions
 		  Select case Me.Mode.GIAI
 		  case 0 // start application
 		    Me.ResultText.SIAS("")
-		    return Me.StartProg
-		  case 1 // do one shell command
-		    return Me.RunShell
-		  case 2 // do interactive shell commands
+		    Return Me.StartProg
+		  Case 1 // do one shell command
+		    Return Me.RunShell
+		  Case 2 // do interactive shell commands
 		    return Me.RunShell
 		  end
 		  
@@ -416,18 +426,18 @@ Implements UserFunctions
 		  case 1 // do one shell command
 		    SH.TimeOut=WaitTime.GIAI
 		    RunMode=1
-		  case 2 // do interactive shell commands
+		  Case 2 // do interactive shell commands
 		    RunMode=2
 		    ActResultText=""
 		    SendState=0
-		    if Parameter1.IsArray then
+		    If Parameter1.IsArray Then
 		      SetActiveStep(0)
 		    end
 		    CommandLineNr=-1
-		    if SH = nil then
-		      SH = new Shell
-		    end
-		    SH.Mode = 2
+		    If SH = Nil Then
+		      SH = New Shell
+		    End
+		    SH.ExecuteMode = Shell.ExecuteModes.Interactive
 		    SH.TimeOut = Me.WaitTime.GIAI
 		    #If TargetWin32 Then
 		      SH.Execute("cmd.exe /q")
@@ -437,8 +447,8 @@ Implements UserFunctions
 		      SH.Execute("sh")
 		    #Else
 		      AddDebugTextCR("no start of cmd!")
-		    #Endif
-		  end
+		    #EndIf
+		  End
 		  
 		  return true
 		End Function
@@ -498,7 +508,7 @@ Implements UserFunctions
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		Folder As String_AttributeClass = NIL
+		Folder As Path_AttributeClass = NIL
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -708,14 +718,6 @@ Implements UserFunctions
 			Visible=false
 			Group="Behavior"
 			InitialValue="0"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="SAMStepID"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
